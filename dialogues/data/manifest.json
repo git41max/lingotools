@@ -1,0 +1,15 @@
+{
+  "schemaVersion": 1,
+  "targetLanguage": "fr-FR",
+  "supportLanguage": "pt-BR",
+  "categories": [
+    {
+      "id": "restaurant",
+      "title": "Restaurante",
+      "description": "Interações cotidianas em restaurantes, cafés, padarias e bares na França.",
+      "dataFile": "data/fr-FR/restaurant.json",
+      "practiceRole": "client",
+      "dialogueCount": 12
+    }
+  ]
+}

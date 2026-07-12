@@ -1,0 +1,767 @@
+{
+  "schemaVersion": 1,
+  "id": "restaurant",
+  "title": "Restaurante",
+  "description": "Diálogos cotidianos para praticar interações em restaurantes, cafés, padarias e bares na França.",
+  "targetLanguage": "fr-FR",
+  "supportLanguage": "pt-BR",
+  "practiceRole": "client",
+  "participants": [
+    { "id": "client", "role": "client", "label": "Cliente" },
+    { "id": "server", "role": "staff", "label": "Atendente" },
+    { "id": "companion", "role": "companion", "label": "Acompanhante" },
+    { "id": "host", "role": "staff", "label": "Recepcionista" },
+    { "id": "cashier", "role": "staff", "label": "Caixa" }
+  ],
+  "dialogues": [
+    {
+      "id": "restaurant-d01",
+      "title": "Déjeuner en solo",
+      "type": "core",
+      "context": "Uma pessoa chega sem reserva para almoçar em um restaurante tranquilo.",
+      "participantIds": ["client", "server"],
+      "tags": ["sem-reserva", "almoco", "prato-do-dia"],
+      "turns": [
+        { "id": "restaurant-d01-t01", "speakerId": "server", "speakerRole": "staff", "isLearnerTurn": false, "targetText": "Bonjour. Vous avez réservé ?", "translation": "Olá. Você tem reserva?", "intention": "Perguntar sobre reserva." },
+        {
+          "id": "restaurant-d01-t02", "speakerId": "client", "speakerRole": "client", "isLearnerTurn": true,
+          "targetText": "Non, je suis seul.", "translation": "Não, estou sozinho.", "intention": "Informar que não tem reserva e está sozinho.",
+          "alternatives": [
+            { "targetText": "Oui, au nom de Santos.", "translation": "Sim, no nome de Santos." },
+            { "targetText": "Non, pour une personne.", "translation": "Não, para uma pessoa." },
+            { "targetText": "Non. Vous avez une table de libre ?", "translation": "Não. Tem alguma mesa disponível?" }
+          ]
+        },
+        { "id": "restaurant-d01-t03", "speakerId": "server", "speakerRole": "staff", "isLearnerTurn": false, "targetText": "Très bien. Vous pouvez vous installer près de la fenêtre.", "translation": "Certo. Você pode se sentar perto da janela.", "intention": "Indicar uma mesa." },
+        { "id": "restaurant-d01-t04", "speakerId": "client", "speakerRole": "client", "isLearnerTurn": true, "targetText": "Merci.", "translation": "Obrigado.", "intention": "Agradecer." },
+        { "id": "restaurant-d01-t05", "speakerId": "server", "speakerRole": "staff", "isLearnerTurn": false, "targetText": "Vous désirez boire quelque chose ?", "translation": "Gostaria de beber alguma coisa?", "intention": "Oferecer bebida." },
+        {
+          "id": "restaurant-d01-t06", "speakerId": "client", "speakerRole": "client", "isLearnerTurn": true,
+          "targetText": "Oui, une carafe d’eau, s’il vous plaît.", "translation": "Sim, uma jarra de água, por favor.", "intention": "Pedir bebida.",
+          "note": "Em restaurantes franceses, une carafe d’eau normalmente é água da torneira servida gratuitamente.",
+          "alternatives": [
+            { "targetText": "Un verre de vin rouge, s’il vous plaît.", "translation": "Uma taça de vinho tinto, por favor." },
+            { "targetText": "Une eau gazeuse, s’il vous plaît.", "translation": "Uma água com gás, por favor." },
+            { "targetText": "Pas pour l’instant, merci.", "translation": "Por enquanto, não, obrigado." }
+          ]
+        },
+        { "id": "restaurant-d01-t07", "speakerId": "server", "speakerRole": "staff", "isLearnerTurn": false, "targetText": "Bien sûr. Je vous laisse regarder la carte.", "translation": "Claro. Vou deixar você dar uma olhada no cardápio.", "intention": "Dar tempo para escolher.", "note": "La carte é a lista de pratos disponíveis." },
+        { "id": "restaurant-d01-t08", "speakerId": "client", "speakerRole": "client", "isLearnerTurn": true, "targetText": "Merci.", "translation": "Obrigado.", "intention": "Agradecer." },
+        { "id": "restaurant-d01-t09", "speakerId": "server", "speakerRole": "staff", "isLearnerTurn": false, "targetText": "Vous avez choisi ?", "translation": "Já escolheu?", "intention": "Perguntar se o cliente está pronto para pedir." },
+        {
+          "id": "restaurant-d01-t10", "speakerId": "client", "speakerRole": "client", "isLearnerTurn": true,
+          "targetText": "Oui, je vais prendre le plat du jour.", "translation": "Sim, vou querer o prato do dia.", "intention": "Fazer o pedido.",
+          "note": "Je vais prendre… é uma estrutura muito frequente para fazer pedidos.",
+          "alternatives": [
+            { "targetText": "Pas encore. Vous pouvez me laisser une minute ?", "translation": "Ainda não. Pode me dar mais um minuto?" },
+            { "targetText": "Oui, je vais prendre le steak-frites.", "translation": "Sim, vou querer o bife com batatas fritas." },
+            { "targetText": "J’hésite encore entre deux plats.", "translation": "Ainda estou em dúvida entre dois pratos." }
+          ]
+        },
+        { "id": "restaurant-d01-t11", "speakerId": "server", "speakerRole": "staff", "isLearnerTurn": false, "targetText": "Très bien.", "translation": "Certo.", "intention": "Confirmar o pedido." },
+        { "id": "restaurant-d01-t12", "speakerId": "server", "speakerRole": "staff", "isLearnerTurn": false, "targetText": "Ça a été ?", "translation": "Estava tudo bom?", "intention": "Perguntar sobre a refeição.", "note": "Aqui, Ça a été ? se refere à experiência ou à refeição." },
+        { "id": "restaurant-d01-t13", "speakerId": "client", "speakerRole": "client", "isLearnerTurn": true, "targetText": "Oui, très bien, merci. L’addition, s’il vous plaît.", "translation": "Sim, estava muito bom, obrigado. A conta, por favor.", "intention": "Avaliar a refeição e pedir a conta." },
+        { "id": "restaurant-d01-t14", "speakerId": "server", "speakerRole": "staff", "isLearnerTurn": false, "targetText": "Vous payez par carte ?", "translation": "Vai pagar com cartão?", "intention": "Perguntar a forma de pagamento." },
+        { "id": "restaurant-d01-t15", "speakerId": "client", "speakerRole": "client", "isLearnerTurn": true, "targetText": "Oui, sans contact, si possible.", "translation": "Sim, por aproximação, se possível.", "intention": "Informar a forma de pagamento.", "note": "Sans contact corresponde a pagamento por aproximação." },
+        { "id": "restaurant-d01-t16", "speakerId": "server", "speakerRole": "staff", "isLearnerTurn": false, "targetText": "Bien sûr. Voilà.", "translation": "Claro. Aqui está.", "intention": "Entregar a máquina de pagamento." }
+      ],
+      "reusableStructures": [
+        { "targetText": "Vous avez réservé ?", "translation": "Você tem reserva?", "exampleTarget": "Vous avez réservé pour ce soir ?", "exampleTranslation": "Você tem reserva para hoje à noite?" },
+        { "targetText": "Je vais prendre…", "translation": "Vou querer…", "exampleTarget": "Je vais prendre la soupe en entrée.", "exampleTranslation": "Vou querer a sopa de entrada." },
+        { "targetText": "L’addition, s’il vous plaît.", "translation": "A conta, por favor.", "exampleTarget": "On peut avoir l’addition, s’il vous plaît ?", "exampleTranslation": "Pode trazer a conta para a gente, por favor?" }
+      ]
+    },
+    {
+      "id": "restaurant-d02",
+      "title": "Une table en terrasse",
+      "type": "core",
+      "context": "Duas pessoas chegam sem reserva e preferem se sentar no terraço.",
+      "participantIds": ["client", "companion", "server"],
+      "tags": ["sem-reserva", "terraco", "mais-tempo"],
+      "turns": [
+        { "id": "restaurant-d02-t01", "speakerId": "server", "speakerRole": "staff", "isLearnerTurn": false, "targetText": "Bonjour. Vous êtes combien ?", "translation": "Olá. São quantas pessoas?", "intention": "Perguntar o tamanho do grupo.", "note": "Pergunta muito frequente na chegada." },
+        {
+          "id": "restaurant-d02-t02", "speakerId": "client", "speakerRole": "client", "isLearnerTurn": true,
+          "targetText": "Nous sommes deux.", "translation": "Somos dois.", "intention": "Informar o número de pessoas.", "note": "Na fala, também é comum dizer On est deux.",
+          "alternatives": [
+            { "targetText": "On est trois.", "translation": "Somos três." },
+            { "targetText": "Je suis seul.", "translation": "Estou sozinho." },
+            { "targetText": "Nous serons quatre, mais les deux autres arrivent.", "translation": "Seremos quatro, mas os outros dois já estão chegando." }
+          ]
+        },
+        { "id": "restaurant-d02-t03", "speakerId": "server", "speakerRole": "staff", "isLearnerTurn": false, "targetText": "En salle ou en terrasse ?", "translation": "No salão ou no terraço?", "intention": "Oferecer opções de mesa." },
+        { "id": "restaurant-d02-t04", "speakerId": "client", "speakerRole": "client", "isLearnerTurn": true, "targetText": "En terrasse, s’il vous plaît.", "translation": "No terraço, por favor.", "intention": "Escolher o local." },
+        { "id": "restaurant-d02-t05", "speakerId": "server", "speakerRole": "staff", "isLearnerTurn": false, "targetText": "Suivez-moi. Voici la carte.", "translation": "Podem me acompanhar. Aqui está o cardápio.", "intention": "Conduzir à mesa e entregar o cardápio." },
+        { "id": "restaurant-d02-t06", "speakerId": "client", "speakerRole": "client", "isLearnerTurn": true, "targetText": "Merci.", "translation": "Obrigado.", "intention": "Agradecer." },
+        { "id": "restaurant-d02-t07", "speakerId": "server", "speakerRole": "staff", "isLearnerTurn": false, "targetText": "Qu’est-ce que vous prendrez à boire ?", "translation": "O que vocês vão querer para beber?", "intention": "Perguntar o pedido de bebidas.", "note": "O futuro em vous prendrez soa natural e cortês nesse contexto." },
+        { "id": "restaurant-d02-t08", "speakerId": "client", "speakerRole": "client", "isLearnerTurn": true, "targetText": "Deux jus d’orange, s’il vous plaît.", "translation": "Dois sucos de laranja, por favor.", "intention": "Pedir bebidas." },
+        { "id": "restaurant-d02-t09", "speakerId": "server", "speakerRole": "staff", "isLearnerTurn": false, "targetText": "Et pour manger, vous avez fait votre choix ?", "translation": "E para comer, vocês já escolheram?", "intention": "Perguntar se estão prontos para pedir." },
+        {
+          "id": "restaurant-d02-t10", "speakerId": "client", "speakerRole": "client", "isLearnerTurn": true,
+          "targetText": "Pas encore. Vous pouvez nous laisser quelques minutes ?", "translation": "Ainda não. Pode nos dar alguns minutos?", "intention": "Pedir mais tempo.",
+          "alternatives": [
+            { "targetText": "Oui, nous sommes prêts.", "translation": "Sim, estamos prontos." },
+            { "targetText": "Moi, oui, mais pas encore lui.", "translation": "Eu já, mas ele ainda não." },
+            { "targetText": "On hésite encore un peu.", "translation": "A gente ainda está um pouco em dúvida." }
+          ]
+        },
+        { "id": "restaurant-d02-t11", "speakerId": "server", "speakerRole": "staff", "isLearnerTurn": false, "targetText": "Bien sûr, je repasse tout à l’heure.", "translation": "Claro, volto daqui a pouco.", "intention": "Aceitar e informar que voltará." },
+        { "id": "restaurant-d02-t12", "speakerId": "server", "speakerRole": "staff", "isLearnerTurn": false, "targetText": "Alors, vous avez choisi ?", "translation": "E então, já escolheram?", "intention": "Retomar o pedido." },
+        { "id": "restaurant-d02-t13", "speakerId": "client", "speakerRole": "client", "isLearnerTurn": true, "targetText": "Oui. Pour moi, ce sera le poulet rôti.", "translation": "Sim. Para mim, vai ser o frango assado.", "intention": "Fazer o primeiro pedido.", "note": "Pour moi, ce sera… é uma fórmula comum para pedir em grupo." },
+        { "id": "restaurant-d02-t14", "speakerId": "companion", "speakerRole": "companion", "isLearnerTurn": false, "targetText": "Et moi, je vais prendre la salade de chèvre chaud.", "translation": "E eu vou querer a salada com queijo de cabra quente.", "intention": "Fazer o segundo pedido." },
+        { "id": "restaurant-d02-t15", "speakerId": "server", "speakerRole": "staff", "isLearnerTurn": false, "targetText": "Très bien. Ce sera tout ?", "translation": "Certo. Só isso?", "intention": "Confirmar se o pedido terminou." },
+        { "id": "restaurant-d02-t16", "speakerId": "client", "speakerRole": "client", "isLearnerTurn": true, "targetText": "Oui, c’est tout, merci.", "translation": "Sim, é só isso, obrigado.", "intention": "Encerrar o pedido." },
+        { "id": "restaurant-d02-t17", "speakerId": "client", "speakerRole": "client", "isLearnerTurn": true, "targetText": "Excusez-moi, on pourrait avoir l’addition ?", "translation": "Com licença, pode trazer a conta para a gente?", "intention": "Pedir a conta.", "note": "On pourrait avoir… ? suaviza o pedido." },
+        { "id": "restaurant-d02-t18", "speakerId": "server", "speakerRole": "staff", "isLearnerTurn": false, "targetText": "Bien sûr. Vous réglez ensemble ?", "translation": "Claro. Vocês vão pagar juntos?", "intention": "Perguntar como será o pagamento." },
+        {
+          "id": "restaurant-d02-t19", "speakerId": "client", "speakerRole": "client", "isLearnerTurn": true,
+          "targetText": "Oui, ensemble.", "translation": "Sim, juntos.", "intention": "Informar como pagarão.",
+          "alternatives": [
+            { "targetText": "Non, séparément, s’il vous plaît.", "translation": "Não, separado, por favor." },
+            { "targetText": "Je vais tout payer.", "translation": "Eu vou pagar tudo." },
+            { "targetText": "On peut partager en deux ?", "translation": "Dá para dividir em dois?" }
+          ]
+        }
+      ],
+      "reusableStructures": [
+        { "targetText": "En salle ou en terrasse ?", "translation": "No salão ou no terraço?", "exampleTarget": "Vous préférez être en salle ou dehors ?", "exampleTranslation": "Vocês preferem ficar no salão ou do lado de fora?" },
+        { "targetText": "Vous pouvez nous laisser quelques minutes ?", "translation": "Pode nos dar alguns minutos?", "exampleTarget": "Vous pouvez me laisser une minute ?", "exampleTranslation": "Pode me dar um minuto?" },
+        { "targetText": "Pour moi, ce sera…", "translation": "Para mim, vai ser…", "exampleTarget": "Pour moi, ce sera le poisson.", "exampleTranslation": "Para mim, vai ser o peixe." }
+      ]
+    },
+    {
+      "id": "restaurant-d03",
+      "title": "Une réservation pour deux",
+      "type": "core",
+      "context": "Um casal chega com reserva e uma das pessoas procura uma opção vegetariana.",
+      "participantIds": ["client", "companion", "server"],
+      "tags": ["reserva", "vegetariano", "alteracao"],
+      "turns": [
+        { "id": "restaurant-d03-t01", "speakerId": "server", "speakerRole": "staff", "isLearnerTurn": false, "targetText": "Bonsoir. Vous avez une réservation ?", "translation": "Boa noite. Vocês têm reserva?", "intention": "Perguntar sobre reserva." },
+        {
+          "id": "restaurant-d03-t02", "speakerId": "client", "speakerRole": "client", "isLearnerTurn": true,
+          "targetText": "Oui, au nom de Santos, pour deux personnes.", "translation": "Sim, no nome de Santos, para duas pessoas.", "intention": "Identificar a reserva.", "note": "Au nom de… é a fórmula usual para identificar uma reserva.",
+          "alternatives": [
+            { "targetText": "Oui, au nom de Martin.", "translation": "Sim, no nome de Martin." },
+            { "targetText": "Oui, pour vingt heures.", "translation": "Sim, para as oito da noite." },
+            { "targetText": "Non, nous n’avons pas réservé.", "translation": "Não, não fizemos reserva." }
+          ]
+        },
+        { "id": "restaurant-d03-t03", "speakerId": "server", "speakerRole": "staff", "isLearnerTurn": false, "targetText": "Oui, je l’ai. Suivez-moi, s’il vous plaît.", "translation": "Sim, encontrei. Podem me acompanhar, por favor.", "intention": "Confirmar a reserva e conduzir à mesa.", "note": "A tradução natural evita o literal ‘eu a tenho’." },
+        { "id": "restaurant-d03-t04", "speakerId": "client", "speakerRole": "client", "isLearnerTurn": true, "targetText": "Merci.", "translation": "Obrigado.", "intention": "Agradecer." },
+        { "id": "restaurant-d03-t05", "speakerId": "server", "speakerRole": "staff", "isLearnerTurn": false, "targetText": "Je vous apporte quelque chose à boire ?", "translation": "Posso trazer alguma coisa para vocês beberem?", "intention": "Oferecer bebidas." },
+        { "id": "restaurant-d03-t06", "speakerId": "client", "speakerRole": "client", "isLearnerTurn": true, "targetText": "Une bouteille d’eau gazeuse, s’il vous plaît.", "translation": "Uma garrafa de água com gás, por favor.", "intention": "Pedir bebida." },
+        { "id": "restaurant-d03-t07", "speakerId": "companion", "speakerRole": "companion", "isLearnerTurn": false, "targetText": "Excusez-moi, quels sont les plats végétariens ?", "translation": "Com licença, quais são os pratos vegetarianos?", "intention": "Pedir informação sobre o cardápio." },
+        { "id": "restaurant-d03-t08", "speakerId": "server", "speakerRole": "staff", "isLearnerTurn": false, "targetText": "Vous avez la tarte aux légumes et le risotto aux champignons.", "translation": "Tem a torta de legumes e o risoto de cogumelos.", "intention": "Apresentar opções." },
+        { "id": "restaurant-d03-t09", "speakerId": "companion", "speakerRole": "companion", "isLearnerTurn": false, "targetText": "Le risotto contient du parmesan ?", "translation": "O risoto leva parmesão?", "intention": "Perguntar sobre ingrediente.", "note": "Em português cotidiano, ‘leva’ é mais natural do que ‘contém’ nesse contexto." },
+        { "id": "restaurant-d03-t10", "speakerId": "server", "speakerRole": "staff", "isLearnerTurn": false, "targetText": "Oui, mais on peut le préparer sans parmesan.", "translation": "Sim, mas podemos prepará-lo sem parmesão.", "intention": "Explicar possibilidade de alteração." },
+        { "id": "restaurant-d03-t11", "speakerId": "companion", "speakerRole": "companion", "isLearnerTurn": false, "targetText": "Parfait. Je vais prendre le risotto sans parmesan.", "translation": "Ótimo. Vou querer o risoto sem parmesão.", "intention": "Fazer um pedido com alteração." },
+        { "id": "restaurant-d03-t12", "speakerId": "server", "speakerRole": "staff", "isLearnerTurn": false, "targetText": "Et pour vous ?", "translation": "E para você?", "intention": "Pedir o pedido da outra pessoa." },
+        {
+          "id": "restaurant-d03-t13", "speakerId": "client", "speakerRole": "client", "isLearnerTurn": true,
+          "targetText": "Le saumon grillé, s’il vous plaît.", "translation": "O salmão grelhado, por favor.", "intention": "Fazer o pedido.", "note": "É natural omitir o verbo quando o contexto está claro.",
+          "alternatives": [
+            { "targetText": "Pour moi, ce sera la soupe.", "translation": "Para mim, vai ser a sopa." },
+            { "targetText": "Je vais prendre la même chose.", "translation": "Vou querer a mesma coisa." },
+            { "targetText": "Je ne sais pas encore.", "translation": "Ainda não sei." }
+          ]
+        },
+        { "id": "restaurant-d03-t14", "speakerId": "server", "speakerRole": "staff", "isLearnerTurn": false, "targetText": "Très bien.", "translation": "Certo.", "intention": "Confirmar o pedido." },
+        { "id": "restaurant-d03-t15", "speakerId": "server", "speakerRole": "staff", "isLearnerTurn": false, "targetText": "Vous prendrez un dessert ?", "translation": "Vocês vão querer uma sobremesa?", "intention": "Oferecer sobremesa." },
+        {
+          "id": "restaurant-d03-t16", "speakerId": "client", "speakerRole": "client", "isLearnerTurn": true,
+          "targetText": "Non merci, mais deux cafés, s’il vous plaît.", "translation": "Não, obrigado, mas dois cafés, por favor.", "intention": "Recusar sobremesa e pedir café.",
+          "alternatives": [
+            { "targetText": "Oui, on va partager une tarte aux pommes.", "translation": "Sim, vamos dividir uma torta de maçã." },
+            { "targetText": "Qu’est-ce que vous avez comme desserts ?", "translation": "Que sobremesas vocês têm?" },
+            { "targetText": "Pas pour moi, merci.", "translation": "Para mim, não, obrigado." }
+          ]
+        },
+        { "id": "restaurant-d03-t17", "speakerId": "server", "speakerRole": "staff", "isLearnerTurn": false, "targetText": "Très bien, je vous apporte ça.", "translation": "Certo, já trago.", "intention": "Confirmar o pedido." }
+      ],
+      "reusableStructures": [
+        { "targetText": "Au nom de…", "translation": "No nome de…", "exampleTarget": "J’ai une réservation au nom de Dupont.", "exampleTranslation": "Tenho uma reserva no nome de Dupont." },
+        { "targetText": "Quels sont les plats végétariens ?", "translation": "Quais são os pratos vegetarianos?", "exampleTarget": "Quels sont les desserts sans lactose ?", "exampleTranslation": "Quais são as sobremesas sem lactose?" },
+        { "targetText": "On peut le préparer sans…", "translation": "Podemos prepará-lo sem…", "exampleTarget": "On peut le préparer sans crème.", "exampleTranslation": "Podemos preparar sem creme de leite." }
+      ]
+    },
+    {
+      "id": "restaurant-d04",
+      "title": "La formule du midi",
+      "type": "core",
+      "context": "O cliente está almoçando e pergunta como funciona a fórmula do dia.",
+      "participantIds": ["client", "server"],
+      "tags": ["almoco", "formula", "sobremesa"],
+      "turns": [
+        { "id": "restaurant-d04-t01", "speakerId": "server", "speakerRole": "staff", "isLearnerTurn": false, "targetText": "Bonjour. Voici la carte et la formule du midi.", "translation": "Olá. Aqui estão o cardápio e o menu executivo do almoço.", "intention": "Entregar o cardápio e apresentar a fórmula.", "note": "Formule du midi é uma combinação de pratos por preço fixo." },
+        { "id": "restaurant-d04-t02", "speakerId": "client", "speakerRole": "client", "isLearnerTurn": true, "targetText": "Merci. Qu’est-ce qui est compris dans la formule ?", "translation": "Obrigado. O que está incluído na fórmula?", "intention": "Pedir explicação." },
+        { "id": "restaurant-d04-t03", "speakerId": "server", "speakerRole": "staff", "isLearnerTurn": false, "targetText": "Vous avez entrée-plat ou plat-dessert, avec un café.", "translation": "Você pode escolher entrada e prato ou prato e sobremesa, com café.", "intention": "Explicar a composição." },
+        {
+          "id": "restaurant-d04-t04", "speakerId": "client", "speakerRole": "client", "isLearnerTurn": true,
+          "targetText": "D’accord. Quel est le plat du jour ?", "translation": "Entendi. Qual é o prato do dia?", "intention": "Perguntar sobre o prato.",
+          "alternatives": [
+            { "targetText": "Je vais prendre entrée-plat.", "translation": "Vou querer entrada e prato." },
+            { "targetText": "Le café est compris ?", "translation": "O café está incluído?" },
+            { "targetText": "On peut choisir n’importe quel dessert ?", "translation": "Pode escolher qualquer sobremesa?" }
+          ]
+        },
+        { "id": "restaurant-d04-t05", "speakerId": "server", "speakerRole": "staff", "isLearnerTurn": false, "targetText": "Aujourd’hui, c’est un bœuf bourguignon avec des pommes de terre.", "translation": "Hoje é boeuf bourguignon com batatas.", "intention": "Informar o prato do dia." },
+        { "id": "restaurant-d04-t06", "speakerId": "client", "speakerRole": "client", "isLearnerTurn": true, "targetText": "Et comme dessert ?", "translation": "E de sobremesa?", "intention": "Perguntar sobre a sobremesa.", "note": "Resposta curta e natural porque o contexto completa o sentido." },
+        { "id": "restaurant-d04-t07", "speakerId": "server", "speakerRole": "staff", "isLearnerTurn": false, "targetText": "Une mousse au chocolat ou une tarte aux pommes.", "translation": "Mousse de chocolate ou torta de maçã.", "intention": "Apresentar opções." },
+        { "id": "restaurant-d04-t08", "speakerId": "client", "speakerRole": "client", "isLearnerTurn": true, "targetText": "Je vais prendre la formule plat-dessert.", "translation": "Vou querer a fórmula com prato e sobremesa.", "intention": "Escolher a fórmula." },
+        { "id": "restaurant-d04-t09", "speakerId": "server", "speakerRole": "staff", "isLearnerTurn": false, "targetText": "Très bien. Quel dessert ?", "translation": "Certo. Qual sobremesa?", "intention": "Solicitar a escolha." },
+        {
+          "id": "restaurant-d04-t10", "speakerId": "client", "speakerRole": "client", "isLearnerTurn": true,
+          "targetText": "La tarte aux pommes, s’il vous plaît.", "translation": "A torta de maçã, por favor.", "intention": "Escolher a sobremesa.",
+          "alternatives": [
+            { "targetText": "La mousse au chocolat.", "translation": "A mousse de chocolate." },
+            { "targetText": "Finalement, je ne prendrai pas de dessert.", "translation": "Pensando bem, não vou querer sobremesa." },
+            { "targetText": "Qu’est-ce que vous me conseillez ?", "translation": "O que você recomenda?" }
+          ]
+        },
+        { "id": "restaurant-d04-t11", "speakerId": "server", "speakerRole": "staff", "isLearnerTurn": false, "targetText": "Et comme boisson ?", "translation": "E para beber?", "intention": "Perguntar sobre bebida." },
+        { "id": "restaurant-d04-t12", "speakerId": "client", "speakerRole": "client", "isLearnerTurn": true, "targetText": "Juste de l’eau, merci.", "translation": "Só água, obrigado.", "intention": "Pedir apenas água." },
+        { "id": "restaurant-d04-t13", "speakerId": "server", "speakerRole": "staff", "isLearnerTurn": false, "targetText": "Votre café, vous le voulez maintenant ou après le dessert ?", "translation": "Você quer o café agora ou depois da sobremesa?", "intention": "Perguntar quando servir o café.", "note": "A retomada com le é muito comum no francês oral." },
+        {
+          "id": "restaurant-d04-t14", "speakerId": "client", "speakerRole": "client", "isLearnerTurn": true,
+          "targetText": "Après le dessert, s’il vous plaît.", "translation": "Depois da sobremesa, por favor.", "intention": "Informar preferência.",
+          "alternatives": [
+            { "targetText": "Maintenant, s’il vous plaît.", "translation": "Agora, por favor." },
+            { "targetText": "Avec le dessert, si possible.", "translation": "Junto com a sobremesa, se possível." },
+            { "targetText": "Je ne vais finalement pas prendre de café.", "translation": "No fim, não vou querer café." }
+          ]
+        },
+        { "id": "restaurant-d04-t15", "speakerId": "client", "speakerRole": "client", "isLearnerTurn": true, "targetText": "Je peux payer ici ?", "translation": "Posso pagar aqui?", "intention": "Perguntar onde pagar." },
+        { "id": "restaurant-d04-t16", "speakerId": "server", "speakerRole": "staff", "isLearnerTurn": false, "targetText": "Oui, je vous apporte la machine.", "translation": "Sim, vou trazer a maquininha.", "intention": "Informar como será o pagamento.", "note": "‘Maquininha’ é a tradução cotidiana apropriada no Brasil." }
+      ],
+      "reusableStructures": [
+        { "targetText": "Qu’est-ce qui est compris dans… ?", "translation": "O que está incluído em…?", "exampleTarget": "Qu’est-ce qui est compris dans le menu ?", "exampleTranslation": "O que está incluído no menu?" },
+        { "targetText": "Et comme dessert ?", "translation": "E de sobremesa?", "exampleTarget": "Et comme boisson ?", "exampleTranslation": "E para beber?" },
+        { "targetText": "Juste de l’eau, merci.", "translation": "Só água, obrigado.", "exampleTarget": "Juste un café, merci.", "exampleTranslation": "Só um café, obrigado." }
+      ]
+    },
+    {
+      "id": "restaurant-d05",
+      "title": "Une question sur les ingrédients",
+      "type": "common_variation",
+      "context": "O cliente tem alergia a nozes e precisa confirmar a composição de um prato.",
+      "participantIds": ["client", "server"],
+      "tags": ["alergia", "ingredientes", "alteracao"],
+      "turns": [
+        { "id": "restaurant-d05-t01", "speakerId": "server", "speakerRole": "staff", "isLearnerTurn": false, "targetText": "Vous avez fait votre choix ?", "translation": "Já escolheu?", "intention": "Perguntar se o cliente está pronto." },
+        {
+          "id": "restaurant-d05-t02", "speakerId": "client", "speakerRole": "client", "isLearnerTurn": true,
+          "targetText": "Presque. J’ai une question sur la salade.", "translation": "Quase. Tenho uma dúvida sobre a salada.", "intention": "Informar que precisa de uma informação.",
+          "alternatives": [
+            { "targetText": "Oui, je vais prendre la salade.", "translation": "Sim, vou querer a salada." },
+            { "targetText": "Pas encore, j’hésite un peu.", "translation": "Ainda não, estou um pouco em dúvida." },
+            { "targetText": "Oui, mais j’ai une allergie à vous signaler.", "translation": "Sim, mas preciso avisar sobre uma alergia." }
+          ]
+        },
+        { "id": "restaurant-d05-t03", "speakerId": "server", "speakerRole": "staff", "isLearnerTurn": false, "targetText": "Oui, bien sûr.", "translation": "Sim, claro.", "intention": "Convidar o cliente a perguntar." },
+        { "id": "restaurant-d05-t04", "speakerId": "client", "speakerRole": "client", "isLearnerTurn": true, "targetText": "Est-ce qu’elle contient des noix ? J’y suis allergique.", "translation": "Ela leva nozes? Tenho alergia.", "intention": "Perguntar sobre ingrediente e informar alergia.", "note": "Y retoma aux noix: ‘sou alérgico a isso’." },
+        { "id": "restaurant-d05-t05", "speakerId": "server", "speakerRole": "staff", "isLearnerTurn": false, "targetText": "Je préfère vérifier en cuisine. Un instant, s’il vous plaît.", "translation": "Prefiro confirmar com a cozinha. Só um instante, por favor.", "intention": "Evitar responder sem certeza.", "note": "Conduta mais realista e segura do que fazer uma suposição." },
+        { "id": "restaurant-d05-t06", "speakerId": "client", "speakerRole": "client", "isLearnerTurn": true, "targetText": "D’accord, merci.", "translation": "Tudo bem, obrigado.", "intention": "Aceitar a espera." },
+        { "id": "restaurant-d05-t07", "speakerId": "server", "speakerRole": "staff", "isLearnerTurn": false, "targetText": "Alors, la salade ne contient pas de noix, mais la sauce peut en contenir des traces.", "translation": "A salada não leva nozes, mas o molho pode conter vestígios.", "intention": "Informar o resultado da consulta." },
+        {
+          "id": "restaurant-d05-t08", "speakerId": "client", "speakerRole": "client", "isLearnerTurn": true,
+          "targetText": "Dans ce cas, je vais prendre autre chose.", "translation": "Nesse caso, vou escolher outra coisa.", "intention": "Mudar o pedido.",
+          "alternatives": [
+            { "targetText": "Est-ce que je peux avoir la salade sans sauce ?", "translation": "Posso pedir a salada sem molho?" },
+            { "targetText": "Merci de m’avoir prévenu.", "translation": "Obrigado por me avisar." },
+            { "targetText": "Je préfère ne pas prendre de risque.", "translation": "Prefiro não arriscar." }
+          ]
+        },
+        { "id": "restaurant-d05-t09", "speakerId": "server", "speakerRole": "staff", "isLearnerTurn": false, "targetText": "Le poulet rôti ne contient pas de noix.", "translation": "O frango assado não leva nozes.", "intention": "Sugerir uma alternativa." },
+        { "id": "restaurant-d05-t10", "speakerId": "client", "speakerRole": "client", "isLearnerTurn": true, "targetText": "Très bien. Je vais prendre le poulet rôti.", "translation": "Ótimo. Vou querer o frango assado.", "intention": "Fazer o pedido." },
+        { "id": "restaurant-d05-t11", "speakerId": "server", "speakerRole": "staff", "isLearnerTurn": false, "targetText": "Avec des frites ou des légumes ?", "translation": "Com batatas fritas ou legumes?", "intention": "Oferecer acompanhamento." },
+        {
+          "id": "restaurant-d05-t12", "speakerId": "client", "speakerRole": "client", "isLearnerTurn": true,
+          "targetText": "Avec des légumes, s’il vous plaît.", "translation": "Com legumes, por favor.", "intention": "Escolher acompanhamento.",
+          "alternatives": [
+            { "targetText": "Des frites, s’il vous plaît.", "translation": "Batatas fritas, por favor." },
+            { "targetText": "Est-ce que je peux avoir un peu des deux ?", "translation": "Posso pedir um pouco dos dois?" },
+            { "targetText": "Sans accompagnement, merci.", "translation": "Sem acompanhamento, obrigado." }
+          ]
+        },
+        { "id": "restaurant-d05-t13", "speakerId": "server", "speakerRole": "staff", "isLearnerTurn": false, "targetText": "Très bien. Je précise votre allergie à la cuisine.", "translation": "Certo. Vou avisar a cozinha sobre a sua alergia.", "intention": "Confirmar que transmitirá a informação.", "note": "A tradução natural é mais idiomática do que ‘vou especificar’." },
+        { "id": "restaurant-d05-t14", "speakerId": "client", "speakerRole": "client", "isLearnerTurn": true, "targetText": "Merci beaucoup.", "translation": "Muito obrigado.", "intention": "Agradecer." }
+      ],
+      "reusableStructures": [
+        { "targetText": "J’ai une question sur…", "translation": "Tenho uma dúvida sobre…", "exampleTarget": "J’ai une question sur le plat du jour.", "exampleTranslation": "Tenho uma dúvida sobre o prato do dia." },
+        { "targetText": "Est-ce que ça contient… ?", "translation": "Isso leva…?", "exampleTarget": "Est-ce que ça contient du lait ?", "exampleTranslation": "Isso leva leite?" },
+        { "targetText": "Dans ce cas…", "translation": "Nesse caso…", "exampleTarget": "Dans ce cas, je vais prendre la soupe.", "exampleTranslation": "Nesse caso, vou querer a sopa." }
+      ]
+    },
+    {
+      "id": "restaurant-d06",
+      "title": "Le plat n’est plus disponible",
+      "type": "occasional_event",
+      "context": "O cliente escolhe um prato que acabou e precisa decidir rapidamente por uma alternativa.",
+      "participantIds": ["client", "server"],
+      "tags": ["indisponibilidade", "recomendacao", "pagamento"],
+      "turns": [
+        { "id": "restaurant-d06-t01", "speakerId": "server", "speakerRole": "staff", "isLearnerTurn": false, "targetText": "Je peux prendre votre commande ?", "translation": "Posso anotar o seu pedido?", "intention": "Iniciar o pedido." },
+        {
+          "id": "restaurant-d06-t02", "speakerId": "client", "speakerRole": "client", "isLearnerTurn": true,
+          "targetText": "Oui. Je voudrais le cabillaud, s’il vous plaît.", "translation": "Sim. Eu gostaria do bacalhau fresco, por favor.", "intention": "Fazer o pedido.", "note": "Na França, cabillaud costuma se referir ao bacalhau fresco, não ao bacalhau salgado típico de Portugal.",
+          "alternatives": [
+            { "targetText": "Oui, je vais prendre le menu du jour.", "translation": "Sim, vou querer o menu do dia." },
+            { "targetText": "Pas encore, désolé.", "translation": "Ainda não, desculpe." },
+            { "targetText": "J’ai juste une petite question avant.", "translation": "Só tenho uma perguntinha antes." }
+          ]
+        },
+        { "id": "restaurant-d06-t03", "speakerId": "server", "speakerRole": "staff", "isLearnerTurn": false, "targetText": "Je suis désolée, il n’y en a plus.", "translation": "Desculpe, acabou.", "intention": "Informar indisponibilidade.", "note": "Il n’y en a plus é uma fórmula muito frequente." },
+        {
+          "id": "restaurant-d06-t04", "speakerId": "client", "speakerRole": "client", "isLearnerTurn": true,
+          "targetText": "Ah, d’accord. Qu’est-ce que vous me conseillez à la place ?", "translation": "Ah, entendi. O que você recomenda no lugar?", "intention": "Pedir uma alternativa.",
+          "alternatives": [
+            { "targetText": "Ah, dommage. Je vais regarder de nouveau.", "translation": "Ah, que pena. Vou dar outra olhada." },
+            { "targetText": "Et le saumon, il est encore disponible ?", "translation": "E o salmão, ainda está disponível?" },
+            { "targetText": "Dans ce cas, je vais prendre le poulet.", "translation": "Nesse caso, vou querer o frango." }
+          ]
+        },
+        { "id": "restaurant-d06-t05", "speakerId": "server", "speakerRole": "staff", "isLearnerTurn": false, "targetText": "Le saumon est très bon, et il est servi avec les mêmes légumes.", "translation": "O salmão está muito bom e vem com os mesmos legumes.", "intention": "Recomendar alternativa.", "note": "‘Vem com’ é mais cotidiano em português do que ‘é servido com’." },
+        { "id": "restaurant-d06-t06", "speakerId": "client", "speakerRole": "client", "isLearnerTurn": true, "targetText": "Très bien, je vais prendre le saumon alors.", "translation": "Certo, então vou querer o salmão.", "intention": "Aceitar a alternativa.", "note": "Alors marca a decisão decorrente da sugestão." },
+        { "id": "restaurant-d06-t07", "speakerId": "server", "speakerRole": "staff", "isLearnerTurn": false, "targetText": "Quelle cuisson pour le saumon ?", "translation": "Qual ponto você quer para o salmão?", "intention": "Perguntar sobre o preparo." },
+        { "id": "restaurant-d06-t08", "speakerId": "client", "speakerRole": "client", "isLearnerTurn": true, "targetText": "Bien cuit, s’il vous plaît.", "translation": "Bem passado, por favor.", "intention": "Informar preferência de cozimento." },
+        { "id": "restaurant-d06-t09", "speakerId": "server", "speakerRole": "staff", "isLearnerTurn": false, "targetText": "Très bien. Et comme boisson ?", "translation": "Certo. E para beber?", "intention": "Oferecer bebida." },
+        { "id": "restaurant-d06-t10", "speakerId": "client", "speakerRole": "client", "isLearnerTurn": true, "targetText": "Un verre de vin blanc.", "translation": "Uma taça de vinho branco.", "intention": "Pedir bebida." },
+        { "id": "restaurant-d06-t11", "speakerId": "server", "speakerRole": "staff", "isLearnerTurn": false, "targetText": "Ça marche.", "translation": "Certo.", "intention": "Confirmar informalmente.", "note": "Expressão oral muito comum e mais coloquial que Très bien." },
+        { "id": "restaurant-d06-t12", "speakerId": "server", "speakerRole": "staff", "isLearnerTurn": false, "targetText": "Tout s’est bien passé ?", "translation": "Deu tudo certo?", "intention": "Verificar a satisfação." },
+        { "id": "restaurant-d06-t13", "speakerId": "client", "speakerRole": "client", "isLearnerTurn": true, "targetText": "Oui, c’était très bon.", "translation": "Sim, estava muito bom.", "intention": "Avaliar a refeição." },
+        { "id": "restaurant-d06-t14", "speakerId": "server", "speakerRole": "staff", "isLearnerTurn": false, "targetText": "Vous souhaitez autre chose ?", "translation": "Deseja mais alguma coisa?", "intention": "Oferecer itens adicionais." },
+        {
+          "id": "restaurant-d06-t15", "speakerId": "client", "speakerRole": "client", "isLearnerTurn": true,
+          "targetText": "Non merci. Je vais régler.", "translation": "Não, obrigado. Vou pagar.", "intention": "Recusar e pedir o pagamento.", "note": "Régler é frequente no sentido de pagar a conta.",
+          "alternatives": [
+            { "targetText": "Oui, un café, s’il vous plaît.", "translation": "Sim, um café, por favor." },
+            { "targetText": "Je peux voir la carte des desserts ?", "translation": "Posso ver o cardápio de sobremesas?" },
+            { "targetText": "Non, ce sera tout.", "translation": "Não, é só isso." }
+          ]
+        },
+        { "id": "restaurant-d06-t16", "speakerId": "server", "speakerRole": "staff", "isLearnerTurn": false, "targetText": "Par carte ou en espèces ?", "translation": "Com cartão ou em dinheiro?", "intention": "Perguntar a forma de pagamento." },
+        { "id": "restaurant-d06-t17", "speakerId": "client", "speakerRole": "client", "isLearnerTurn": true, "targetText": "Par carte, s’il vous plaît.", "translation": "Com cartão, por favor.", "intention": "Informar a forma de pagamento." }
+      ],
+      "reusableStructures": [
+        { "targetText": "Il n’y en a plus.", "translation": "Acabou. / Não tem mais.", "exampleTarget": "Il n’y a plus de tarte aux pommes.", "exampleTranslation": "Não tem mais torta de maçã." },
+        { "targetText": "Qu’est-ce que vous me conseillez ?", "translation": "O que você recomenda?", "exampleTarget": "Qu’est-ce que vous me conseillez comme dessert ?", "exampleTranslation": "O que você recomenda de sobremesa?" },
+        { "targetText": "Je vais prendre… alors.", "translation": "Então vou querer…", "exampleTarget": "Je vais prendre le poulet alors.", "exampleTranslation": "Então vou querer o frango." }
+      ]
+    },
+    {
+      "id": "restaurant-d07",
+      "title": "Réserver une table par téléphone",
+      "type": "core",
+      "context": "O cliente telefona para reservar uma mesa tranquila para quatro pessoas e avisa que uma delas chegará um pouco depois.",
+      "participantIds": ["client", "host"],
+      "tags": ["reserva-telefone", "modificacao-reserva", "cancelamento-reserva", "mesa-tranquila", "chegada-posterior"],
+      "turns": [
+        { "id": "restaurant-d07-t01", "speakerId": "host", "speakerRole": "staff", "isLearnerTurn": false, "targetText": "Restaurant Le Jardin, bonjour.", "translation": "Restaurante Le Jardin, bom dia.", "intention": "Atender o telefone e identificar o restaurante." },
+        {
+          "id": "restaurant-d07-t02", "speakerId": "client", "speakerRole": "client", "isLearnerTurn": true,
+          "targetText": "Bonjour, je voudrais réserver une table pour samedi soir.", "translation": "Olá, eu gostaria de reservar uma mesa para sábado à noite.", "intention": "Solicitar uma reserva.",
+          "alternatives": [
+            { "targetText": "Bonjour, je vous appelle pour modifier une réservation.", "translation": "Olá, estou ligando para alterar uma reserva." },
+            { "targetText": "Bonjour, je dois annuler ma réservation de ce soir.", "translation": "Olá, preciso cancelar minha reserva de hoje à noite." },
+            { "targetText": "Bonjour, vous avez encore une table pour ce soir ?", "translation": "Olá, vocês ainda têm mesa para hoje à noite?" }
+          ]
+        },
+        { "id": "restaurant-d07-t03", "speakerId": "host", "speakerRole": "staff", "isLearnerTurn": false, "targetText": "Bien sûr. Pour combien de personnes ?", "translation": "Claro. Para quantas pessoas?", "intention": "Perguntar o tamanho do grupo." },
+        { "id": "restaurant-d07-t04", "speakerId": "client", "speakerRole": "client", "isLearnerTurn": true, "targetText": "Pour quatre personnes, vers vingt heures.", "translation": "Para quatro pessoas, por volta das oito da noite.", "intention": "Informar o número de pessoas e o horário." },
+        { "id": "restaurant-d07-t05", "speakerId": "host", "speakerRole": "staff", "isLearnerTurn": false, "targetText": "À quel nom ?", "translation": "Em nome de quem?", "intention": "Pedir o nome da reserva." },
+        { "id": "restaurant-d07-t06", "speakerId": "client", "speakerRole": "client", "isLearnerTurn": true, "targetText": "Au nom de Santos.", "translation": "No nome de Santos.", "intention": "Informar o nome da reserva." },
+        { "id": "restaurant-d07-t07", "speakerId": "host", "speakerRole": "staff", "isLearnerTurn": false, "targetText": "Vous préférez être en salle ou en terrasse ?", "translation": "Vocês preferem ficar no salão ou no terraço?", "intention": "Perguntar a preferência de lugar." },
+        {
+          "id": "restaurant-d07-t08", "speakerId": "client", "speakerRole": "client", "isLearnerTurn": true,
+          "targetText": "En salle, s’il vous plaît. Si possible, on aimerait une table au calme.", "translation": "No salão, por favor. Se possível, gostaríamos de uma mesa mais tranquila.", "intention": "Escolher o salão e solicitar uma mesa tranquila.",
+          "alternatives": [
+            { "targetText": "En terrasse, s’il vous plaît.", "translation": "No terraço, por favor." },
+            { "targetText": "Près de la fenêtre, si possible.", "translation": "Perto da janela, se possível." },
+            { "targetText": "Peu importe, les deux nous vont.", "translation": "Tanto faz, os dois lugares estão bons para a gente." }
+          ]
+        },
+        { "id": "restaurant-d07-t09", "speakerId": "host", "speakerRole": "staff", "isLearnerTurn": false, "targetText": "D’accord. Tout le monde arrivera en même temps ?", "translation": "Certo. Todo mundo vai chegar ao mesmo tempo?", "intention": "Confirmar a chegada do grupo." },
+        {
+          "id": "restaurant-d07-t10", "speakerId": "client", "speakerRole": "client", "isLearnerTurn": true,
+          "targetText": "Non, une personne nous rejoindra un peu plus tard.", "translation": "Não, uma pessoa vai se juntar a nós um pouco mais tarde.", "intention": "Informar que uma pessoa chegará depois.",
+          "alternatives": [
+            { "targetText": "Oui, nous arriverons tous ensemble.", "translation": "Sim, vamos chegar todos juntos." },
+            { "targetText": "Deux personnes arriveront un peu plus tard.", "translation": "Duas pessoas vão chegar um pouco mais tarde." },
+            { "targetText": "Je ne sais pas encore, mais nous serons bien quatre.", "translation": "Ainda não sei, mas seremos quatro mesmo." }
+          ]
+        },
+        { "id": "restaurant-d07-t11", "speakerId": "host", "speakerRole": "staff", "isLearnerTurn": false, "targetText": "Ce n’est pas un problème. C’est noté pour samedi à vingt heures.", "translation": "Não tem problema. Ficou anotado para sábado às oito da noite.", "intention": "Aceitar a situação e confirmar a reserva." },
+        {
+          "id": "restaurant-d07-t12", "speakerId": "client", "speakerRole": "client", "isLearnerTurn": true,
+          "targetText": "Parfait, merci beaucoup.", "translation": "Perfeito, muito obrigado.", "intention": "Agradecer e confirmar que está tudo certo.",
+          "alternatives": [
+            { "targetText": "Très bien, merci.", "translation": "Certo, obrigado." },
+            { "targetText": "Merci. À samedi alors.", "translation": "Obrigado. Então, até sábado." },
+            { "targetText": "D’accord. Est-ce que vous avez besoin de mon numéro ?", "translation": "Certo. Vocês precisam do meu número?" }
+          ]
+        },
+        { "id": "restaurant-d07-t13", "speakerId": "host", "speakerRole": "staff", "isLearnerTurn": false, "targetText": "Avec plaisir. Bonne journée.", "translation": "Por nada. Tenha um bom dia.", "intention": "Encerrar a ligação cordialmente." },
+        { "id": "restaurant-d07-t14", "speakerId": "client", "speakerRole": "client", "isLearnerTurn": true, "targetText": "Bonne journée, au revoir.", "translation": "Tenha um bom dia, tchau.", "intention": "Despedir-se." }
+      ],
+      "reusableStructures": [
+        { "targetText": "Je voudrais réserver une table pour…", "translation": "Eu gostaria de reservar uma mesa para…", "exampleTarget": "Je voudrais réserver une table pour demain soir.", "exampleTranslation": "Eu gostaria de reservar uma mesa para amanhã à noite." },
+        { "targetText": "À quel nom ?", "translation": "Em nome de quem?", "exampleTarget": "La réservation est à quel nom ?", "exampleTranslation": "A reserva está em nome de quem?" },
+        { "targetText": "Si possible, on aimerait…", "translation": "Se possível, gostaríamos de…", "exampleTarget": "Si possible, on aimerait être en terrasse.", "exampleTranslation": "Se possível, gostaríamos de ficar no terraço." },
+        { "targetText": "Une personne nous rejoindra plus tard.", "translation": "Uma pessoa vai se juntar a nós mais tarde.", "exampleTarget": "Mon ami nous rejoindra vers neuf heures.", "exampleTranslation": "Meu amigo vai se juntar a nós por volta das nove." }
+      ]
+    },
+    {
+      "id": "restaurant-d08",
+      "title": "Petit-déjeuner au café",
+      "type": "core",
+      "context": "O cliente toma café da manhã em um café, pede mais água e paga em dinheiro com uma nota que exige troco.",
+      "participantIds": ["client", "server"],
+      "tags": ["cafe", "petit-dejeuner", "eau", "especes", "monnaie"],
+      "turns": [
+        { "id": "restaurant-d08-t01", "speakerId": "server", "speakerRole": "staff", "isLearnerTurn": false, "targetText": "Bonjour, qu’est-ce que je vous sers ?", "translation": "Bom dia, o que vai querer?", "intention": "Perguntar o pedido." },
+        {
+          "id": "restaurant-d08-t02", "speakerId": "client", "speakerRole": "client", "isLearnerTurn": true,
+          "targetText": "Un café crème et un croissant, s’il vous plaît.", "translation": "Um café com leite e um croissant, por favor.", "intention": "Pedir café da manhã.",
+          "note": "Em um café francês, café crème costuma designar café com leite ou creme.",
+          "alternatives": [
+            { "targetText": "Un café allongé et une tartine, s’il vous plaît.", "translation": "Um café mais fraco e uma torrada, por favor." },
+            { "targetText": "Un thé et un pain au chocolat, s’il vous plaît.", "translation": "Um chá e um pão de chocolate, por favor." },
+            { "targetText": "La formule petit-déjeuner, s’il vous plaît.", "translation": "O combo de café da manhã, por favor." }
+          ]
+        },
+        { "id": "restaurant-d08-t03", "speakerId": "server", "speakerRole": "staff", "isLearnerTurn": false, "targetText": "Sur place ou à emporter ?", "translation": "Para consumir aqui ou para viagem?", "intention": "Perguntar onde será consumido." },
+        {
+          "id": "restaurant-d08-t04", "speakerId": "client", "speakerRole": "client", "isLearnerTurn": true,
+          "targetText": "Sur place.", "translation": "Para consumir aqui.", "intention": "Informar que consumirá no local.",
+          "alternatives": [
+            { "targetText": "À emporter, s’il vous plaît.", "translation": "Para viagem, por favor." },
+            { "targetText": "Je vais le prendre ici.", "translation": "Vou consumir aqui." },
+            { "targetText": "Le café sur place et le croissant à emporter.", "translation": "O café aqui e o croissant para viagem." }
+          ]
+        },
+        { "id": "restaurant-d08-t05", "speakerId": "server", "speakerRole": "staff", "isLearnerTurn": false, "targetText": "Vous voulez un verre d’eau avec le café ?", "translation": "Quer um copo d’água com o café?", "intention": "Oferecer água." },
+        { "id": "restaurant-d08-t06", "speakerId": "client", "speakerRole": "client", "isLearnerTurn": true, "targetText": "Oui, merci.", "translation": "Sim, obrigado.", "intention": "Aceitar a água." },
+        { "id": "restaurant-d08-t07", "speakerId": "server", "speakerRole": "staff", "isLearnerTurn": false, "targetText": "Voilà pour vous.", "translation": "Aqui está.", "intention": "Entregar o pedido." },
+        {
+          "id": "restaurant-d08-t08", "speakerId": "client", "speakerRole": "client", "isLearnerTurn": true,
+          "targetText": "Excusez-moi, je pourrais avoir encore un peu d’eau ?", "translation": "Com licença, poderia trazer mais um pouco de água?", "intention": "Pedir mais água.",
+          "alternatives": [
+            { "targetText": "Je pourrais avoir un autre verre d’eau ?", "translation": "Poderia trazer outro copo d’água?" },
+            { "targetText": "Vous pouvez me remettre un peu d’eau, s’il vous plaît ?", "translation": "Pode colocar mais um pouco de água para mim, por favor?" },
+            { "targetText": "Excusez-moi, une carafe d’eau, s’il vous plaît.", "translation": "Com licença, uma jarra de água, por favor." }
+          ]
+        },
+        { "id": "restaurant-d08-t09", "speakerId": "server", "speakerRole": "staff", "isLearnerTurn": false, "targetText": "Bien sûr. Ça vous fait six euros vingt.", "translation": "Claro. Deu seis euros e vinte.", "intention": "Aceitar o pedido e informar o total." },
+        {
+          "id": "restaurant-d08-t10", "speakerId": "client", "speakerRole": "client", "isLearnerTurn": true,
+          "targetText": "Je n’ai qu’un billet de vingt. Vous avez de la monnaie ?", "translation": "Só tenho uma nota de vinte. Você tem troco?", "intention": "Pagar em dinheiro e perguntar se há troco.",
+          "alternatives": [
+            { "targetText": "Je peux payer en espèces ?", "translation": "Posso pagar em dinheiro?" },
+            { "targetText": "Je vais payer par carte.", "translation": "Vou pagar com cartão." },
+            { "targetText": "Vous prenez le sans contact ?", "translation": "Vocês aceitam pagamento por aproximação?" }
+          ]
+        },
+        { "id": "restaurant-d08-t11", "speakerId": "server", "speakerRole": "staff", "isLearnerTurn": false, "targetText": "Oui, pas de problème.", "translation": "Sim, sem problema.", "intention": "Confirmar que há troco." },
+        { "id": "restaurant-d08-t12", "speakerId": "client", "speakerRole": "client", "isLearnerTurn": true, "targetText": "Merci.", "translation": "Obrigado.", "intention": "Agradecer." },
+        { "id": "restaurant-d08-t13", "speakerId": "server", "speakerRole": "staff", "isLearnerTurn": false, "targetText": "Et voilà treize euros quatre-vingts.", "translation": "E aqui estão treze euros e oitenta.", "intention": "Entregar o troco." },
+        { "id": "restaurant-d08-t14", "speakerId": "client", "speakerRole": "client", "isLearnerTurn": true, "targetText": "Merci, bonne journée.", "translation": "Obrigado, tenha um bom dia.", "intention": "Agradecer e despedir-se." }
+      ],
+      "reusableStructures": [
+        { "targetText": "Sur place ou à emporter ?", "translation": "Para consumir aqui ou para viagem?", "exampleTarget": "C’est sur place ou à emporter ?", "exampleTranslation": "É para consumir aqui ou para viagem?" },
+        { "targetText": "Je pourrais avoir encore un peu de… ?", "translation": "Poderia trazer mais um pouco de…?", "exampleTarget": "Je pourrais avoir encore un peu de lait ?", "exampleTranslation": "Poderia trazer mais um pouco de leite?" },
+        { "targetText": "Je n’ai qu’un billet de…", "translation": "Só tenho uma nota de…", "exampleTarget": "Je n’ai qu’un billet de cinquante.", "exampleTranslation": "Só tenho uma nota de cinquenta." },
+        { "targetText": "Vous avez de la monnaie ?", "translation": "Você tem troco?", "exampleTarget": "Vous avez de la monnaie sur vingt euros ?", "exampleTranslation": "Você tem troco para vinte euros?" }
+      ]
+    },
+    {
+      "id": "restaurant-d09",
+      "title": "À la boulangerie",
+      "type": "core",
+      "context": "O cliente compra pão, viennoiseries e um sanduíche em uma padaria antes de seguir viagem.",
+      "participantIds": ["client", "server"],
+      "tags": ["boulangerie", "pain", "viennoiseries", "a-emporter"],
+      "turns": [
+        { "id": "restaurant-d09-t01", "speakerId": "server", "speakerRole": "staff", "isLearnerTurn": false, "targetText": "Bonjour, je vous écoute.", "translation": "Bom dia, pode pedir.", "intention": "Convidar o cliente a fazer o pedido." },
+        {
+          "id": "restaurant-d09-t02", "speakerId": "client", "speakerRole": "client", "isLearnerTurn": true,
+          "targetText": "Bonjour. Une baguette tradition, s’il vous plaît.", "translation": "Bom dia. Uma baguete tradicional, por favor.", "intention": "Pedir uma baguete.",
+          "alternatives": [
+            { "targetText": "Deux baguettes, s’il vous plaît.", "translation": "Duas baguetes, por favor." },
+            { "targetText": "Un pain de campagne, s’il vous plaît.", "translation": "Um pão rústico, por favor." },
+            { "targetText": "Une demi-baguette, s’il vous plaît.", "translation": "Meia baguete, por favor." }
+          ]
+        },
+        { "id": "restaurant-d09-t03", "speakerId": "server", "speakerRole": "staff", "isLearnerTurn": false, "targetText": "Plutôt bien cuite ?", "translation": "Prefere mais assada?", "intention": "Perguntar a preferência de ponto do pão." },
+        {
+          "id": "restaurant-d09-t04", "speakerId": "client", "speakerRole": "client", "isLearnerTurn": true,
+          "targetText": "Pas trop cuite, si possible.", "translation": "Não muito assada, se possível.", "intention": "Informar a preferência.",
+          "alternatives": [
+            { "targetText": "Oui, bien cuite.", "translation": "Sim, bem assada." },
+            { "targetText": "Comme vous avez, ça m’est égal.", "translation": "Pode ser como tiver, tanto faz para mim." },
+            { "targetText": "La moins cuite, s’il vous plaît.", "translation": "A menos assada, por favor." }
+          ]
+        },
+        { "id": "restaurant-d09-t05", "speakerId": "server", "speakerRole": "staff", "isLearnerTurn": false, "targetText": "Avec ceci ?", "translation": "Mais alguma coisa?", "intention": "Perguntar se o cliente deseja outros itens.", "note": "Avec ceci ? é uma fórmula muito frequente em lojas de alimentos." },
+        {
+          "id": "restaurant-d09-t06", "speakerId": "client", "speakerRole": "client", "isLearnerTurn": true,
+          "targetText": "Deux croissants et un pain au chocolat.", "translation": "Dois croissants e um pão de chocolate.", "intention": "Acrescentar itens ao pedido.",
+          "alternatives": [
+            { "targetText": "Deux pains au chocolat, s’il vous plaît.", "translation": "Dois pães de chocolate, por favor." },
+            { "targetText": "Une brioche individuelle.", "translation": "Um brioche individual." },
+            { "targetText": "Non, ce sera tout.", "translation": "Não, é só isso." }
+          ]
+        },
+        { "id": "restaurant-d09-t07", "speakerId": "server", "speakerRole": "staff", "isLearnerTurn": false, "targetText": "Ce sera tout ?", "translation": "É só isso?", "intention": "Confirmar o fim do pedido." },
+        {
+          "id": "restaurant-d09-t08", "speakerId": "client", "speakerRole": "client", "isLearnerTurn": true,
+          "targetText": "Je vais aussi prendre un sandwich jambon-beurre.", "translation": "Também vou querer um sanduíche de presunto e manteiga.", "intention": "Acrescentar um sanduíche.",
+          "alternatives": [
+            { "targetText": "Oui, c’est tout, merci.", "translation": "Sim, é só isso, obrigado." },
+            { "targetText": "Vous avez des sandwichs végétariens ?", "translation": "Vocês têm sanduíches vegetarianos?" },
+            { "targetText": "Ajoutez-moi une quiche lorraine, s’il vous plaît.", "translation": "Acrescente uma quiche lorraine para mim, por favor." }
+          ]
+        },
+        { "id": "restaurant-d09-t09", "speakerId": "server", "speakerRole": "staff", "isLearnerTurn": false, "targetText": "Vous voulez une boisson avec ?", "translation": "Quer uma bebida para acompanhar?", "intention": "Oferecer uma bebida." },
+        {
+          "id": "restaurant-d09-t10", "speakerId": "client", "speakerRole": "client", "isLearnerTurn": true,
+          "targetText": "Oui, une petite bouteille d’eau plate.", "translation": "Sim, uma garrafinha de água sem gás.", "intention": "Pedir uma bebida.",
+          "alternatives": [
+            { "targetText": "Une eau gazeuse, s’il vous plaît.", "translation": "Uma água com gás, por favor." },
+            { "targetText": "Un jus d’orange, s’il vous plaît.", "translation": "Um suco de laranja, por favor." },
+            { "targetText": "Non merci, pas de boisson.", "translation": "Não, obrigado, sem bebida." }
+          ]
+        },
+        { "id": "restaurant-d09-t11", "speakerId": "server", "speakerRole": "staff", "isLearnerTurn": false, "targetText": "Très bien. Ça vous fait douze euros cinquante.", "translation": "Certo. Deu doze euros e cinquenta.", "intention": "Informar o total." },
+        { "id": "restaurant-d09-t12", "speakerId": "client", "speakerRole": "client", "isLearnerTurn": true, "targetText": "Je peux payer par carte ?", "translation": "Posso pagar com cartão?", "intention": "Perguntar se pode pagar com cartão." },
+        { "id": "restaurant-d09-t13", "speakerId": "server", "speakerRole": "staff", "isLearnerTurn": false, "targetText": "Oui, bien sûr.", "translation": "Sim, claro.", "intention": "Aceitar a forma de pagamento." },
+        { "id": "restaurant-d09-t14", "speakerId": "client", "speakerRole": "client", "isLearnerTurn": true, "targetText": "Merci, au revoir.", "translation": "Obrigado, tchau.", "intention": "Agradecer e despedir-se." },
+        { "id": "restaurant-d09-t15", "speakerId": "server", "speakerRole": "staff", "isLearnerTurn": false, "targetText": "Au revoir, bonne journée.", "translation": "Tchau, tenha um bom dia.", "intention": "Despedir-se." }
+      ],
+      "reusableStructures": [
+        { "targetText": "Je vous écoute.", "translation": "Pode pedir.", "exampleTarget": "Bonjour madame, je vous écoute.", "exampleTranslation": "Bom dia, senhora, pode pedir." },
+        { "targetText": "Avec ceci ?", "translation": "Mais alguma coisa?", "exampleTarget": "Et avec ceci, monsieur ?", "exampleTranslation": "E mais alguma coisa, senhor?" },
+        { "targetText": "Je vais aussi prendre…", "translation": "Também vou querer…", "exampleTarget": "Je vais aussi prendre une part de tarte.", "exampleTranslation": "Também vou querer uma fatia de torta." },
+        { "targetText": "Vous voulez… avec ?", "translation": "Quer… para acompanhar?", "exampleTarget": "Vous voulez du pain avec ?", "exampleTranslation": "Quer pão para acompanhar?" }
+      ]
+    },
+    {
+      "id": "restaurant-d10",
+      "title": "Un verre au bar",
+      "type": "core",
+      "context": "Três amigos pedem bebidas em um bar e, no fim, decidem dividir a conta igualmente.",
+      "participantIds": ["client", "companion", "server"],
+      "tags": ["bar", "boissons", "addition-partagee", "groupe"],
+      "turns": [
+        { "id": "restaurant-d10-t01", "speakerId": "server", "speakerRole": "staff", "isLearnerTurn": false, "targetText": "Bonsoir, qu’est-ce que vous prendrez ?", "translation": "Boa noite, o que vocês vão querer?", "intention": "Perguntar o pedido de bebidas." },
+        {
+          "id": "restaurant-d10-t02", "speakerId": "client", "speakerRole": "client", "isLearnerTurn": true,
+          "targetText": "Deux bières pression et une eau gazeuse, s’il vous plaît.", "translation": "Dois chopes e uma água com gás, por favor.", "intention": "Pedir bebidas para o grupo.",
+          "alternatives": [
+            { "targetText": "Trois verres de vin rouge, s’il vous plaît.", "translation": "Três taças de vinho tinto, por favor." },
+            { "targetText": "Un demi et deux limonades, s’il vous plaît.", "translation": "Um chope de 25 cl e duas limonadas, por favor." },
+            { "targetText": "Vous avez des bières sans alcool ?", "translation": "Vocês têm cerveja sem álcool?" }
+          ]
+        },
+        { "id": "restaurant-d10-t03", "speakerId": "server", "speakerRole": "staff", "isLearnerTurn": false, "targetText": "Des demis ou des pintes ?", "translation": "Chopes pequenos ou pints?", "intention": "Perguntar o tamanho das cervejas.", "note": "Un demi corresponde normalmente a 25 cl; une pinte, a 50 cl." },
+        {
+          "id": "restaurant-d10-t04", "speakerId": "client", "speakerRole": "client", "isLearnerTurn": true,
+          "targetText": "Des demis, s’il vous plaît.", "translation": "Chopes pequenos, por favor.", "intention": "Escolher o tamanho das cervejas.",
+          "alternatives": [
+            { "targetText": "Deux pintes, s’il vous plaît.", "translation": "Dois pints, por favor." },
+            { "targetText": "Une pinte et un demi.", "translation": "Um pint e um chope pequeno." },
+            { "targetText": "C’est quelle quantité, un demi ?", "translation": "Qual é a quantidade de um chope pequeno?" }
+          ]
+        },
+        { "id": "restaurant-d10-t05", "speakerId": "server", "speakerRole": "staff", "isLearnerTurn": false, "targetText": "Vous êtes à la table au fond ?", "translation": "Vocês estão na mesa lá no fundo?", "intention": "Confirmar a mesa." },
+        {
+          "id": "restaurant-d10-t06", "speakerId": "client", "speakerRole": "client", "isLearnerTurn": true,
+          "targetText": "Oui, juste à côté de la fenêtre.", "translation": "Sim, bem ao lado da janela.", "intention": "Confirmar onde o grupo está.",
+          "alternatives": [
+            { "targetText": "Oui, c’est ça.", "translation": "Sim, é isso." },
+            { "targetText": "Non, on est près de l’entrée.", "translation": "Não, estamos perto da entrada." },
+            { "targetText": "On est en terrasse.", "translation": "Estamos no terraço." }
+          ]
+        },
+        { "id": "restaurant-d10-t07", "speakerId": "server", "speakerRole": "staff", "isLearnerTurn": false, "targetText": "Très bien, je vous apporte ça.", "translation": "Certo, já trago.", "intention": "Confirmar o pedido." },
+        { "id": "restaurant-d10-t08", "speakerId": "companion", "speakerRole": "companion", "isLearnerTurn": false, "targetText": "On reprend quelque chose ?", "translation": "Vamos pedir mais alguma coisa?", "intention": "Sugerir outra rodada." },
+        {
+          "id": "restaurant-d10-t09", "speakerId": "client", "speakerRole": "client", "isLearnerTurn": true,
+          "targetText": "Oui, je vais prendre une limonade cette fois.", "translation": "Sim, desta vez vou querer uma limonada.", "intention": "Escolher outra bebida.",
+          "alternatives": [
+            { "targetText": "Non merci, ça me suffit.", "translation": "Não, obrigado, para mim já está bom." },
+            { "targetText": "Je vais reprendre la même chose.", "translation": "Vou pedir a mesma coisa de novo." },
+            { "targetText": "Juste un verre d’eau pour moi.", "translation": "Só um copo d’água para mim." }
+          ]
+        },
+        { "id": "restaurant-d10-t10", "speakerId": "server", "speakerRole": "staff", "isLearnerTurn": false, "targetText": "Vous désirez autre chose ?", "translation": "Desejam mais alguma coisa?", "intention": "Oferecer outros itens." },
+        { "id": "restaurant-d10-t11", "speakerId": "client", "speakerRole": "client", "isLearnerTurn": true, "targetText": "Non merci. On peut avoir l’addition ?", "translation": "Não, obrigado. Pode trazer a conta para a gente?", "intention": "Recusar e pedir a conta." },
+        { "id": "restaurant-d10-t12", "speakerId": "server", "speakerRole": "staff", "isLearnerTurn": false, "targetText": "Vous payez ensemble ou séparément ?", "translation": "Vocês vão pagar juntos ou separado?", "intention": "Perguntar como será o pagamento." },
+        {
+          "id": "restaurant-d10-t13", "speakerId": "client", "speakerRole": "client", "isLearnerTurn": true,
+          "targetText": "On peut partager l’addition en trois ?", "translation": "Dá para dividir a conta em três?", "intention": "Pedir para dividir a conta igualmente.",
+          "alternatives": [
+            { "targetText": "On va payer séparément.", "translation": "Vamos pagar separado." },
+            { "targetText": "Je vais tout régler.", "translation": "Eu vou pagar tudo." },
+            { "targetText": "On paie ensemble, par carte.", "translation": "Vamos pagar juntos, com cartão." }
+          ]
+        },
+        { "id": "restaurant-d10-t14", "speakerId": "server", "speakerRole": "staff", "isLearnerTurn": false, "targetText": "Bien sûr. Ça fait huit euros chacun.", "translation": "Claro. Dá oito euros para cada um.", "intention": "Confirmar a divisão e informar o valor individual." },
+        { "id": "restaurant-d10-t15", "speakerId": "client", "speakerRole": "client", "isLearnerTurn": true, "targetText": "Parfait, je paie par carte.", "translation": "Perfeito, vou pagar com cartão.", "intention": "Informar a forma de pagamento." },
+        { "id": "restaurant-d10-t16", "speakerId": "server", "speakerRole": "staff", "isLearnerTurn": false, "targetText": "Vous pouvez approcher votre carte.", "translation": "Pode aproximar o cartão.", "intention": "Orientar o pagamento por aproximação." }
+      ],
+      "reusableStructures": [
+        { "targetText": "Qu’est-ce que vous prendrez ?", "translation": "O que vocês vão querer?", "exampleTarget": "Qu’est-ce que vous prendrez à boire ?", "exampleTranslation": "O que vocês vão querer para beber?" },
+        { "targetText": "Je vais reprendre la même chose.", "translation": "Vou pedir a mesma coisa de novo.", "exampleTarget": "On va reprendre deux bières.", "exampleTranslation": "Vamos pedir mais duas cervejas." },
+        { "targetText": "Ensemble ou séparément ?", "translation": "Juntos ou separado?", "exampleTarget": "Vous réglez ensemble ou séparément ?", "exampleTranslation": "Vocês vão pagar juntos ou separado?" },
+        { "targetText": "On peut partager l’addition en… ?", "translation": "Dá para dividir a conta em…?", "exampleTarget": "On peut partager l’addition en deux ?", "exampleTranslation": "Dá para dividir a conta em dois?" }
+      ]
+    },
+    {
+      "id": "restaurant-d11",
+      "title": "Au restaurant self-service",
+      "type": "common_variation",
+      "context": "Em um restaurante self-service, o cliente escolhe um prato, troca o acompanhamento e pede o molho à parte antes de pagar no caixa.",
+      "participantIds": ["client", "server", "cashier"],
+      "tags": ["self-service", "accompagnement", "sauce-a-part", "caisse"],
+      "turns": [
+        { "id": "restaurant-d11-t01", "speakerId": "server", "speakerRole": "staff", "isLearnerTurn": false, "targetText": "Bonjour, qu’est-ce que je vous sers ?", "translation": "Olá, o que vai querer?", "intention": "Perguntar qual prato o cliente deseja." },
+        {
+          "id": "restaurant-d11-t02", "speakerId": "client", "speakerRole": "client", "isLearnerTurn": true,
+          "targetText": "Le poulet rôti, s’il vous plaît.", "translation": "O frango assado, por favor.", "intention": "Escolher o prato principal.",
+          "alternatives": [
+            { "targetText": "Le poisson du jour, s’il vous plaît.", "translation": "O peixe do dia, por favor." },
+            { "targetText": "Une part de quiche, s’il vous plaît.", "translation": "Um pedaço de quiche, por favor." },
+            { "targetText": "Qu’est-ce que vous avez comme plat végétarien ?", "translation": "O que vocês têm de prato vegetariano?" }
+          ]
+        },
+        { "id": "restaurant-d11-t03", "speakerId": "server", "speakerRole": "staff", "isLearnerTurn": false, "targetText": "Avec des frites ?", "translation": "Com batatas fritas?", "intention": "Propor o acompanhamento padrão." },
+        {
+          "id": "restaurant-d11-t04", "speakerId": "client", "speakerRole": "client", "isLearnerTurn": true,
+          "targetText": "Je peux remplacer les frites par des légumes ?", "translation": "Posso trocar as batatas fritas por legumes?", "intention": "Pedir a troca do acompanhamento.",
+          "alternatives": [
+            { "targetText": "Oui, avec des frites.", "translation": "Sim, com batatas fritas." },
+            { "targetText": "Je peux avoir du riz à la place ?", "translation": "Posso pedir arroz no lugar?" },
+            { "targetText": "Sans accompagnement, merci.", "translation": "Sem acompanhamento, obrigado." }
+          ]
+        },
+        { "id": "restaurant-d11-t05", "speakerId": "server", "speakerRole": "staff", "isLearnerTurn": false, "targetText": "Oui, bien sûr.", "translation": "Sim, claro.", "intention": "Aceitar a troca." },
+        {
+          "id": "restaurant-d11-t06", "speakerId": "client", "speakerRole": "client", "isLearnerTurn": true,
+          "targetText": "Et je voudrais la sauce à part, s’il vous plaît.", "translation": "E eu gostaria do molho à parte, por favor.", "intention": "Pedir o molho à parte.",
+          "alternatives": [
+            { "targetText": "Sans sauce, s’il vous plaît.", "translation": "Sem molho, por favor." },
+            { "targetText": "Vous pouvez mettre très peu de sauce ?", "translation": "Pode colocar bem pouco molho?" },
+            { "targetText": "La sauce sur les légumes, s’il vous plaît.", "translation": "O molho sobre os legumes, por favor." }
+          ]
+        },
+        { "id": "restaurant-d11-t07", "speakerId": "server", "speakerRole": "staff", "isLearnerTurn": false, "targetText": "Pas de problème. Prenez votre plateau et passez à la caisse.", "translation": "Sem problema. Pegue a bandeja e passe no caixa.", "intention": "Orientar o cliente no self-service." },
+        { "id": "restaurant-d11-t08", "speakerId": "client", "speakerRole": "client", "isLearnerTurn": true, "targetText": "Merci.", "translation": "Obrigado.", "intention": "Agradecer." },
+        { "id": "restaurant-d11-t09", "speakerId": "cashier", "speakerRole": "staff", "isLearnerTurn": false, "targetText": "Vous prenez une boisson avec le menu ?", "translation": "Vai querer uma bebida com o menu?", "intention": "Oferecer uma bebida." },
+        {
+          "id": "restaurant-d11-t10", "speakerId": "client", "speakerRole": "client", "isLearnerTurn": true,
+          "targetText": "Oui, une eau gazeuse.", "translation": "Sim, uma água com gás.", "intention": "Escolher uma bebida.",
+          "alternatives": [
+            { "targetText": "Une eau plate, s’il vous plaît.", "translation": "Uma água sem gás, por favor." },
+            { "targetText": "Un jus de pomme, s’il vous plaît.", "translation": "Um suco de maçã, por favor." },
+            { "targetText": "Non merci, pas de boisson.", "translation": "Não, obrigado, sem bebida." }
+          ]
+        },
+        { "id": "restaurant-d11-t11", "speakerId": "cashier", "speakerRole": "staff", "isLearnerTurn": false, "targetText": "Et comme dessert ?", "translation": "E de sobremesa?", "intention": "Oferecer uma sobremesa." },
+        {
+          "id": "restaurant-d11-t12", "speakerId": "client", "speakerRole": "client", "isLearnerTurn": true,
+          "targetText": "Une salade de fruits, s’il vous plaît.", "translation": "Uma salada de frutas, por favor.", "intention": "Escolher uma sobremesa.",
+          "alternatives": [
+            { "targetText": "Un yaourt nature, s’il vous plaît.", "translation": "Um iogurte natural, por favor." },
+            { "targetText": "Qu’est-ce que vous avez comme desserts ?", "translation": "O que vocês têm de sobremesa?" },
+            { "targetText": "Rien pour moi, merci.", "translation": "Nada para mim, obrigado." }
+          ]
+        },
+        { "id": "restaurant-d11-t13", "speakerId": "cashier", "speakerRole": "staff", "isLearnerTurn": false, "targetText": "C’est pour manger sur place ?", "translation": "É para comer aqui?", "intention": "Confirmar onde será consumido." },
+        { "id": "restaurant-d11-t14", "speakerId": "client", "speakerRole": "client", "isLearnerTurn": true, "targetText": "Oui, sur place.", "translation": "Sim, aqui mesmo.", "intention": "Informar que comerá no local." },
+        { "id": "restaurant-d11-t15", "speakerId": "cashier", "speakerRole": "staff", "isLearnerTurn": false, "targetText": "Ça fait quinze euros. Vous payez comment ?", "translation": "Deu quinze euros. Como vai pagar?", "intention": "Informar o total e perguntar a forma de pagamento." },
+        { "id": "restaurant-d11-t16", "speakerId": "client", "speakerRole": "client", "isLearnerTurn": true, "targetText": "Par carte, s’il vous plaît.", "translation": "Com cartão, por favor.", "intention": "Informar a forma de pagamento." }
+      ],
+      "reusableStructures": [
+        { "targetText": "Je peux remplacer… par… ?", "translation": "Posso trocar… por…?", "exampleTarget": "Je peux remplacer le riz par une salade ?", "exampleTranslation": "Posso trocar o arroz por uma salada?" },
+        { "targetText": "À la place", "translation": "No lugar", "exampleTarget": "Je peux avoir des légumes à la place ?", "exampleTranslation": "Posso pedir legumes no lugar?" },
+        { "targetText": "La sauce à part", "translation": "O molho à parte", "exampleTarget": "Je voudrais la vinaigrette à part.", "exampleTranslation": "Eu gostaria do molho da salada à parte." },
+        { "targetText": "Passez à la caisse.", "translation": "Passe no caixa.", "exampleTarget": "Vous pouvez directement passer à la caisse.", "exampleTranslation": "Você pode ir direto ao caixa." }
+      ]
+    },
+    {
+      "id": "restaurant-d12",
+      "title": "Une petite erreur dans la commande",
+      "type": "occasional_event",
+      "context": "O prato chega com o acompanhamento errado; o cliente pede a correção, solicita mais pão e depois pede para embalar o que sobrou.",
+      "participantIds": ["client", "server"],
+      "tags": ["erreur-commande", "plat-froid", "pain-supplementaire", "restes", "a-emporter"],
+      "turns": [
+        { "id": "restaurant-d12-t01", "speakerId": "server", "speakerRole": "staff", "isLearnerTurn": false, "targetText": "Et voilà, le steak-frites.", "translation": "Aqui está, o bife com batatas fritas.", "intention": "Entregar o prato." },
+        {
+          "id": "restaurant-d12-t02", "speakerId": "client", "speakerRole": "client", "isLearnerTurn": true,
+          "targetText": "Excusez-moi, j’avais demandé des légumes, pas des frites.", "translation": "Com licença, eu tinha pedido legumes, não batatas fritas.", "intention": "Informar um erro no acompanhamento.",
+          "alternatives": [
+            { "targetText": "Excusez-moi, ce n’est pas ce que j’ai commandé.", "translation": "Com licença, não foi isso que eu pedi." },
+            { "targetText": "Excusez-moi, mon plat est froid.", "translation": "Com licença, meu prato está frio." },
+            { "targetText": "J’avais demandé le plat sans sauce.", "translation": "Eu tinha pedido o prato sem molho." }
+          ]
+        },
+        { "id": "restaurant-d12-t03", "speakerId": "server", "speakerRole": "staff", "isLearnerTurn": false, "targetText": "Je suis désolé. Je vous change l’accompagnement tout de suite.", "translation": "Desculpe. Vou trocar o acompanhamento agora mesmo.", "intention": "Pedir desculpas e oferecer a correção." },
+        { "id": "restaurant-d12-t04", "speakerId": "client", "speakerRole": "client", "isLearnerTurn": true, "targetText": "Merci.", "translation": "Obrigado.", "intention": "Aceitar a correção e agradecer." },
+        { "id": "restaurant-d12-t05", "speakerId": "server", "speakerRole": "staff", "isLearnerTurn": false, "targetText": "Voilà, avec les légumes cette fois.", "translation": "Aqui está, desta vez com os legumes.", "intention": "Entregar o prato corrigido." },
+        {
+          "id": "restaurant-d12-t06", "speakerId": "client", "speakerRole": "client", "isLearnerTurn": true,
+          "targetText": "Parfait, merci beaucoup.", "translation": "Perfeito, muito obrigado.", "intention": "Confirmar que o pedido agora está correto.",
+          "alternatives": [
+            { "targetText": "Oui, c’est bien ça, merci.", "translation": "Sim, é isso mesmo, obrigado." },
+            { "targetText": "Merci d’avoir corrigé.", "translation": "Obrigado por corrigir." },
+            { "targetText": "Désolé, mais ce ne sont toujours pas les bons légumes.", "translation": "Desculpe, mas ainda não são os legumes certos." }
+          ]
+        },
+        { "id": "restaurant-d12-t07", "speakerId": "client", "speakerRole": "client", "isLearnerTurn": true, "targetText": "On pourrait avoir encore un peu de pain, s’il vous plaît ?", "translation": "Pode trazer mais um pouco de pão para a gente, por favor?", "intention": "Pedir mais pão." },
+        { "id": "restaurant-d12-t08", "speakerId": "server", "speakerRole": "staff", "isLearnerTurn": false, "targetText": "Bien sûr, je vous apporte ça.", "translation": "Claro, já trago.", "intention": "Aceitar o pedido adicional." },
+        { "id": "restaurant-d12-t09", "speakerId": "server", "speakerRole": "staff", "isLearnerTurn": false, "targetText": "Tout va bien maintenant ?", "translation": "Agora está tudo certo?", "intention": "Verificar se o problema foi resolvido." },
+        {
+          "id": "restaurant-d12-t10", "speakerId": "client", "speakerRole": "client", "isLearnerTurn": true,
+          "targetText": "Oui, très bien, merci.", "translation": "Sim, está tudo ótimo, obrigado.", "intention": "Confirmar que está satisfeito.",
+          "alternatives": [
+            { "targetText": "Oui, tout va bien maintenant.", "translation": "Sim, agora está tudo certo." },
+            { "targetText": "Oui, les légumes sont très bons.", "translation": "Sim, os legumes estão muito bons." },
+            { "targetText": "Pas tout à fait, la viande est un peu trop cuite.", "translation": "Não totalmente, a carne está um pouco passada demais." }
+          ]
+        },
+        { "id": "restaurant-d12-t11", "speakerId": "server", "speakerRole": "staff", "isLearnerTurn": false, "targetText": "Vous prendrez un dessert ?", "translation": "Vai querer uma sobremesa?", "intention": "Oferecer sobremesa." },
+        {
+          "id": "restaurant-d12-t12", "speakerId": "client", "speakerRole": "client", "isLearnerTurn": true,
+          "targetText": "Non merci. Vous pouvez emballer ce qui reste ?", "translation": "Não, obrigado. Pode embalar o que sobrou?", "intention": "Recusar sobremesa e pedir para embalar as sobras.",
+          "alternatives": [
+            { "targetText": "Oui, je vais prendre la tarte aux pommes.", "translation": "Sim, vou querer a torta de maçã." },
+            { "targetText": "Non merci, mais je vais prendre un café.", "translation": "Não, obrigado, mas vou querer um café." },
+            { "targetText": "Non merci. Je peux emporter le reste ?", "translation": "Não, obrigado. Posso levar o que sobrou?" }
+          ]
+        },
+        { "id": "restaurant-d12-t13", "speakerId": "server", "speakerRole": "staff", "isLearnerTurn": false, "targetText": "Oui, bien sûr. Je vais vous mettre ça dans une boîte.", "translation": "Sim, claro. Vou colocar em uma embalagem para você.", "intention": "Aceitar e explicar como embalará as sobras." },
+        { "id": "restaurant-d12-t14", "speakerId": "client", "speakerRole": "client", "isLearnerTurn": true, "targetText": "Merci beaucoup.", "translation": "Muito obrigado.", "intention": "Agradecer." },
+        { "id": "restaurant-d12-t15", "speakerId": "server", "speakerRole": "staff", "isLearnerTurn": false, "targetText": "Vous désirez autre chose ?", "translation": "Deseja mais alguma coisa?", "intention": "Perguntar se o cliente precisa de algo mais." },
+        {
+          "id": "restaurant-d12-t16", "speakerId": "client", "speakerRole": "client", "isLearnerTurn": true,
+          "targetText": "Non, ce sera tout. L’addition, s’il vous plaît.", "translation": "Não, é só isso. A conta, por favor.", "intention": "Encerrar o pedido e pedir a conta.",
+          "alternatives": [
+            { "targetText": "Non merci, juste l’addition.", "translation": "Não, obrigado, só a conta." },
+            { "targetText": "Oui, un café, s’il vous plaît.", "translation": "Sim, um café, por favor." },
+            { "targetText": "On peut payer à la caisse ?", "translation": "Podemos pagar no caixa?" }
+          ]
+        },
+        { "id": "restaurant-d12-t17", "speakerId": "server", "speakerRole": "staff", "isLearnerTurn": false, "targetText": "Bien sûr. Vous payez par carte ?", "translation": "Claro. Vai pagar com cartão?", "intention": "Perguntar a forma de pagamento." },
+        { "id": "restaurant-d12-t18", "speakerId": "client", "speakerRole": "client", "isLearnerTurn": true, "targetText": "Oui, par carte.", "translation": "Sim, com cartão.", "intention": "Informar a forma de pagamento." }
+      ],
+      "reusableStructures": [
+        { "targetText": "J’avais demandé…, pas…", "translation": "Eu tinha pedido…, não…", "exampleTarget": "J’avais demandé du riz, pas des frites.", "exampleTranslation": "Eu tinha pedido arroz, não batatas fritas." },
+        { "targetText": "Je vous change… tout de suite.", "translation": "Vou trocar… agora mesmo.", "exampleTarget": "Je vous change l’assiette tout de suite.", "exampleTranslation": "Vou trocar o prato agora mesmo." },
+        { "targetText": "On pourrait avoir encore un peu de… ?", "translation": "Pode trazer mais um pouco de…?", "exampleTarget": "On pourrait avoir encore un peu d’eau ?", "exampleTranslation": "Pode trazer mais um pouco de água?" },
+        { "targetText": "Vous pouvez emballer ce qui reste ?", "translation": "Pode embalar o que sobrou?", "exampleTarget": "Vous pouvez me mettre le reste à emporter ?", "exampleTranslation": "Pode colocar o que sobrou para viagem?" }
+      ]
+    }
+  ]
+}

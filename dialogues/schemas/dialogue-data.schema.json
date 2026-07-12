@@ -1,0 +1,220 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/schemas/dialogue-data.schema.json",
+  "title": "Dados de uma categoria de diálogos",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "id",
+    "title",
+    "description",
+    "targetLanguage",
+    "supportLanguage",
+    "practiceRole",
+    "participants",
+    "dialogues"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": 1
+    },
+    "id": {
+      "$ref": "#/$defs/identifier"
+    },
+    "title": {
+      "$ref": "#/$defs/nonEmptyText"
+    },
+    "description": {
+      "$ref": "#/$defs/nonEmptyText"
+    },
+    "targetLanguage": {
+      "$ref": "#/$defs/languageTag"
+    },
+    "supportLanguage": {
+      "$ref": "#/$defs/languageTag"
+    },
+    "practiceRole": {
+      "$ref": "#/$defs/identifier"
+    },
+    "participants": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/participant"
+      }
+    },
+    "dialogues": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/dialogue"
+      }
+    }
+  },
+  "$defs": {
+    "identifier": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+    },
+    "nonEmptyText": {
+      "type": "string",
+      "minLength": 1
+    },
+    "languageTag": {
+      "type": "string",
+      "pattern": "^[a-z]{2,3}(?:-[A-Z][a-z]{3})?(?:-[A-Z]{2}|-[0-9]{3})?$"
+    },
+    "participant": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "role", "label"],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "role": {
+          "$ref": "#/$defs/identifier"
+        },
+        "label": {
+          "$ref": "#/$defs/nonEmptyText"
+        }
+      }
+    },
+    "dialogue": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "title",
+        "type",
+        "context",
+        "participantIds",
+        "turns",
+        "reusableStructures"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "title": {
+          "$ref": "#/$defs/nonEmptyText"
+        },
+        "type": {
+          "enum": ["core", "common_variation", "occasional_event"]
+        },
+        "context": {
+          "$ref": "#/$defs/nonEmptyText"
+        },
+        "participantIds": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/identifier"
+          }
+        },
+        "tags": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/identifier"
+          }
+        },
+        "turns": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/turn"
+          }
+        },
+        "reusableStructures": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/reusableStructure"
+          }
+        }
+      }
+    },
+    "turn": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "speakerId",
+        "speakerRole",
+        "isLearnerTurn",
+        "targetText",
+        "translation",
+        "intention"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "speakerId": {
+          "$ref": "#/$defs/identifier"
+        },
+        "speakerRole": {
+          "$ref": "#/$defs/identifier"
+        },
+        "isLearnerTurn": {
+          "type": "boolean"
+        },
+        "targetText": {
+          "$ref": "#/$defs/nonEmptyText"
+        },
+        "translation": {
+          "$ref": "#/$defs/nonEmptyText"
+        },
+        "intention": {
+          "$ref": "#/$defs/nonEmptyText"
+        },
+        "note": {
+          "$ref": "#/$defs/nonEmptyText"
+        },
+        "alternatives": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/alternative"
+          }
+        }
+      }
+    },
+    "alternative": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["targetText", "translation"],
+      "properties": {
+        "targetText": {
+          "$ref": "#/$defs/nonEmptyText"
+        },
+        "translation": {
+          "$ref": "#/$defs/nonEmptyText"
+        },
+        "note": {
+          "$ref": "#/$defs/nonEmptyText"
+        }
+      }
+    },
+    "reusableStructure": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["targetText", "exampleTarget"],
+      "properties": {
+        "targetText": {
+          "$ref": "#/$defs/nonEmptyText"
+        },
+        "translation": {
+          "$ref": "#/$defs/nonEmptyText"
+        },
+        "exampleTarget": {
+          "$ref": "#/$defs/nonEmptyText"
+        },
+        "exampleTranslation": {
+          "$ref": "#/$defs/nonEmptyText"
+        }
+      }
+    }
+  }
+}
