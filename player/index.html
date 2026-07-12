@@ -96,7 +96,10 @@
   .wrap {
     width: min(560px, 100% - 28px);
     margin: 0 auto;
-    padding: clamp(22px, 5vw, 40px) 0 64px;
+    padding:
+      calc(clamp(22px, 5vw, 40px) + env(safe-area-inset-top) + 8px)
+      0
+      calc(64px + env(safe-area-inset-bottom));
   }
 
   /* ===== Tela de configuração ===== */
