@@ -1,0 +1,2007 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Estação de Escuta</title>
+
+<!-- ===== PWA ===== -->
+<meta name="theme-color" content="#0F1518" />
+<meta name="color-scheme" content="dark" />
+<link rel="manifest" href="./manifest.webmanifest" />
+<link rel="icon" type="image/png" sizes="192x192" href="./icon-192.png" />
+<link rel="icon" type="image/png" sizes="512x512" href="./icon-512.png" />
+
+<!-- iOS: instalação na tela de início -->
+<meta name="mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="Estação" />
+<link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png?v=2">
+<link rel="apple-touch-icon-precomposed" sizes="180x180" href="./apple-touch-icon.png?v=2">
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Hanken+Grotesk:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap');
+
+  :root {
+    color-scheme: dark;
+    --bg:        #0F1518;
+    --bg-2:      #141D21;
+    --panel:     #18242A;
+    --panel-2:   #1E2D34;
+    --ink:       #EAF0EE;
+    --dim:       #8DA09D;
+    --faint:     #5E726F;
+    --line:      rgba(255,255,255,.085);
+    --line-2:    rgba(255,255,255,.14);
+
+    /* âmbar = idioma-alvo (o que você produz/imita) */
+    --amber:     #E8A33D;
+    --amber-ink: #1A1206;
+    --amber-soft:rgba(232,163,61,.16);
+    /* teal = português + progresso */
+    --teal:      #57D7C9;
+    --teal-soft: rgba(87,215,201,.14);
+    --rose:      #F2748A;
+
+    --radius:    16px;
+    --shadow:    0 24px 70px rgba(0,0,0,.5);
+    --display:   'Space Grotesk', system-ui, sans-serif;
+    --body:      'Hanken Grotesk', system-ui, sans-serif;
+    --mono:      'DM Mono', ui-monospace, monospace;
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body { height: 100%; }
+
+  body {
+    margin: 0;
+    font-family: var(--body);
+    color: var(--ink);
+    line-height: 1.5;
+    background:
+      radial-gradient(120% 80% at 100% 0%, rgba(232,163,61,.07), transparent 45%),
+      radial-gradient(120% 90% at 0% 100%, rgba(87,215,201,.06), transparent 45%),
+      var(--bg);
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* leve textura de "scanline" do console, bem discreta */
+  body::before {
+    content: '';
+    position: fixed; inset: 0; z-index: 0; pointer-events: none;
+    background-image: repeating-linear-gradient(0deg, rgba(255,255,255,.014) 0 1px, transparent 1px 3px);
+    mix-blend-mode: overlay;
+  }
+
+  button, input, select { font: inherit; color: inherit; }
+  button { cursor: pointer; border: none; background: none; }
+  button:disabled { opacity: .4; cursor: not-allowed; }
+
+  .mono { font-family: var(--mono); }
+
+  .eyebrow {
+    font-family: var(--mono);
+    font-size: .68rem;
+    letter-spacing: .22em;
+    text-transform: uppercase;
+    color: var(--faint);
+  }
+
+  /* ===== Estrutura de tela ===== */
+  .screen { position: relative; z-index: 1; min-height: 100dvh; }
+  .screen[hidden] { display: none; }
+
+  .wrap {
+    width: min(560px, 100% - 28px);
+    margin: 0 auto;
+    padding: clamp(22px, 5vw, 40px) 0 64px;
+  }
+
+  /* ===== Tela de configuração ===== */
+  .config-head { margin-bottom: 26px; }
+  .config-head .eyebrow { margin-bottom: 10px; }
+  .config-head h1 {
+    font-family: var(--display);
+    font-weight: 700;
+    font-size: clamp(2.1rem, 8vw, 3rem);
+    line-height: .98;
+    letter-spacing: -.03em;
+    margin: 0 0 .5rem;
+  }
+  .config-head h1 .accent { color: var(--amber); }
+  .config-head p { margin: 0; color: var(--dim); max-width: 42ch; }
+
+  .steps { display: grid; gap: 14px; }
+
+  .step {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 16px 16px 18px;
+    transition: border-color .2s ease, opacity .2s ease;
+  }
+  .step.locked { opacity: .5; pointer-events: none; }
+  .step.done { border-color: rgba(87,215,201,.4); }
+
+  .step-top {
+    display: flex; align-items: baseline; gap: 10px;
+    margin-bottom: 12px;
+  }
+  .step-num {
+    font-family: var(--mono);
+    font-size: .8rem;
+    color: var(--amber);
+    border: 1px solid var(--line-2);
+    border-radius: 7px;
+    padding: 2px 7px;
+    line-height: 1;
+  }
+  .step.done .step-num { color: var(--teal); border-color: rgba(87,215,201,.45); }
+  .step-title { font-weight: 600; font-size: 1.02rem; }
+  .step-sub { color: var(--dim); font-size: .86rem; margin: -4px 0 12px; }
+
+  .file-btn {
+    display: inline-flex; align-items: center; gap: 9px;
+    background: var(--panel-2);
+    border: 1px solid var(--line-2);
+    border-radius: 11px;
+    padding: 11px 15px;
+    font-weight: 500;
+    position: relative;
+    transition: border-color .15s ease, transform .12s ease;
+  }
+  .file-btn:hover:not(:disabled) { border-color: var(--amber); transform: translateY(-1px); }
+  .file-btn input[type=file] {
+    position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%;
+  }
+  .file-btn .ic { color: var(--amber); font-size: 1.05rem; }
+
+  .file-meta { color: var(--dim); font-size: .85rem; margin-top: 9px; min-height: 1.2em; }
+  .file-meta.ok { color: var(--teal); }
+  .file-meta.warn { color: var(--amber); }
+
+  label.field { display: block; }
+  .field-label {
+    font-family: var(--mono);
+    font-size: .68rem; letter-spacing: .14em; text-transform: uppercase;
+    color: var(--faint); margin-bottom: 7px;
+  }
+
+  select, input[type=number] {
+    width: 100%;
+    background: var(--bg-2);
+    border: 1px solid var(--line-2);
+    border-radius: 10px;
+    padding: 11px 12px;
+    font-family: var(--body);
+  }
+  select:focus, input:focus { outline: 2px solid var(--amber); outline-offset: 1px; }
+
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .stack { display: grid; gap: 14px; }
+
+  /* segmented control (toggles temáticos) */
+  .seg {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: 1fr;
+    background: var(--bg-2);
+    border: 1px solid var(--line-2);
+    border-radius: 11px;
+    padding: 4px;
+    gap: 4px;
+  }
+  .seg button {
+    border-radius: 8px;
+    padding: 9px 6px;
+    font-weight: 600;
+    font-size: .92rem;
+    color: var(--dim);
+    transition: background .15s ease, color .15s ease;
+    line-height: 1.15;
+  }
+  .seg button .sg-sub {
+    display: block; font-family: var(--mono); font-weight: 400;
+    font-size: .62rem; letter-spacing: .03em; color: var(--faint); margin-top: 3px;
+  }
+  .seg button[aria-pressed="true"] { background: var(--amber); color: var(--amber-ink); }
+  .seg button[aria-pressed="true"] .sg-sub { color: rgba(26,18,6,.66); }
+  .seg button[disabled] { opacity: .35; }
+
+  .mode-hint { color: var(--dim); font-size: .85rem; min-height: 1.2em; }
+
+  .start-row { margin-top: 6px; }
+  .btn-primary {
+    width: 100%;
+    background: var(--amber);
+    color: var(--amber-ink);
+    font-family: var(--display);
+    font-weight: 700;
+    font-size: 1.08rem;
+    letter-spacing: -.01em;
+    border-radius: 13px;
+    padding: 15px;
+    transition: transform .12s ease, box-shadow .2s ease, opacity .2s ease;
+  }
+  .btn-primary:hover:not(:disabled) { transform: translateY(-1px); box-shadow: 0 12px 30px rgba(232,163,61,.28); }
+
+  /* ===== Tela do player ===== */
+  .player-head {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 12px; margin-bottom: 18px;
+  }
+  .ph-id { display: flex; flex-direction: column; gap: 3px; }
+  .ph-id .eyebrow { letter-spacing: .18em; }
+  .ph-id strong { font-family: var(--display); font-weight: 700; font-size: 1.15rem; letter-spacing: -.02em; }
+  .head-actions { display: flex; gap: 8px; align-items: center; }
+  .icon-btn {
+    width: 42px; height: 42px;
+    display: inline-flex; align-items: center; justify-content: center;
+    border: 1px solid var(--line-2); border-radius: 11px;
+    background: var(--panel);
+    font-size: 1.15rem;
+    transition: border-color .15s ease, background .15s ease;
+  }
+  .icon-btn:hover { border-color: var(--amber); }
+  .gp-badge {
+    font-family: var(--mono); font-size: .64rem; letter-spacing: .04em;
+    color: var(--faint); border: 1px solid var(--line); border-radius: 999px;
+    padding: 6px 9px; white-space: nowrap;
+  }
+  .gp-badge.live { color: var(--teal); border-color: rgba(87,215,201,.4); }
+
+  /* painel "now playing" — o console */
+  .deck {
+    background: linear-gradient(180deg, var(--panel), var(--bg-2));
+    border: 1px solid var(--line-2);
+    border-radius: 22px;
+    padding: 22px 20px 20px;
+    box-shadow: var(--shadow);
+    position: relative;
+    overflow: hidden;
+  }
+  .deck-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 14px; }
+  .big-index {
+    font-family: var(--display);
+    font-weight: 700;
+    font-size: clamp(3.4rem, 18vw, 5.4rem);
+    line-height: .82;
+    letter-spacing: -.06em;
+    font-variant-numeric: tabular-nums;
+  }
+  .big-index .of {
+    display: block; font-size: .9rem; letter-spacing: .04em;
+    color: var(--faint); font-weight: 500; margin-top: 8px;
+    font-family: var(--mono);
+  }
+  .rec {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-family: var(--mono); font-size: .68rem; letter-spacing: .14em; text-transform: uppercase;
+    color: var(--faint);
+    border: 1px solid var(--line); border-radius: 999px; padding: 6px 11px;
+  }
+  .rec .dot {
+    width: 9px; height: 9px; border-radius: 50%;
+    background: var(--faint); transition: background .2s ease, box-shadow .2s ease;
+  }
+  .rec.target { color: var(--amber); border-color: rgba(232,163,61,.5); }
+  .rec.target .dot { background: var(--amber); box-shadow: 0 0 12px var(--amber); }
+  .rec.pt { color: var(--teal); border-color: rgba(87,215,201,.5); }
+  .rec.pt .dot { background: var(--teal); box-shadow: 0 0 12px var(--teal); }
+
+  .phrase {
+    margin: 18px 0 16px;
+    min-height: 4.8rem;
+    display: flex; align-items: center;
+    font-size: clamp(1.12rem, 5vw, 1.4rem);
+    line-height: 1.32;
+    font-weight: 500;
+  }
+  .phrase.is-pt { color: var(--teal); }
+  .phrase.is-target { color: var(--ink); }
+  .phrase.empty { color: var(--faint); font-weight: 400; font-size: 1rem; }
+
+  /* fita de fases — assinatura */
+  .ribbon { display: flex; align-items: center; gap: 0; margin: 4px 0 16px; flex-wrap: wrap; }
+  .lamp {
+    display: inline-flex; align-items: center; justify-content: center;
+    font-family: var(--mono); font-size: .64rem; letter-spacing: .06em;
+    padding: 5px 9px; border-radius: 7px;
+    border: 1px solid var(--line); color: var(--faint);
+    background: var(--bg-2);
+    transition: all .18s ease; white-space: nowrap;
+  }
+  .lamp.target.active { color: var(--amber-ink); background: var(--amber); border-color: var(--amber); }
+  .lamp.pt.active { color: var(--amber-ink); background: var(--teal); border-color: var(--teal); }
+  .lamp.done { opacity: .5; }
+  .lamp-gap { width: 16px; height: 1px; background: var(--line-2); margin: 0 2px; flex: 0 0 auto; }
+
+  /* progresso — tira de filme */
+  .filmstrip {
+    height: 8px; border-radius: 999px; overflow: hidden;
+    background: rgba(255,255,255,.07); border: 1px solid var(--line);
+  }
+  .filmstrip .fill {
+    height: 100%; width: 0%;
+    background: linear-gradient(90deg, var(--amber), var(--teal));
+    transition: width .15s linear;
+  }
+  .timecode {
+    display: flex; justify-content: space-between; margin-top: 9px;
+    font-family: var(--mono); font-size: .76rem; color: var(--dim);
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* transporte */
+  .transport { display: grid; grid-template-columns: 1fr 1.7fr 1fr; gap: 10px; margin-top: 18px; }
+  .t-btn {
+    border: 1px solid var(--line-2); border-radius: 13px;
+    background: var(--panel-2); padding: 15px 8px;
+    display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+    font-weight: 600; transition: border-color .15s ease, transform .1s ease;
+  }
+  .t-btn:hover:not(:disabled) { border-color: var(--amber); }
+  .t-btn:active:not(:disabled) { transform: scale(.97); }
+  .t-btn.play { background: var(--amber); color: var(--amber-ink); border-color: var(--amber); font-family: var(--display); font-weight: 700; }
+  .t-btn .ic { font-size: 1.25rem; line-height: 1; }
+  .t-btn .ic svg { display: block; width: 22px; height: 22px; }
+
+  .subrow { display: flex; gap: 10px; margin-top: 12px; }
+  .s-btn {
+    flex: 1; border: 1px solid var(--line-2); border-radius: 12px;
+    background: var(--panel); padding: 12px 10px;
+    display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+    font-weight: 500; font-size: .92rem; transition: border-color .15s ease;
+  }
+  .s-btn:hover:not(:disabled) { border-color: var(--amber); }
+  .s-btn.on { border-color: var(--amber); color: var(--amber); }
+  .s-btn.star.on { color: var(--amber); }
+  .s-btn[hidden] { display: none; }
+
+  .set-note { text-align: center; color: var(--dim); font-size: .8rem; margin-top: 12px; font-family: var(--mono); letter-spacing: .03em; min-height: 1.1em; }
+
+  /* lista colapsável */
+  .list-card { margin-top: 18px; }
+  .list-toggle {
+    width: 100%; display: flex; align-items: center; justify-content: space-between;
+    background: var(--panel); border: 1px solid var(--line); border-radius: 13px;
+    padding: 13px 15px; font-weight: 600;
+  }
+  .list-toggle .chev { transition: transform .2s ease; color: var(--dim); }
+  .list-toggle[aria-expanded="true"] .chev { transform: rotate(90deg); }
+  .list-body {
+    border: 1px solid var(--line); border-top: none;
+    border-radius: 0 0 13px 13px; margin-top: -6px;
+    max-height: 320px; overflow: auto;
+  }
+  .list-body[hidden] { display: none; }
+  table { width: 100%; border-collapse: collapse; font-size: .86rem; }
+  th, td { padding: 9px 12px; text-align: left; border-bottom: 1px solid var(--line); }
+  th { position: sticky; top: 0; background: var(--panel-2); color: var(--faint); font-family: var(--mono); font-weight: 500; font-size: .66rem; letter-spacing: .1em; text-transform: uppercase; }
+  tr.current td { background: var(--amber-soft); }
+  tr.diff td:first-child { color: var(--amber); }
+  tbody tr { cursor: pointer; }
+  tbody tr:hover td { background: rgba(255,255,255,.03); }
+  .td-phrase { color: var(--dim); }
+
+  /* ===== Drawer de ajustes ===== */
+  .scrim {
+    position: fixed; inset: 0; z-index: 30; background: rgba(5,10,11,.66);
+    backdrop-filter: blur(3px); opacity: 0; pointer-events: none; transition: opacity .22s ease;
+  }
+  body.drawer-open .scrim, body.modal-open .scrim { opacity: 1; pointer-events: auto; }
+
+  .drawer {
+    position: fixed; z-index: 31; background: var(--bg-2);
+    border-left: 1px solid var(--line-2);
+    box-shadow: -20px 0 60px rgba(0,0,0,.5);
+    display: flex; flex-direction: column;
+    transition: transform .26s cubic-bezier(.32,.72,0,1);
+  }
+  /* desktop: painel à direita */
+  .drawer { top: 0; right: 0; height: 100dvh; width: min(420px, 90vw); transform: translateX(102%); }
+  body.drawer-open .drawer { transform: translateX(0); }
+
+  .drawer-head {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 18px 18px 14px; border-bottom: 1px solid var(--line);
+  }
+  .drawer-head h2 { margin: 0; font-family: var(--display); font-size: 1.15rem; }
+  .drawer-body { overflow-y: auto; padding: 18px; display: grid; gap: 20px; -webkit-overflow-scrolling: touch; }
+
+  .group { display: grid; gap: 12px; }
+  .group > .eyebrow { margin-bottom: 2px; }
+  .danger-zone .eyebrow { color: var(--rose); }
+  .ghost-btn {
+    border: 1px solid var(--line-2); border-radius: 10px; padding: 10px 12px;
+    background: var(--panel); font-weight: 500; font-size: .9rem;
+    transition: border-color .15s ease;
+  }
+  .ghost-btn:hover { border-color: var(--amber); }
+  .ghost-btn.rose:hover { border-color: var(--rose); color: var(--rose); }
+  .btn-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+  .diag-out {
+    font-family: var(--mono); font-size: .76rem; white-space: pre-line; word-break: break-word;
+    border: 1px dashed var(--line-2); border-radius: 10px; padding: 11px; color: var(--dim);
+    background: var(--bg); min-height: 70px;
+  }
+
+  /* mobile: drawer vira bottom-sheet */
+  @media (max-width: 620px) {
+    .drawer {
+      top: auto; bottom: 0; right: 0; left: 0;
+      width: 100%; height: min(86dvh, 720px);
+      border-left: none; border-top: 1px solid var(--line-2);
+      border-radius: 20px 20px 0 0;
+      transform: translateY(102%);
+    }
+    body.drawer-open .drawer { transform: translateY(0); }
+    .transport { grid-template-columns: 1fr 1.6fr 1fr; }
+  }
+
+  /* ===== Modal de ajuda ===== */
+  .modal {
+    position: fixed; inset: 0; z-index: 40; display: flex; align-items: center; justify-content: center;
+    padding: 16px;
+  }
+  .modal[hidden] { display: none; }
+  .modal-card {
+    width: min(620px, 100%); max-height: 90dvh; overflow-y: auto;
+    background: var(--bg-2); border: 1px solid var(--line-2); border-radius: var(--radius);
+    box-shadow: var(--shadow); padding: 22px;
+  }
+  .modal-card h2 { margin: 0 0 4px; font-family: var(--display); }
+  .modal-card .lead { color: var(--dim); margin: 0 0 18px; font-size: .92rem; }
+  .help-block { margin-bottom: 18px; }
+  .help-block p { margin: 0 0 8px; color: var(--dim); font-size: .9rem; }
+  .help-block strong { color: var(--ink); }
+  .kbd-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; font-size: .85rem; color: var(--dim); }
+  kbd {
+    font-family: var(--mono); font-size: .74rem; min-width: 24px;
+    border: 1px solid var(--line-2); border-radius: 6px; padding: 2px 7px;
+    background: var(--panel); color: var(--ink); margin-right: 7px;
+  }
+  .modal-x { float: right; }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { transition: none !important; }
+  }
+</style>
+</head>
+<body>
+
+<audio id="player-audio" preload="auto"></audio>
+
+<!-- ============================ TELA: CONFIGURAÇÃO ============================ -->
+<section class="screen" id="config-screen">
+  <div class="wrap">
+    <div class="config-head">
+      <div class="eyebrow">Treino de escuta · FR / EN</div>
+      <h1>Estação de <span class="accent">Escuta</span></h1>
+      <p>Carregue as frases e a pasta da categoria. Escolha um modo, o trecho e comece a ouvir.</p>
+    </div>
+
+    <div class="steps">
+      <!-- 1. CSV -->
+      <div class="step" id="step-csv">
+        <div class="step-top"><span class="step-num">01</span><span class="step-title">Frases</span></div>
+        <label class="file-btn">
+          <span class="ic">⤓</span><span id="csv-btn-label">Carregar frases.csv</span>
+          <input type="file" id="csv-input" accept=".csv,text/csv" />
+        </label>
+        <div class="file-meta" id="csv-meta">Nenhum arquivo carregado.</div>
+      </div>
+
+      <!-- 2. Categoria + pasta de áudio -->
+      <div class="step locked" id="step-audio">
+        <div class="step-top"><span class="step-num">02</span><span class="step-title">Categoria e áudios</span></div>
+        <div class="stack">
+          <label class="field">
+            <span class="field-label">Categoria</span>
+            <select id="category-select"></select>
+          </label>
+          <div>
+            <label class="file-btn">
+              <span class="ic">🗂</span><span id="audio-btn-label">Carregar pasta da categoria</span>
+              <input type="file" id="audio-input" webkitdirectory directory multiple />
+            </label>
+            <div class="file-meta" id="audio-meta">Pasta com as subpastas fr / en / pt.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3. Sessão -->
+      <div class="step locked" id="step-session">
+        <div class="step-top"><span class="step-num">03</span><span class="step-title">Sessão</span></div>
+        <div class="stack">
+          <div>
+            <span class="field-label">Idioma estudado</span>
+            <div class="seg" id="lang-seg" role="group" aria-label="Idioma estudado">
+              <button data-lang="fr" aria-pressed="true">Francês</button>
+              <button data-lang="en" aria-pressed="false">Inglês</button>
+            </div>
+          </div>
+
+          <div>
+            <span class="field-label">Modo de estudo</span>
+            <div class="seg" id="mode-seg" role="group" aria-label="Modo de estudo">
+              <button data-mode="reconhecimento" aria-pressed="true">Reconhecimento<span class="sg-sub">alvo → pt</span></button>
+              <button data-mode="imitacao" aria-pressed="false">Imitação<span class="sg-sub">alvo ×5</span></button>
+              <button data-mode="traducao" aria-pressed="false">Tradução<span class="sg-sub">pt → alvo</span></button>
+            </div>
+            <div class="mode-hint" id="mode-hint"></div>
+          </div>
+
+          <div>
+            <span class="field-label">Ordem das frases</span>
+            <div class="seg" id="order-seg" role="group" aria-label="Ordem das frases">
+              <button data-order="sequencial" aria-pressed="true">Sequencial<span class="sg-sub">por #</span></button>
+              <button data-order="fluxo" aria-pressed="false">Fluxo<span class="sg-sub">ordem_fluxo</span></button>
+              <button data-order="aleatorio" aria-pressed="false">Aleatória<span class="sg-sub">embaralhada</span></button>
+            </div>
+            <div class="mode-hint" id="order-hint"></div>
+          </div>
+
+          <div class="grid-2">
+            <label class="field">
+              <span class="field-label">Início</span>
+              <input type="number" id="start-index" min="1" value="1" />
+            </label>
+            <label class="field">
+              <span class="field-label">Fim</span>
+              <input type="number" id="end-index" min="1" value="1" />
+            </label>
+          </div>
+          <div class="mode-hint" id="range-hint"></div>
+
+          <div>
+            <span class="field-label">Reprodução</span>
+            <div class="seg" id="chunk-seg" role="group" aria-label="Forma de reprodução">
+              <button data-chunk="sets" aria-pressed="true">Em sets<span class="sg-sub">5 por vez</span></button>
+              <button data-chunk="all" aria-pressed="false">Trecho inteiro<span class="sg-sub">tudo, depois repete</span></button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="start-row">
+      <button class="btn-primary" id="start-btn" disabled>Começar a ouvir</button>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ TELA: PLAYER ============================ -->
+<section class="screen" id="player-screen" hidden>
+  <div class="wrap">
+    <div class="player-head">
+      <div class="ph-id">
+        <span class="eyebrow" id="ph-category">—</span>
+        <strong id="ph-mode">—</strong>
+      </div>
+      <div class="head-actions">
+        <span class="gp-badge" id="gp-badge">🎮 —</span>
+        <button class="icon-btn" id="help-btn" aria-label="Ajuda e atalhos">?</button>
+        <button class="icon-btn" id="settings-btn" aria-label="Ajustes" aria-expanded="false"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="4" y1="6" x2="7" y2="6"/><circle cx="9.5" cy="6" r="2.5"/><line x1="12" y1="6" x2="20" y2="6"/><line x1="4" y1="12" x2="13" y2="12"/><circle cx="15.5" cy="12" r="2.5"/><line x1="18" y1="12" x2="20" y2="12"/><line x1="4" y1="18" x2="7" y2="18"/><circle cx="9.5" cy="18" r="2.5"/><line x1="12" y1="18" x2="20" y2="18"/></svg></button>
+      </div>
+    </div>
+
+    <div class="deck">
+      <div class="deck-top">
+        <div class="big-index">
+          <span id="big-index">—</span>
+          <span class="of" id="big-of">— / —</span>
+        </div>
+        <div class="rec" id="rec-light"><span class="dot"></span><span id="rec-text">parado</span></div>
+      </div>
+
+      <div class="phrase empty" id="phrase-text">Pronto para começar.</div>
+
+      <div class="ribbon" id="ribbon"></div>
+
+      <div class="filmstrip"><div class="fill" id="film-fill"></div></div>
+      <div class="timecode">
+        <span id="tc-elapsed">00:00</span>
+        <span id="tc-remaining">--:--</span>
+      </div>
+
+      <div class="transport">
+        <button class="t-btn" id="prev-btn" aria-label="Anterior"><span class="ic"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M11 18V6l-8.5 6 8.5 6zm.5-6l8.5 6V6l-8.5 6z"/></svg></span></button>
+        <button class="t-btn play" id="play-btn"><span class="ic"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></span><span id="play-label">Play</span></button>
+        <button class="t-btn" id="next-btn" aria-label="Próximo"><span class="ic"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4 18l8.5-6L4 6v12zm9-12v12l8.5-6L13 6z"/></svg></span></button>
+      </div>
+
+      <div class="subrow">
+        <button class="s-btn star" id="diff-btn">☆ Difícil</button>
+        <button class="s-btn" id="next-set-btn">Próximo set →</button>
+      </div>
+
+      <div class="set-note" id="set-note"></div>
+    </div>
+
+    <div class="list-card">
+      <button class="list-toggle" id="list-toggle" aria-expanded="false">
+        <span id="list-title">Frases da sessão</span><span class="chev">›</span>
+      </button>
+      <div class="list-body" id="list-body" hidden>
+        <table>
+          <thead><tr><th id="list-num-head">#</th><th>Frase</th><th>·</th></tr></thead>
+          <tbody id="list-tbody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ DRAWER: AJUSTES ============================ -->
+<div class="scrim" id="scrim"></div>
+
+<aside class="drawer" id="drawer" aria-label="Ajustes da sessão">
+  <div class="drawer-head">
+    <h2>Ajustes</h2>
+    <button class="icon-btn" id="drawer-close" aria-label="Fechar ajustes">×</button>
+  </div>
+  <div class="drawer-body">
+
+    <div class="group">
+      <span class="eyebrow">Modo de estudo</span>
+      <div class="seg" id="d-mode-seg" role="group" aria-label="Modo de estudo">
+        <button data-mode="reconhecimento" aria-pressed="true">Recon.</button>
+        <button data-mode="imitacao" aria-pressed="false">Imitação</button>
+        <button data-mode="traducao" aria-pressed="false">Tradução</button>
+      </div>
+      <span class="eyebrow">Idioma</span>
+      <div class="seg" id="d-lang-seg" role="group" aria-label="Idioma estudado">
+        <button data-lang="fr" aria-pressed="true">Francês</button>
+        <button data-lang="en" aria-pressed="false">Inglês</button>
+      </div>
+    </div>
+
+    <div class="group">
+      <span class="eyebrow">Trecho</span>
+      <div class="grid-2">
+        <label class="field"><span class="field-label">Início</span><input type="number" id="d-start" min="1" value="1" /></label>
+        <label class="field"><span class="field-label">Fim</span><input type="number" id="d-end" min="1" value="1" /></label>
+      </div>
+      <div class="mode-hint" id="d-range-hint"></div>
+      <button class="ghost-btn" id="d-apply">Aplicar trecho</button>
+    </div>
+
+    <div class="group">
+      <span class="eyebrow">Tempos</span>
+      <div class="grid-2">
+        <label class="field"><span class="field-label">Pausa interna (s)</span><input type="number" id="d-pause-mid" min="0" step="0.25" value="1" /></label>
+        <label class="field"><span class="field-label">Pausa entre itens (s)</span><input type="number" id="d-pause-next" min="0" step="0.25" value="1" /></label>
+      </div>
+      <div class="grid-2">
+        <label class="field"><span class="field-label">Repetições</span><input type="number" id="d-reps" min="1" step="1" value="1" /></label>
+        <label class="field"><span class="field-label">Frases por set</span><input type="number" id="d-set-size" min="1" step="1" value="5" /></label>
+      </div>
+    </div>
+
+    <div class="group">
+      <span class="eyebrow">Texto na tela</span>
+      <div class="seg" id="text-seg" role="group" aria-label="Texto exibido">
+        <button data-text="both" aria-pressed="true">Ambos</button>
+        <button data-text="target" aria-pressed="false">Alvo</button>
+        <button data-text="pt" aria-pressed="false">PT</button>
+        <button data-text="none" aria-pressed="false">Nenhum</button>
+      </div>
+    </div>
+
+    <div class="group">
+      <span class="eyebrow">Ordem</span>
+      <div class="seg" id="d-order-seg" role="group" aria-label="Ordem das frases">
+        <button data-order="sequencial" aria-pressed="true">Sequencial</button>
+        <button data-order="fluxo" aria-pressed="false">Fluxo</button>
+        <button data-order="aleatorio" aria-pressed="false">Aleatória</button>
+      </div>
+    </div>
+
+    <div class="group">
+      <span class="eyebrow">Reprodução</span>
+      <div class="seg" id="d-chunk-seg" role="group" aria-label="Reprodução">
+        <button data-chunk="sets">Em sets</button>
+        <button data-chunk="all">Trecho inteiro</button>
+      </div>
+    </div>
+
+    <div class="group">
+      <span class="eyebrow">Difíceis</span>
+      <button class="ghost-btn" id="d-hard-toggle">Tocar só os difíceis</button>
+    </div>
+
+    <div class="group">
+      <span class="eyebrow">Controle</span>
+      <div class="btn-row">
+        <button class="ghost-btn" id="gp-test-btn">Testar botões</button>
+        <button class="ghost-btn" id="gp-clear-btn">Limpar teste</button>
+      </div>
+      <div class="diag-out" id="gp-diag">Diagnóstico desligado. Ative para identificar os botões do controle.</div>
+    </div>
+
+    <div class="group danger-zone">
+      <span class="eyebrow">Manutenção</span>
+      <div class="btn-row">
+        <button class="ghost-btn" id="d-reset">Restaurar padrões</button>
+        <button class="ghost-btn rose" id="d-clear-diff">Limpar difíceis</button>
+      </div>
+      <button class="ghost-btn" id="d-new-session">Nova sessão (trocar categoria)</button>
+    </div>
+
+  </div>
+</aside>
+
+<!-- ============================ MODAL: AJUDA ============================ -->
+<div class="modal" id="help-modal" hidden>
+  <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="help-title">
+    <button class="icon-btn modal-x" id="help-close" aria-label="Fechar ajuda">×</button>
+    <h2 id="help-title">Como usar</h2>
+    <p class="lead">Um ciclo de escuta contínuo. Ajuste tudo pelas configurações sem perder o trecho.</p>
+
+    <div class="help-block">
+      <p><strong>Reconhecimento:</strong> ouve o idioma-alvo, pausa, depois o português — para conferir o que entendeu.</p>
+      <p><strong>Imitação:</strong> só o idioma-alvo, repetido (5× por padrão) com pausa entre as repetições.</p>
+      <p><strong>Tradução:</strong> ouve o português primeiro, pausa, depois o idioma-alvo.</p>
+      <p><strong>Sets:</strong> toca o trecho em blocos (5 por padrão). “Próximo set →” avança o bloco; o trecho selecionado não muda quando você troca de modo.</p>
+    </div>
+
+    <div class="help-block">
+      <span class="eyebrow">Teclado</span>
+      <div class="kbd-grid" style="margin-top:8px">
+        <div><kbd>Espaço</kbd> play / pause</div>
+        <div><kbd>R</kbd> repetir o alvo</div>
+        <div><kbd>→</kbd> próxima frase</div>
+        <div><kbd>←</kbd> frase anterior</div>
+        <div><kbd>N</kbd> próximo set</div>
+        <div><kbd>D</kbd> marcar difícil</div>
+        <div><kbd>[</kbd> diminuir pausa</div>
+        <div><kbd>]</kbd> aumentar pausa</div>
+      </div>
+    </div>
+
+    <div class="help-block">
+      <span class="eyebrow">Controle (Joy-Con)</span>
+      <div class="kbd-grid" style="margin-top:8px">
+        <div><kbd>A</kbd> play / pause</div>
+        <div><kbd>Y</kbd> repetir o alvo</div>
+        <div><kbd>→ / SR</kbd> próxima frase</div>
+        <div><kbd>← / SL</kbd> frase anterior</div>
+        <div><kbd>X</kbd> próximo set</div>
+        <div><kbd>B</kbd> marcar difícil</div>
+      </div>
+      <p style="margin-top:10px"><strong>Teste:</strong> abra Configurações → Controle → “Testar botões” para identificar os índices no seu controle sem disparar ações.</p>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ================================================================
+   NÚCLEO COMPARTILHADO (reaproveitado dos jogos)
+   ================================================================ */
+let ALL_ROWS = [];
+let CATEGORIES = [];
+let PHRASES = [];
+
+function splitVariants(text) {
+  if (!text) return [];
+  let t = text.replace(/\([^)]*\)/g, ' ').trim();
+  const parts = t.split(/\s*\|\|\s*/).map(s => s.trim()).filter(Boolean);
+  return parts.length ? parts : [t];
+}
+
+function parseCSV(text) {
+  text = text.replace(/^\uFEFF/, '');
+  const rows = []; let field = '', row = [], inQuotes = false;
+  for (let i = 0; i < text.length; i++) {
+    const c = text[i];
+    if (inQuotes) {
+      if (c === '"') { if (text[i + 1] === '"') { field += '"'; i++; } else inQuotes = false; }
+      else field += c;
+    } else {
+      if (c === '"') inQuotes = true;
+      else if (c === ';') { row.push(field); field = ''; }
+      else if (c === '\n') { row.push(field); rows.push(row); row = []; field = ''; }
+      else if (c === '\r') {}
+      else field += c;
+    }
+  }
+  if (field.length || row.length) { row.push(field); rows.push(row); }
+  return rows.filter(r => r.length > 1 || (r.length === 1 && r[0].trim() !== ''));
+}
+
+function normCat(s) {
+  return (s || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').trim();
+}
+
+function prettyLabel(raw) {
+  return raw.replace(/[_-]+/g, ' ').split(' ')
+    .map(w => w.length ? w[0].toUpperCase() + w.slice(1) : w).join(' ');
+}
+
+function loadCSV(text) {
+  const rows = parseCSV(text);
+  if (!rows.length) throw new Error('vazio');
+  const header = rows[0].map(h => normCat(h.replace('#', 'num')));
+  const idx = {
+    num: header.findIndex(h => h === 'num' || h === ''),
+    categoria: header.indexOf('categoria'),
+    portugues: header.indexOf('portugues'),
+    frances: header.indexOf('frances'),
+    ingles: header.indexOf('ingles'),
+    situacao: header.indexOf('situacao_pt'),
+    ordem: header.indexOf('ordem_fluxo'),
+  };
+  if (idx.num < 0) idx.num = 0;
+  if (idx.categoria < 0 || idx.portugues < 0) throw new Error('colunas esperadas não encontradas');
+
+  ALL_ROWS = rows.slice(1).filter(r => r[idx.categoria] && r[idx.categoria].trim()).map(r => ({
+    num: parseInt((r[idx.num] || '').trim(), 10) || 0,
+    categoria: (r[idx.categoria] || '').trim(),
+    pt: (r[idx.portugues] || '').trim(),
+    fr: idx.frances >= 0 ? (r[idx.frances] || '').trim() : '',
+    en: idx.ingles >= 0 ? (r[idx.ingles] || '').trim() : '',
+    situacao: idx.situacao >= 0 ? (r[idx.situacao] || '').trim() : '',
+    ordem: idx.ordem >= 0 ? (parseInt((r[idx.ordem] || '').trim(), 10) || null) : null,
+  }));
+
+  const seen = new Map();
+  ALL_ROWS.forEach(r => {
+    if (!seen.has(r.categoria)) seen.set(r.categoria, { count: 0, flux: 0 });
+    const e = seen.get(r.categoria); e.count++; if (r.ordem != null) e.flux++;
+  });
+  CATEGORIES = Array.from(seen.entries())
+    .map(([raw, e]) => ({ raw, label: prettyLabel(raw), count: e.count, fluxCount: e.flux }))
+    .sort((a, b) => a.label.localeCompare(b.label, 'pt-BR'));
+}
+
+function buildPhrasesForCategory(rawCat) {
+  const rows = ALL_ROWS.filter(r => r.categoria === rawCat);
+  PHRASES = rows.map((r, i) => {
+    const answersFr = splitVariants(r.fr);
+    const answersEn = splitVariants(r.en);
+    return {
+      id: i + 1, num: r.num || (i + 1),
+      pt: r.pt, fr: answersFr[0] || '', en: answersEn[0] || '',
+      answersFr, answersEn, situacao: r.situacao || '',
+      ordem: (r.ordem != null ? r.ordem : null),
+    };
+  });
+  return PHRASES;
+}
+
+/* --- Áudio por nome de arquivo {idioma}_{categoria}_{num} --- */
+const AUDIO_NAME_RE = /(?:^|[\/\\])(fr|en|pt)[_\-]([a-z0-9_\-]+?)[_\-](\d+)\.(?:mp3|ogg|wav|m4a|aac|flac|opus)$/i;
+function isAudioFile(file) {
+  return /\.(mp3|ogg|wav|m4a|aac|flac|opus)$/i.test(file.name) || (file.type || '').startsWith('audio/');
+}
+function parseAudioName(file) {
+  const path = file.webkitRelativePath || file.name;
+  const m = path.match(AUDIO_NAME_RE);
+  if (!m) return null;
+  return { lang: m[1].toLowerCase(), cat: m[2].toLowerCase(), num: parseInt(m[3], 10) };
+}
+
+let audioMap = { fr: {}, en: {}, pt: {} };
+let audioObjectUrls = [];
+function resetAudio() {
+  audioObjectUrls.forEach(u => URL.revokeObjectURL(u));
+  audioObjectUrls = [];
+  audioMap = { fr: {}, en: {}, pt: {} };
+  audioFiles = { fr: {}, en: {}, pt: {} };
+}
+
+function targetText(p) { return state.lang === 'en' ? p.en : p.fr; }
+
+/* ================================================================
+   ESTADO
+   ================================================================ */
+const LS_KEY = 'estacaoEscutaPrefs';
+
+const state = {
+  category: '',
+  lang: 'fr',
+  mode: 'reconhecimento',   // reconhecimento | imitacao | traducao
+  order: 'sequencial',      // sequencial | fluxo | aleatorio
+  chunk: 'sets',            // sets | all
+  start: 1, end: 1,
+  pauseMid: 1, pauseNext: 1,
+  reps: 1, setSize: 5,
+  textMode: 'both',         // both | target | pt | none
+
+  // runtime
+  ordered: [],              // trecho inteiro já ordenado (estável na sessão)
+  session: [],              // frases da janela atual (recorte de ordered)
+  setOffset: 0,             // posição (0-based) do set dentro de ordered
+  hardMode: false,
+  curIndex: 0,              // índice na session
+  steps: [], stepIndex: 0,
+  playing: false,
+  paused: false,
+  // wait/gap
+  waitTimer: null, waitStart: 0, waitDur: 0, waitElapsedBefore: 0, waitFn: null,
+  pausedGap: null,
+  difficult: new Set(),     // chaves "cat:num"
+
+  durationCache: new Map(), durationToken: 0,
+  ticker: null,
+
+  // gamepad
+  gamepadLoop: null, lastButtons: [], lastAxes: [], lastStickAt: 0, stickCooldown: 420,
+  gpDiag: false, gpDiagLog: [], gpDiagId: '', gpDiagCount: 0,
+};
+
+let audioFiles = { fr: {}, en: {}, pt: {} }; // num -> File (para medir duração)
+const audio = document.getElementById('player-audio');
+
+const $ = id => document.getElementById(id);
+const el = {
+  configScreen: $('config-screen'), playerScreen: $('player-screen'),
+  csvInput: $('csv-input'), csvMeta: $('csv-meta'), csvBtnLabel: $('csv-btn-label'),
+  stepAudio: $('step-audio'), stepSession: $('step-session'),
+  categorySelect: $('category-select'),
+  audioInput: $('audio-input'), audioMeta: $('audio-meta'), audioBtnLabel: $('audio-btn-label'),
+  langSeg: $('lang-seg'), modeSeg: $('mode-seg'), modeHint: $('mode-hint'), chunkSeg: $('chunk-seg'),
+  orderSeg: $('order-seg'), orderHint: $('order-hint'),
+  startIndex: $('start-index'), endIndex: $('end-index'), rangeHint: $('range-hint'),
+  startBtn: $('start-btn'),
+
+  phCategory: $('ph-category'), phMode: $('ph-mode'),
+  gpBadge: $('gp-badge'), helpBtn: $('help-btn'), settingsBtn: $('settings-btn'),
+  bigIndex: $('big-index'), bigOf: $('big-of'),
+  recLight: $('rec-light'), recText: $('rec-text'),
+  phraseText: $('phrase-text'), ribbon: $('ribbon'),
+  filmFill: $('film-fill'), tcElapsed: $('tc-elapsed'), tcRemaining: $('tc-remaining'),
+  prevBtn: $('prev-btn'), playBtn: $('play-btn'), playLabel: $('play-label'), nextBtn: $('next-btn'),
+  diffBtn: $('diff-btn'), nextSetBtn: $('next-set-btn'), setNote: $('set-note'),
+  listToggle: $('list-toggle'), listBody: $('list-body'), listTbody: $('list-tbody'), listTitle: $('list-title'), listNumHead: $('list-num-head'),
+
+  scrim: $('scrim'), drawer: $('drawer'), drawerClose: $('drawer-close'),
+  dModeSeg: $('d-mode-seg'), dLangSeg: $('d-lang-seg'),
+  dOrderSeg: $('d-order-seg'),
+  dStart: $('d-start'), dEnd: $('d-end'), dApply: $('d-apply'), dRangeHint: $('d-range-hint'),
+  dPauseMid: $('d-pause-mid'), dPauseNext: $('d-pause-next'), dReps: $('d-reps'), dSetSize: $('d-set-size'),
+  textSeg: $('text-seg'),
+  dHardToggle: $('d-hard-toggle'), dChunkSeg: $('d-chunk-seg'),
+  gpTestBtn: $('gp-test-btn'), gpClearBtn: $('gp-clear-btn'), gpDiag: $('gp-diag'),
+  dReset: $('d-reset'), dClearDiff: $('d-clear-diff'), dNewSession: $('d-new-session'),
+
+  helpModal: $('help-modal'), helpClose: $('help-close'),
+};
+
+/* ================================================================
+   PREFERÊNCIAS (localStorage)
+   ================================================================ */
+const MODE_DEFAULT_REPS = { reconhecimento: 1, imitacao: 5, traducao: 1 };
+
+function savePrefs() {
+  const data = {
+    category: state.category, lang: state.lang, mode: state.mode, order: state.order, chunk: state.chunk,
+    pauseMid: state.pauseMid, pauseNext: state.pauseNext, reps: state.reps, setSize: state.setSize,
+    textMode: state.textMode, difficult: Array.from(state.difficult),
+  };
+  try { localStorage.setItem(LS_KEY, JSON.stringify(data)); } catch {}
+}
+function loadPrefs() {
+  try {
+    const raw = localStorage.getItem(LS_KEY); if (!raw) return;
+    const d = JSON.parse(raw);
+    if (d.lang) state.lang = d.lang;
+    if (d.mode) state.mode = d.mode;
+    if (d.order) state.order = d.order;
+    if (d.chunk) state.chunk = d.chunk;
+    if (d.pauseMid != null) state.pauseMid = d.pauseMid;
+    if (d.pauseNext != null) state.pauseNext = d.pauseNext;
+    if (d.reps != null) state.reps = d.reps;
+    if (d.setSize != null) state.setSize = d.setSize;
+    if (d.textMode) state.textMode = d.textMode;
+    if (Array.isArray(d.difficult)) state.difficult = new Set(d.difficult);
+    state._savedCategory = d.category || '';
+  } catch {}
+}
+
+/* ================================================================
+   TELA DE CONFIGURAÇÃO
+   ================================================================ */
+function setSeg(segEl, attr, value) {
+  segEl.querySelectorAll('button').forEach(b => {
+    b.setAttribute('aria-pressed', String(b.dataset[attr] === value));
+  });
+}
+
+function populateCategories() {
+  el.categorySelect.innerHTML = CATEGORIES
+    .map(c => `<option value="${c.raw}">${c.label} · ${c.count}</option>`).join('');
+  if (state._savedCategory && CATEGORIES.some(c => c.raw === state._savedCategory)) {
+    el.categorySelect.value = state._savedCategory;
+  }
+  onCategoryChange();
+}
+
+function onCategoryChange() {
+  state.category = el.categorySelect.value;
+  buildPhrasesForCategory(state.category);
+  refreshOrderAvailability();
+  resetRangeToFull();
+  syncConfigRangeInputs();
+  // ao trocar de categoria, o áudio carregado deixa de servir
+  resetAudio();
+  el.audioMeta.textContent = 'Pasta com as subpastas fr / en / pt.';
+  el.audioMeta.className = 'file-meta';
+  el.audioBtnLabel.textContent = 'Carregar pasta da categoria';
+  refreshStartGate();
+}
+
+function updateModeHint() {
+  const hints = {
+    reconhecimento: 'Ouça o alvo, pausa, depois o português.',
+    imitacao: 'Só o idioma-alvo, repetido várias vezes.',
+    traducao: 'Ouça o português, pausa, depois o alvo.',
+  };
+  el.modeHint.textContent = hints[state.mode] || '';
+}
+
+function loadCSVFile(file) {
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = () => {
+    try {
+      loadCSV(reader.result);
+      el.csvMeta.textContent = `${ALL_ROWS.length} frases · ${CATEGORIES.length} categorias.`;
+      el.csvMeta.className = 'file-meta ok';
+      el.csvBtnLabel.textContent = 'Trocar frases';
+      el.stepAudio.classList.remove('locked');
+      el.stepSession.classList.remove('locked');
+      populateCategories();
+    } catch (e) {
+      el.csvMeta.textContent = 'Não consegui ler o CSV: ' + e.message;
+      el.csvMeta.className = 'file-meta warn';
+    }
+  };
+  reader.readAsText(file, 'utf-8');
+}
+
+function loadAudioFolder(fileList) {
+  const files = Array.from(fileList || []).filter(isAudioFile);
+  resetAudio();
+  const selectedNorm = normCat(state.category);
+  let matched = 0, otherCat = 0;
+  files.forEach(file => {
+    const info = parseAudioName(file);
+    if (!info) return;
+    if (normCat(info.cat) !== selectedNorm) { otherCat++; return; }
+    if (!audioMap[info.lang]) { audioMap[info.lang] = {}; audioFiles[info.lang] = {}; }
+    const url = URL.createObjectURL(file);
+    audioObjectUrls.push(url);
+    audioMap[info.lang][info.num] = url;
+    audioFiles[info.lang][info.num] = file;
+    matched++;
+  });
+
+  const n = PHRASES.length;
+  const fr = Object.keys(audioMap.fr).length;
+  const en = Object.keys(audioMap.en).length;
+  const pt = Object.keys(audioMap.pt).length;
+  if (!matched) {
+    el.audioMeta.textContent = otherCat
+      ? `Nenhum áudio desta categoria. (${otherCat} de outra categoria ignorados.)`
+      : 'Nenhum áudio reconhecido nessa pasta.';
+    el.audioMeta.className = 'file-meta warn';
+    el.audioBtnLabel.textContent = 'Tentar outra pasta';
+  } else {
+    el.audioMeta.innerHTML = `🇫🇷 ${fr}/${n} · 🇬🇧 ${en}/${n} · 🇧🇷 ${pt}/${n}`;
+    el.audioMeta.className = 'file-meta ok';
+    el.audioBtnLabel.textContent = 'Trocar pasta';
+  }
+  refreshStartGate();
+}
+
+function targetAudioCount() {
+  return Object.keys(audioMap[state.lang] || {}).length;
+}
+
+function refreshStartGate() {
+  el.startBtn.disabled = !(ALL_ROWS.length && targetAudioCount() > 0);
+}
+
+/* ================================================================
+   SESSÃO E JANELA DE SETS
+   ================================================================ */
+function clamp(v, lo, hi) { return Math.max(lo, Math.min(hi, v)); }
+
+/* ---- numeração ativa: # (sequencial/aleatório) ou ordem_fluxo (fluxo) ---- */
+function fluxoMax() { let m = 0; for (const p of PHRASES) { if (p.ordem != null && p.ordem > m) m = p.ordem; } return m; }
+function rangeMax() { return state.order === 'fluxo' ? fluxoMax() : PHRASES.length; }
+function displayNum(p) { return state.order === 'fluxo' ? (p.ordem != null ? p.ordem : p.id) : p.id; }
+function numberingLabel() { return state.order === 'fluxo' ? 'ordem_fluxo' : '# (arquivo)'; }
+/* posição da frase na numeração ativa (para filtrar o trecho) */
+function rangeKey(p) { return state.order === 'fluxo' ? p.ordem : p.id; }
+
+function resetRangeToFull() { state.start = 1; state.end = Math.max(1, rangeMax()); }
+
+function readRangeFromConfig() {
+  const total = Math.max(1, rangeMax());
+  let s = clamp(parseInt(el.startIndex.value, 10) || 1, 1, total);
+  let e = clamp(parseInt(el.endIndex.value, 10) || total, s, total);
+  state.start = s; state.end = e;
+}
+
+function rangePhrases() {
+  // frases dentro do trecho, na numeração ativa (# ou fluxo)
+  if (state.order === 'fluxo') {
+    return PHRASES.filter(p => p.ordem != null && p.ordem >= state.start && p.ordem <= state.end);
+  }
+  return PHRASES.filter(p => p.id >= state.start && p.id <= state.end);
+}
+
+/* ordena o trecho conforme o modo escolhido */
+function orderPool(arr) {
+  if (state.order === 'fluxo') {
+    return arr.slice().sort((a, b) => {
+      const va = a.ordem == null ? Infinity : a.ordem;
+      const vb = b.ordem == null ? Infinity : b.ordem;
+      return va !== vb ? va - vb : a.id - b.id;
+    });
+  }
+  if (state.order === 'aleatorio') {
+    const x = arr.slice();
+    for (let i = x.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [x[i], x[j]] = [x[j], x[i]]; }
+    return x;
+  }
+  return arr.slice();   // sequencial: ordem do arquivo (# crescente)
+}
+
+/* (re)constrói o trecho ordenado — só quando muda trecho/ordem/difíceis */
+function buildOrdered() {
+  let pool = rangePhrases();
+  if (state.hardMode) pool = pool.filter(p => state.difficult.has(diffKey(p)));
+  state.ordered = orderPool(pool);
+}
+
+function clampSetOffset() {
+  if (state.chunk !== 'sets' || state.hardMode) return;
+  const len = state.ordered.length;
+  if (len === 0) { state.setOffset = 0; return; }
+  if (state.setOffset < 0 || state.setOffset >= len) state.setOffset = 0;
+  state.setOffset = Math.floor(state.setOffset / state.setSize) * state.setSize;
+}
+
+/* recorta a janela atual a partir de state.ordered (sem reordenar) */
+function commitSession(preserveNum) {
+  state.session = (state.chunk === 'sets' && !state.hardMode)
+    ? state.ordered.slice(state.setOffset, state.setOffset + state.setSize)
+    : state.ordered.slice();
+  state.curIndex = 0;
+  if (preserveNum != null) {
+    const i = state.session.findIndex(p => p.num === preserveNum);
+    if (i >= 0) state.curIndex = i;
+  }
+  primeDurations();
+}
+
+/* rebuild completo: reordena o trecho e recorta a janela */
+function buildSession(preserveNum = null) {
+  buildOrdered();
+  clampSetOffset();
+  commitSession(preserveNum);
+}
+
+/* só recorta a janela mantendo a ordem atual (não reembaralha) */
+function reslice(preserveNum = null) {
+  clampSetOffset();
+  commitSession(preserveNum);
+}
+
+function nextSet() {
+  if (state.chunk !== 'sets' || state.hardMode) return;
+  const len = state.ordered.length;
+  const candidate = state.setOffset + state.setSize;
+  state.setOffset = candidate < len ? candidate : 0;
+  stopRun();
+  reslice();
+  renderAll();
+  setNoteText();
+  playCurrent();
+}
+
+function diffKey(p) { return `${state.category}:${p.num}`; }
+function currentPhrase() { return state.session[state.curIndex] || null; }
+
+/* ================================================================
+   MOTOR — lista de etapas por item
+   ================================================================ */
+// step: { type:'audio', lang:'fr'|'en'|'pt' }  ou  { type:'gap', ms }
+function buildSteps(phrase) {
+  const steps = [];
+  const reps = Math.max(1, Math.floor(state.reps));
+  const midMs = Math.max(0, state.pauseMid * 1000);
+  const nextMs = Math.max(0, state.pauseNext * 1000);
+  const tLang = state.lang;
+  const hasTarget = !!(audioMap[tLang] && audioMap[tLang][phrase.num]);
+  const hasPt = !!(audioMap.pt && audioMap.pt[phrase.num]);
+
+  function audioStep(lang) {
+    const ok = lang === 'pt' ? hasPt : hasTarget;
+    if (ok) steps.push({ type: 'audio', lang });
+  }
+
+  for (let r = 0; r < reps; r++) {
+    if (state.mode === 'imitacao') {
+      audioStep(tLang);
+    } else if (state.mode === 'reconhecimento') {
+      audioStep(tLang);
+      if (hasPt) steps.push({ type: 'gap', ms: midMs });
+      audioStep('pt');
+    } else { // traducao
+      audioStep('pt');
+      if (hasPt && hasTarget) steps.push({ type: 'gap', ms: midMs });
+      audioStep(tLang);
+    }
+    if (r < reps - 1) steps.push({ type: 'gap', ms: midMs });
+  }
+  steps.push({ type: 'gap', ms: nextMs });
+  return steps;
+}
+
+function clearWait() {
+  if (state.waitTimer) clearTimeout(state.waitTimer);
+  state.waitTimer = null; state.waitStart = 0; state.waitDur = 0; state.waitElapsedBefore = 0; state.waitFn = null;
+}
+
+function scheduleGap(ms, fn) {
+  clearWait();
+  state.pausedGap = null;
+  state.waitStart = performance.now();
+  state.waitDur = ms; state.waitElapsedBefore = 0; state.waitFn = fn;
+  state.playing = true;
+  startTicker();
+  state.waitTimer = setTimeout(() => { clearWait(); fn(); }, ms);
+}
+
+function playFile(lang, phrase) {
+  clearWait(); state.pausedGap = null;
+  const url = audioMap[lang] && audioMap[lang][phrase.num];
+  if (!url) { advanceStep(); return; }
+  audio.src = url; audio.currentTime = 0;
+  state.playing = true;
+  audio.play().catch(() => {});
+  startTicker();
+  renderNow();
+}
+
+function runStep() {
+  const phrase = currentPhrase();
+  if (!phrase) return;
+  const step = state.steps[state.stepIndex];
+  if (!step) { onItemEnd(); return; }
+  if (step.type === 'audio') {
+    playFile(step.lang, phrase);
+  } else {
+    scheduleGap(step.ms, advanceStep);
+    renderNow();
+  }
+}
+
+function advanceStep() {
+  state.stepIndex++;
+  if (state.stepIndex >= state.steps.length) { onItemEnd(); return; }
+  runStep();
+}
+
+function onItemEnd() {
+  // avança para a próxima frase da sessão; ao fim, recomeça (ciclo contínuo)
+  if (state.curIndex < state.session.length - 1) state.curIndex++;
+  else state.curIndex = 0;
+  startItem();
+}
+
+function startItem() {
+  const phrase = currentPhrase();
+  if (!phrase) return;
+  state.singleShot = false;
+  state.steps = buildSteps(phrase);
+  state.stepIndex = 0;
+  state.paused = false;
+  renderAll();
+  runStep();
+}
+
+function playCurrent() {
+  if (!state.session.length) return;
+  startItem();
+}
+
+audio.addEventListener('ended', () => {
+  if (!state.playing) return;
+  if (state.singleShot) {
+    state.singleShot = false;
+    state.playing = false; state.paused = true;
+    renderNow();
+    return;
+  }
+  advanceStep();
+});
+
+/* --- play / pause / stop --- */
+function pauseRun() {
+  if (state.waitTimer) {
+    const elapsed = performance.now() - state.waitStart;
+    state.pausedGap = {
+      remaining: Math.max(0, state.waitDur - elapsed),
+      elapsedBefore: state.waitElapsedBefore + elapsed,
+      fn: state.waitFn,
+    };
+    clearWait();
+  } else {
+    audio.pause();
+  }
+  state.playing = false; state.paused = true;
+  renderNow();
+}
+
+function resumeRun() {
+  if (state.pausedGap) {
+    const g = state.pausedGap; state.pausedGap = null;
+    state.paused = false;
+    state.waitStart = performance.now() - g.elapsedBefore;
+    state.waitDur = g.elapsedBefore + g.remaining;
+    state.waitElapsedBefore = 0; state.waitFn = g.fn; state.playing = true;
+    startTicker();
+    state.waitTimer = setTimeout(() => { clearWait(); g.fn(); }, g.remaining);
+    renderNow();
+    return;
+  }
+  if (audio.src && audio.paused) {
+    state.paused = false; state.playing = true;
+    audio.play().catch(() => {});
+    startTicker(); renderNow();
+    return;
+  }
+  if (!state.session.length) return;
+  playCurrent();
+}
+
+function togglePlay() {
+  if (state.playing) pauseRun();
+  else resumeRun();
+}
+
+function stopRun() {
+  clearWait(); state.pausedGap = null;
+  audio.pause(); audio.removeAttribute('src');
+  state.playing = false; state.paused = false;
+}
+
+function prevPhrase() {
+  if (!state.session.length) return;
+  state.curIndex = clamp(state.curIndex - 1, 0, state.session.length - 1);
+  startItem();
+}
+function nextPhrase() {
+  if (!state.session.length) return;
+  state.curIndex = clamp(state.curIndex + 1, 0, state.session.length - 1);
+  startItem();
+}
+function repeatTarget() {
+  const phrase = currentPhrase();
+  if (!phrase || !(audioMap[state.lang] && audioMap[state.lang][phrase.num])) return;
+  stopRun();
+  state.steps = [{ type: 'audio', lang: state.lang }];
+  state.stepIndex = 0;
+  state.singleShot = true;   // não encadeia: toca o alvo uma vez e para
+  playFile(state.lang, phrase);
+}
+
+/* ================================================================
+   DURAÇÃO / PROGRESSO
+   ================================================================ */
+function fileKey(file) { return file ? `${file.name}:${file.size}:${file.lastModified}` : ''; }
+function cachedDur(file) {
+  const d = state.durationCache.get(fileKey(file));
+  return Number.isFinite(d) ? d : null;
+}
+function loadDur(file) {
+  const key = fileKey(file);
+  if (!file) return Promise.resolve(0);
+  if (state.durationCache.has(key)) return Promise.resolve(state.durationCache.get(key));
+  return new Promise(res => {
+    const probe = new Audio(); const url = URL.createObjectURL(file);
+    const done = ms => { URL.revokeObjectURL(url); state.durationCache.set(key, Number.isFinite(ms) ? ms : 0); res(state.durationCache.get(key)); };
+    probe.preload = 'metadata';
+    probe.addEventListener('loadedmetadata', () => done(probe.duration * 1000), { once: true });
+    probe.addEventListener('error', () => done(0), { once: true });
+    probe.src = url;
+  });
+}
+async function primeDurations() {
+  const token = ++state.durationToken;
+  const files = [];
+  for (const p of state.session) {
+    const tf = audioFiles[state.lang] && audioFiles[state.lang][p.num];
+    const pf = audioFiles.pt && audioFiles.pt[p.num];
+    if (tf) files.push(tf);
+    if (pf && state.mode !== 'imitacao') files.push(pf);
+  }
+  for (const f of files) {
+    if (token !== state.durationToken) return;
+    await loadDur(f);
+    if (token !== state.durationToken) return;
+    updateTimes();
+  }
+}
+
+function stepDurationMs(step, phrase) {
+  if (step.type === 'gap') return step.ms;
+  const file = audioFiles[step.lang] && audioFiles[step.lang][phrase.num];
+  const d = file ? cachedDur(file) : 0;
+  return d == null ? null : d;
+}
+
+function itemDurationMs(phrase) {
+  const steps = buildSteps(phrase);
+  let total = 0;
+  for (const s of steps) {
+    const d = stepDurationMs(s, phrase);
+    if (d == null) return null;
+    total += d;
+  }
+  return total;
+}
+
+function currentGapElapsed() {
+  if (state.waitTimer) return Math.max(0, state.waitElapsedBefore + performance.now() - state.waitStart);
+  if (state.paused && state.pausedGap) return Math.max(0, state.pausedGap.elapsedBefore);
+  return 0;
+}
+
+function currentItemOffsetMs() {
+  const phrase = currentPhrase();
+  if (!phrase) return 0;
+  let off = 0;
+  for (let i = 0; i < state.stepIndex; i++) {
+    const d = stepDurationMs(state.steps[i], phrase);
+    off += (d == null ? 0 : d);
+  }
+  const step = state.steps[state.stepIndex];
+  if (step) {
+    if (step.type === 'audio') off += Math.min((cachedDur(audioFiles[step.lang]?.[phrase.num]) || 0), (audio.currentTime || 0) * 1000);
+    else off += Math.min(step.ms, currentGapElapsed());
+  }
+  return off;
+}
+
+function sessionTimes() {
+  if (!state.session.length) return { elapsed: 0, remaining: null, total: null };
+  let total = 0, elapsed = 0;
+  for (let i = 0; i < state.session.length; i++) {
+    const d = itemDurationMs(state.session[i]);
+    if (d == null) return { elapsed: null, remaining: null, total: null };
+    total += d;
+    if (i < state.curIndex) elapsed += d;
+  }
+  elapsed += currentItemOffsetMs();
+  elapsed = clamp(elapsed, 0, total);
+  return { elapsed, remaining: Math.max(0, total - elapsed), total };
+}
+
+function fmt(ms) {
+  if (ms == null || !Number.isFinite(ms)) return '--:--';
+  const s = Math.max(0, Math.floor(ms / 1000));
+  const h = Math.floor(s / 3600), m = Math.floor((s % 3600) / 60), sec = s % 60;
+  if (h) return `${h}:${String(m).padStart(2,'0')}:${String(sec).padStart(2,'0')}`;
+  return `${String(m).padStart(2,'0')}:${String(sec).padStart(2,'0')}`;
+}
+
+function updateTimes() {
+  const { elapsed, remaining, total } = sessionTimes();
+  el.tcElapsed.textContent = fmt(elapsed);
+  el.tcRemaining.textContent = remaining == null ? '--:--' : '-' + fmt(remaining);
+  const pct = (total && elapsed != null) ? (elapsed / total) * 100 : 0;
+  el.filmFill.style.width = `${pct}%`;
+}
+
+function startTicker() {
+  if (state.ticker) return;
+  const tick = () => {
+    updateTimes(); renderRibbon();
+    if (state.playing || state.waitTimer) state.ticker = requestAnimationFrame(tick);
+    else state.ticker = null;
+  };
+  state.ticker = requestAnimationFrame(tick);
+}
+
+/* ================================================================
+   RENDER
+   ================================================================ */
+const MODE_LABELS = { reconhecimento: 'Reconhecimento', imitacao: 'Imitação', traducao: 'Tradução' };
+const LANG_LABELS = { fr: 'Francês', en: 'Inglês' };
+
+function currentStepKind() {
+  const step = state.steps[state.stepIndex];
+  if (!step) return null;
+  return step;
+}
+
+function renderNow() {
+  const phrase = currentPhrase();
+  const step = currentStepKind();
+
+  // luz / fase
+  let recCls = 'rec', recTxt = state.paused ? 'pausa' : 'parado';
+  let playingLang = null;
+  if (step && (state.playing || state.paused)) {
+    if (step.type === 'audio') {
+      playingLang = step.lang;
+      if (step.lang === 'pt') { recCls = 'rec pt'; recTxt = state.paused ? 'pausa · pt' : 'português'; }
+      else { recCls = 'rec target'; recTxt = (state.paused ? 'pausa · ' : '') + LANG_LABELS[state.lang].toLowerCase(); }
+    } else {
+      recTxt = state.paused ? 'pausa' : 'intervalo';
+    }
+  }
+  el.recLight.className = recCls;
+  el.recText.textContent = recTxt;
+
+  // texto na tela
+  let shownText = '', cls = 'phrase';
+  if (phrase && playingLang && state.textMode !== 'none') {
+    if (playingLang === 'pt' && (state.textMode === 'both' || state.textMode === 'pt')) { shownText = phrase.pt; cls += ' is-pt'; }
+    else if (playingLang !== 'pt' && (state.textMode === 'both' || state.textMode === 'target')) { shownText = targetText(phrase); cls += ' is-target'; }
+  }
+  if (!shownText) { shownText = state.session.length ? '…' : 'Pronto para começar.'; cls = 'phrase empty'; }
+  el.phraseText.className = cls;
+  el.phraseText.textContent = shownText;
+
+  el.playLabel.textContent = state.playing ? 'Pause' : 'Play';
+  el.playBtn.querySelector('.ic').innerHTML = state.playing
+    ? '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>'
+    : '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>';
+
+  if (phrase) {
+    el.diffBtn.classList.toggle('on', state.difficult.has(diffKey(phrase)));
+    el.diffBtn.textContent = state.difficult.has(diffKey(phrase)) ? '★ Difícil' : '☆ Difícil';
+  }
+}
+
+function renderRibbon() {
+  const phrase = currentPhrase();
+  if (!phrase) { el.ribbon.innerHTML = ''; return; }
+  const steps = state.steps.length ? state.steps : buildSteps(phrase);
+  const parts = [];
+  steps.forEach((s, i) => {
+    if (s.type === 'gap') { if (i < steps.length - 1) parts.push('<span class="lamp-gap"></span>'); return; }
+    const isTarget = s.lang !== 'pt';
+    const lbl = isTarget ? (state.lang === 'fr' ? 'FR' : 'EN') : 'PT';
+    let cls = 'lamp ' + (isTarget ? 'target' : 'pt');
+    if (i === state.stepIndex && (state.playing || state.paused)) cls += ' active';
+    else if (i < state.stepIndex) cls += ' done';
+    parts.push(`<span class="${cls}">${lbl}</span>`);
+  });
+  el.ribbon.innerHTML = parts.join('');
+}
+
+function renderHead() {
+  const cat = CATEGORIES.find(c => c.raw === state.category);
+  el.phCategory.textContent = cat ? cat.label : state.category;
+  el.phMode.textContent = `${MODE_LABELS[state.mode]} · ${LANG_LABELS[state.lang]}`;
+}
+
+function renderIndex() {
+  const phrase = currentPhrase();
+  if (phrase) {
+    el.bigIndex.textContent = String(displayNum(phrase)).padStart(2, '0');
+    el.bigOf.textContent = `${state.curIndex + 1} / ${state.session.length}`;
+  } else {
+    el.bigIndex.textContent = '—';
+    el.bigOf.textContent = '— / —';
+  }
+}
+
+function renderList() {
+  el.listTitle.textContent = state.hardMode ? 'Difíceis da sessão' : 'Frases da sessão';
+  if (el.listNumHead) el.listNumHead.textContent = state.order === 'fluxo' ? 'fl' : '#';
+  if (!state.session.length) {
+    el.listTbody.innerHTML = '<tr><td colspan="3" class="td-phrase">Nenhuma frase.</td></tr>';
+    return;
+  }
+  el.listTbody.innerHTML = state.session.map((p, i) => {
+    const cur = i === state.curIndex ? 'current' : '';
+    const diff = state.difficult.has(diffKey(p)) ? 'diff' : '';
+    return `<tr class="${cur} ${diff}" data-i="${i}">
+      <td>${displayNum(p)}</td>
+      <td class="td-phrase">${escapeHtml(targetText(p))}</td>
+      <td>${i === state.curIndex ? '▶' : ''}${state.difficult.has(diffKey(p)) ? ' ★' : ''}</td>
+    </tr>`;
+  }).join('');
+}
+
+function setNoteText() {
+  if (state.hardMode) { el.setNote.textContent = `modo difícil · ${state.session.length} frase(s)`; el.nextSetBtn.hidden = true; return; }
+  if (state.chunk === 'sets') {
+    const len = state.ordered.length;
+    const from = len ? state.setOffset + 1 : 0;
+    const to = Math.min(state.setOffset + state.setSize, len);
+    const totalSets = Math.max(1, Math.ceil(len / state.setSize));
+    const setIdx = Math.floor(state.setOffset / state.setSize) + 1;
+    el.setNote.textContent = `set ${setIdx}/${totalSets}  ·  frases ${from}–${to} de ${len}`;
+    el.nextSetBtn.hidden = false;
+    el.nextSetBtn.textContent = (to >= len) ? '↺ Reiniciar sets' : 'Próximo set →';
+  } else {
+    el.setNote.textContent = `trecho inteiro ${state.start}–${state.end}`;
+    el.nextSetBtn.hidden = true;
+  }
+}
+
+function renderAll() {
+  renderHead(); renderIndex(); renderNow(); renderRibbon(); renderList(); updateTimes(); setNoteText();
+}
+
+function escapeHtml(t) {
+  return (t || '').replace(/[&<>'"]/g, c => ({ '&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;' }[c]));
+}
+
+/* ================================================================
+   AJUSTES EM SESSÃO (drawer) — sem perder o trecho
+   ================================================================ */
+function applyModeChange(newMode) {
+  if (newMode === state.mode) return;
+  const cur = currentPhrase();
+  const preserve = cur ? cur.num : null;
+  state.mode = newMode;
+  // reps default por modo, mas só se o usuário não tiver customizado nesta sessão
+  if (!state._repsTouched) { state.reps = MODE_DEFAULT_REPS[newMode]; el.dReps.value = state.reps; }
+  setSeg(el.modeSeg, 'mode', newMode); setSeg(el.dModeSeg, 'mode', newMode);
+  updateModeHint();
+  const wasPlaying = state.playing;
+  stopRun();
+  reslice(preserve);               // ordem/janela intactas — só muda as etapas
+  renderAll();
+  if (wasPlaying) playCurrent(); else renderNow();
+  savePrefs();
+}
+
+function applyLangChange(newLang) {
+  if (newLang === state.lang) return;
+  const cur = currentPhrase();
+  const preserve = cur ? cur.num : null;
+  state.lang = newLang;
+  setSeg(el.langSeg, 'lang', newLang); setSeg(el.dLangSeg, 'lang', newLang);
+  const wasPlaying = state.playing;
+  stopRun();
+  reslice(preserve);               // idioma não altera a ordem
+  renderAll();
+  if (wasPlaying) playCurrent(); else renderNow();
+  savePrefs();
+}
+
+function applyRangeFromDrawer() {
+  const total = Math.max(1, rangeMax());
+  let s = clamp(parseInt(el.dStart.value, 10) || 1, 1, total);
+  let e = clamp(parseInt(el.dEnd.value, 10) || total, s, total);
+  el.dStart.value = s; el.dEnd.value = e;
+  state.start = s; state.end = e;
+  state.setOffset = 0;
+  stopRun();
+  buildSession();
+  renderAll();
+  savePrefs();
+}
+
+function toggleHardMode() {
+  const anyDiff = PHRASES.some(p => state.difficult.has(diffKey(p)));
+  if (!state.hardMode && !anyDiff) { el.dHardToggle.textContent = 'Marque difíceis primeiro'; setTimeout(() => el.dHardToggle.textContent = 'Tocar só os difíceis', 1600); return; }
+  state.hardMode = !state.hardMode;
+  el.dHardToggle.textContent = state.hardMode ? 'Voltar ao trecho' : 'Tocar só os difíceis';
+  const wasPlaying = state.playing;
+  stopRun(); buildSession(); renderAll();
+  if (wasPlaying) playCurrent(); else renderNow();
+}
+
+/* retorna o setOffset (posição alinhada) que contém a frase dada, dentro de state.ordered */
+function computeSetOffsetFor(phrase) {
+  const pos = state.ordered.findIndex(p => p.num === phrase.num);
+  if (pos < 0) return 0;
+  return Math.floor(pos / state.setSize) * state.setSize;
+}
+
+function applyChunkChange(chunk) {
+  if (chunk === state.chunk) return;
+  const cur = currentPhrase(); const preserve = cur ? cur.num : null;
+  state.chunk = chunk;
+  if (chunk === 'sets') {
+    // ancora o set na frase atual (sua posição na ordem vigente)
+    state.setOffset = cur ? computeSetOffsetFor(cur) : 0;
+  }
+  setSeg(el.chunkSeg, 'chunk', chunk);
+  setSeg(el.dChunkSeg, 'chunk', chunk);
+  stopRun(); reslice(preserve); renderAll(); savePrefs();
+}
+
+function toggleDifficult() {
+  const p = currentPhrase(); if (!p) return;
+  const k = diffKey(p);
+  if (state.difficult.has(k)) state.difficult.delete(k); else state.difficult.add(k);
+  savePrefs(); renderNow(); renderList();
+}
+
+/* ================================================================
+   ORDEM (sequencial · fluxo · aleatório)
+   ================================================================ */
+function fluxoAvailable() { return PHRASES.some(p => p.ordem != null); }
+function rangeHintText() {
+  return state.order === 'fluxo'
+    ? `Início/Fim numeram pela ordem_fluxo (1–${Math.max(1, fluxoMax())}).`
+    : `Início/Fim numeram pelo # do arquivo (1–${PHRASES.length}).`;
+}
+function syncConfigRangeInputs() {
+  const total = Math.max(1, rangeMax());
+  el.startIndex.value = state.start; el.startIndex.max = total;
+  el.endIndex.value = state.end; el.endIndex.max = total;
+  if (el.rangeHint) el.rangeHint.textContent = rangeHintText();
+}
+function syncDrawerRangeInputs() {
+  const total = Math.max(1, rangeMax());
+  el.dStart.value = state.start; el.dEnd.value = state.end;
+  el.dStart.max = total; el.dEnd.max = total;
+  if (el.dRangeHint) el.dRangeHint.textContent = rangeHintText();
+}
+function reflectOrder() {
+  if (el.orderSeg) setSeg(el.orderSeg, 'order', state.order);
+  if (el.dOrderSeg) setSeg(el.dOrderSeg, 'order', state.order);
+}
+function refreshOrderAvailability() {
+  const has = fluxoAvailable();
+  [el.orderSeg, el.dOrderSeg].forEach(seg => { const b = seg && seg.querySelector('[data-order="fluxo"]'); if (b) b.disabled = !has; });
+  if (!has && state.order === 'fluxo') state.order = 'sequencial';
+  if (el.orderHint) el.orderHint.textContent = has ? '' : 'Sem coluna ordem_fluxo nesta categoria.';
+  reflectOrder();
+}
+/* escolha antes da sessão (tela de configuração): registra o modo e renumera o trecho */
+function pickOrder(mode) {
+  if (mode === 'fluxo' && !fluxoAvailable()) return;
+  state.order = mode; reflectOrder();
+  resetRangeToFull(); syncConfigRangeInputs();
+  savePrefs();
+}
+/* troca durante a sessão (drawer): renumera o trecho, reordena e recomeça pela 1ª da sequência */
+function applyOrderChange(mode) {
+  if (mode === state.order) return;
+  if (mode === 'fluxo' && !fluxoAvailable()) return;
+  state.order = mode; reflectOrder();
+  resetRangeToFull(); syncDrawerRangeInputs();
+  state.setOffset = 0;
+  const wasPlaying = state.playing;
+  stopRun();
+  buildSession();
+  renderAll();
+  if (wasPlaying) playCurrent(); else renderNow();
+  savePrefs();
+}
+
+/* ================================================================
+   DRAWER / MODAL
+   ================================================================ */
+function openDrawer() {
+  // sincroniza inputs do drawer com o estado
+  syncDrawerRangeInputs();
+  el.dPauseMid.value = state.pauseMid; el.dPauseNext.value = state.pauseNext;
+  el.dReps.value = state.reps; el.dSetSize.value = state.setSize;
+  setSeg(el.dModeSeg, 'mode', state.mode); setSeg(el.dLangSeg, 'lang', state.lang);
+  setSeg(el.dOrderSeg, 'order', state.order);
+  { const b = el.dOrderSeg.querySelector('[data-order="fluxo"]'); if (b) b.disabled = !fluxoAvailable(); }
+  setSeg(el.textSeg, 'text', state.textMode);
+  setSeg(el.dChunkSeg, 'chunk', state.chunk);
+  document.body.classList.add('drawer-open');
+  el.settingsBtn.setAttribute('aria-expanded', 'true');
+}
+function closeDrawer() { document.body.classList.remove('drawer-open'); el.settingsBtn.setAttribute('aria-expanded', 'false'); }
+function openHelp() { el.helpModal.hidden = false; document.body.classList.add('modal-open'); el.helpClose.focus(); }
+function closeHelp() { el.helpModal.hidden = true; document.body.classList.remove('modal-open'); }
+
+/* ================================================================
+   GAMEPAD (Joy-Con) — uso, diagnóstico, atalhos
+   ================================================================ */
+function updateGpDiag() {
+  if (!state.gpDiag) { el.gpDiag.textContent = 'Diagnóstico desligado. Ative para identificar os botões do controle.'; el.gpTestBtn.textContent = 'Testar botões'; return; }
+  el.gpTestBtn.textContent = 'Encerrar teste';
+  const ctrl = state.gpDiagId ? `${state.gpDiagId} · ${state.gpDiagCount} botão(ões)` : 'aguardando controle…';
+  const log = state.gpDiagLog.length ? state.gpDiagLog.join('\n') : 'Pressione os botões para identificar.';
+  el.gpDiag.textContent = `Controle: ${ctrl}\n${log}`;
+}
+function toggleGpDiag() { state.gpDiag = !state.gpDiag; state.gpDiagLog = []; state.gpDiagId=''; state.gpDiagCount=0; state.lastButtons=[]; updateGpDiag(); }
+function clearGpDiag() { state.gpDiagLog = []; updateGpDiag(); }
+function registerGpPress(gp, index, button) {
+  state.gpDiagId = gp.id || 'controle'; state.gpDiagCount = gp.buttons.length;
+  state.gpDiagLog.unshift(`Botão ${index} · valor ${Number(button.value||0).toFixed(2)}`);
+  state.gpDiagLog = state.gpDiagLog.slice(0, 10); updateGpDiag();
+}
+function gpButtonMap() {
+  return {
+    0: togglePlay,        // A
+    1: nextSet,           // X
+    2: toggleDifficult,   // B
+    3: repeatTarget,      // Y
+    4: prevPhrase,        // SL
+    5: nextPhrase,        // SR
+    12: nextSet,          // ↑
+    14: prevPhrase, 15: nextPhrase,
+  };
+}
+function handleGpAxes(gp) {
+  if (!gp.axes || gp.axes.length < 2) return;
+  const dz = 0.6, now = performance.now(), h = gp.axes[0] || 0;
+  const wasNeutral = !state.lastAxes.length || Math.abs(state.lastAxes[0] || 0) < dz;
+  const ready = now - state.lastStickAt > state.stickCooldown;
+  if (wasNeutral && ready && h > dz) { nextPhrase(); state.lastStickAt = now; }
+  else if (wasNeutral && ready && h < -dz) { prevPhrase(); state.lastStickAt = now; }
+  state.lastAxes = Array.from(gp.axes);
+}
+function startGamepadLoop() {
+  if (state.gamepadLoop) return;
+  const tick = () => {
+    const pads = navigator.getGamepads ? Array.from(navigator.getGamepads()).filter(Boolean) : [];
+    const gp = pads[0];
+    if (gp) {
+      el.gpBadge.textContent = '🎮 ' + gp.id.slice(0, 16);
+      el.gpBadge.classList.add('live');
+      if (state.gpDiag && (state.gpDiagId !== (gp.id||'') || state.gpDiagCount !== gp.buttons.length)) { state.gpDiagId = gp.id||''; state.gpDiagCount = gp.buttons.length; updateGpDiag(); }
+      const map = gpButtonMap();
+      gp.buttons.forEach((b, i) => {
+        const was = state.lastButtons[i] || false;
+        if (b.pressed && !was) { if (state.gpDiag) registerGpPress(gp, i, b); else if (map[i]) map[i](); }
+        state.lastButtons[i] = b.pressed;
+      });
+      if (!state.gpDiag) handleGpAxes(gp);
+    }
+    state.gamepadLoop = requestAnimationFrame(tick);
+  };
+  state.gamepadLoop = requestAnimationFrame(tick);
+}
+
+/* ================================================================
+   EVENTOS
+   ================================================================ */
+function handleKeydown(e) {
+  if (!el.playerScreen || el.playerScreen.hidden) return;
+  const tag = document.activeElement?.tagName;
+  if (['INPUT','SELECT','TEXTAREA'].includes(tag)) return;
+  const k = e.key.toLowerCase();
+  const actions = {
+    ' ': togglePlay, 'arrowright': nextPhrase, 'arrowleft': prevPhrase,
+    'r': repeatTarget, 'n': nextSet, 'd': toggleDifficult,
+    '[': () => adjustPause(-0.25), ']': () => adjustPause(0.25),
+  };
+  if (actions[k]) { e.preventDefault(); actions[k](); }
+}
+function adjustPause(delta) {
+  state.pauseNext = Math.max(0, +(state.pauseNext + delta).toFixed(2));
+  el.dPauseNext.value = state.pauseNext; savePrefs(); updateTimes();
+}
+
+function startSession() {
+  readRangeFromConfig();
+  state.category = el.categorySelect.value;
+  state.setOffset = 0;
+  state.hardMode = false;
+  state._repsTouched = false;
+  el.configScreen.hidden = true;
+  el.playerScreen.hidden = false;
+  buildSession();
+  renderAll();
+  savePrefs();
+}
+
+function newSession() {
+  stopRun();
+  closeDrawer();
+  el.playerScreen.hidden = true;
+  el.configScreen.hidden = false;
+  refreshStartGate();
+}
+
+function bindEvents() {
+  // config
+  el.csvInput.addEventListener('change', e => loadCSVFile(e.target.files[0]));
+  el.categorySelect.addEventListener('change', onCategoryChange);
+  el.audioInput.addEventListener('change', e => loadAudioFolder(e.target.files));
+  el.langSeg.addEventListener('click', e => { const b = e.target.closest('button'); if (b) { state.lang = b.dataset.lang; setSeg(el.langSeg,'lang',state.lang); refreshStartGate(); savePrefs(); } });
+  el.modeSeg.addEventListener('click', e => { const b = e.target.closest('button'); if (b) { state.mode = b.dataset.mode; if (!state._repsTouched) state.reps = MODE_DEFAULT_REPS[state.mode]; setSeg(el.modeSeg,'mode',state.mode); updateModeHint(); savePrefs(); } });
+  el.orderSeg.addEventListener('click', e => { const b = e.target.closest('button'); if (b && !b.disabled) pickOrder(b.dataset.order); });
+  el.chunkSeg.addEventListener('click', e => { const b = e.target.closest('button'); if (b) { state.chunk = b.dataset.chunk; setSeg(el.chunkSeg,'chunk',state.chunk); savePrefs(); } });
+  el.startBtn.addEventListener('click', startSession);
+
+  // player head
+  el.settingsBtn.addEventListener('click', () => document.body.classList.contains('drawer-open') ? closeDrawer() : openDrawer());
+  el.drawerClose.addEventListener('click', closeDrawer);
+  el.scrim.addEventListener('click', () => { closeDrawer(); closeHelp(); });
+  el.helpBtn.addEventListener('click', openHelp);
+  el.helpClose.addEventListener('click', closeHelp);
+
+  // transport
+  el.playBtn.addEventListener('click', togglePlay);
+  el.prevBtn.addEventListener('click', prevPhrase);
+  el.nextBtn.addEventListener('click', nextPhrase);
+  el.diffBtn.addEventListener('click', toggleDifficult);
+  el.nextSetBtn.addEventListener('click', nextSet);
+
+  // lista
+  el.listToggle.addEventListener('click', () => {
+    const open = el.listBody.hidden;
+    el.listBody.hidden = !open;
+    el.listToggle.setAttribute('aria-expanded', String(open));
+  });
+  el.listTbody.addEventListener('click', e => {
+    const tr = e.target.closest('tr[data-i]'); if (!tr) return;
+    state.curIndex = Number(tr.dataset.i); startItem();
+  });
+
+  // drawer controls
+  el.dModeSeg.addEventListener('click', e => { const b = e.target.closest('button'); if (b) applyModeChange(b.dataset.mode); });
+  el.dLangSeg.addEventListener('click', e => { const b = e.target.closest('button'); if (b) applyLangChange(b.dataset.lang); });
+  el.dOrderSeg.addEventListener('click', e => { const b = e.target.closest('button'); if (b && !b.disabled) applyOrderChange(b.dataset.order); });
+  el.dApply.addEventListener('click', applyRangeFromDrawer);
+  el.dPauseMid.addEventListener('change', () => { state.pauseMid = Math.max(0, +el.dPauseMid.value || 0); savePrefs(); updateTimes(); });
+  el.dPauseNext.addEventListener('change', () => { state.pauseNext = Math.max(0, +el.dPauseNext.value || 0); savePrefs(); updateTimes(); });
+  el.dReps.addEventListener('change', () => { state.reps = Math.max(1, Math.floor(+el.dReps.value || 1)); state._repsTouched = true; savePrefs(); const cur=currentPhrase(); if(cur){state.steps=buildSteps(cur);} renderRibbon(); updateTimes(); });
+  el.dSetSize.addEventListener('change', () => { state.setSize = Math.max(1, Math.floor(+el.dSetSize.value || 5)); savePrefs(); if (state.chunk === 'sets') { const cur = currentPhrase(); state.setOffset = cur ? computeSetOffsetFor(cur) : 0; stopRun(); reslice(cur ? cur.num : null); renderAll(); } });
+  el.textSeg.addEventListener('click', e => { const b = e.target.closest('button'); if (b) { state.textMode = b.dataset.text; setSeg(el.textSeg,'text',state.textMode); savePrefs(); renderNow(); } });
+  el.dHardToggle.addEventListener('click', toggleHardMode);
+  el.dChunkSeg.addEventListener('click', e => { const b = e.target.closest('button'); if (b) applyChunkChange(b.dataset.chunk); });
+  el.dReset.addEventListener('click', resetToDefaults);
+  el.dClearDiff.addEventListener('click', () => { state.difficult.clear(); savePrefs(); if (state.hardMode) toggleHardMode(); else { renderList(); renderNow(); } });
+  el.dNewSession.addEventListener('click', newSession);
+
+  // gamepad
+  el.gpTestBtn.addEventListener('click', toggleGpDiag);
+  el.gpClearBtn.addEventListener('click', clearGpDiag);
+  window.addEventListener('gamepadconnected', startGamepadLoop);
+  window.addEventListener('gamepaddisconnected', () => { el.gpBadge.textContent = '🎮 —'; el.gpBadge.classList.remove('live'); state.lastButtons = []; });
+  if (navigator.getGamepads) startGamepadLoop();
+
+  // teclado
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') { if (!el.helpModal.hidden) { closeHelp(); return; } if (document.body.classList.contains('drawer-open')) { closeDrawer(); return; } }
+    handleKeydown(e);
+  });
+}
+
+function resetToDefaults() {
+  state.pauseMid = 1; state.pauseNext = 1; state.setSize = 5;
+  state._repsTouched = false; state.reps = MODE_DEFAULT_REPS[state.mode];
+  el.dPauseMid.value = 1; el.dPauseNext.value = 1; el.dSetSize.value = 5; el.dReps.value = state.reps;
+  state.order = 'sequencial'; reflectOrder();
+  state.start = 1; state.end = PHRASES.length; state.setOffset = 0;
+  syncDrawerRangeInputs();
+  savePrefs(); stopRun(); buildSession(); renderAll();
+}
+
+/* ================================================================
+   INIT
+   ================================================================ */
+function applyPrefsToConfigUI() {
+  setSeg(el.langSeg, 'lang', state.lang);
+  setSeg(el.modeSeg, 'mode', state.mode);
+  setSeg(el.orderSeg, 'order', state.order);
+  setSeg(el.chunkSeg, 'chunk', state.chunk);
+  updateModeHint();
+}
+
+loadPrefs();
+applyPrefsToConfigUI();
+bindEvents();
+
+/* ================================================================
+   PWA — registra o service worker (deixa a página offline).
+   Só roda em https (GitHub Pages) ou localhost; ignora silencioso
+   se o navegador não suportar. Não afeta a lógica do player.
+   ================================================================ */
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('./sw.js').catch(() => {});
+  });
+}
+</script>
+</body>
+</html>
