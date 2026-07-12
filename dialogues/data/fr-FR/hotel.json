@@ -1,0 +1,2882 @@
+{
+  "schemaVersion": 1,
+  "id": "hotel",
+  "title": "Hotel",
+  "description": "Diálogos cotidianos para praticar interações em hotéis na França.",
+  "targetLanguage": "fr-FR",
+  "supportLanguage": "pt-BR",
+  "practiceRole": "guest",
+  "participants": [
+    {
+      "id": "guest",
+      "role": "guest",
+      "label": "Hóspede"
+    },
+    {
+      "id": "receptionist",
+      "role": "staff",
+      "label": "Recepcionista"
+    },
+    {
+      "id": "concierge",
+      "role": "staff",
+      "label": "Concierge"
+    },
+    {
+      "id": "housekeeping",
+      "role": "staff",
+      "label": "Funcionário da governança"
+    },
+    {
+      "id": "breakfast-server",
+      "role": "staff",
+      "label": "Atendente do café da manhã"
+    },
+    {
+      "id": "porter",
+      "role": "staff",
+      "label": "Mensageiro"
+    }
+  ],
+  "dialogues": [
+    {
+      "id": "hotel-d01",
+      "title": "Arrivée avec réservation",
+      "type": "core",
+      "context": "O hóspede chega ao hotel para fazer o check-in de uma reserva já confirmada. O atendimento ocorre sem imprevistos.",
+      "participantIds": [
+        "guest",
+        "receptionist"
+      ],
+      "tags": [
+        "check-in",
+        "com-reserva",
+        "wifi",
+        "cafe-da-manha"
+      ],
+      "turns": [
+        {
+          "id": "hotel-d01-t01",
+          "speakerId": "receptionist",
+          "speakerRole": "staff",
+          "isLearnerTurn": false,
+          "targetText": "Bonjour, bienvenue. Vous avez une réservation ?",
+          "translation": "Bom dia, seja bem-vindo. O senhor tem reserva?",
+          "intention": "Cumprimentar e verificar se há reserva."
+        },
+        {
+          "id": "hotel-d01-t02",
+          "speakerId": "guest",
+          "speakerRole": "guest",
+          "isLearnerTurn": true,
+          "targetText": "Oui, au nom de Santos.",
+          "translation": "Sim, no nome de Santos.",
+          "intention": "Confirmar a reserva e informar o nome.",
+          "alternatives": [
+            {
+              "targetText": "Oui, j'ai réservé au nom de Rodrigo Santos.",
+              "translation": "Sim, fiz a reserva no nome de Rodrigo Santos."
+            },
+            {
+              "targetText": "Oui, la réservation a été faite par mon entreprise.",
+              "translation": "Sim, a reserva foi feita pela minha empresa."
+            },
+            {
+              "targetText": "Je crois que c'est au nom de Santos.",
+              "translation": "Acho que está no nome de Santos."
+            }
+          ]
+        },
+        {
+          "id": "hotel-d01-t03",
+          "speakerId": "receptionist",
+          "speakerRole": "staff",
+          "isLearnerTurn": false,
+          "targetText": "Très bien. Vous pouvez me montrer une pièce d'identité, s'il vous plaît ?",
+          "translation": "Certo. Pode me mostrar um documento de identidade, por favor?",
+          "intention": "Pedir um documento de identificação."
+        },
+        {
+          "id": "hotel-d01-t04",
+          "speakerId": "guest",
+          "speakerRole": "guest",
+          "isLearnerTurn": true,
+          "targetText": "Bien sûr, voici mon passeport.",
+          "translation": "Claro, aqui está meu passaporte.",
+          "intention": "Entregar o documento solicitado.",
+          "alternatives": [
+            {
+              "targetText": "Oui, un instant... Voilà.",
+              "translation": "Sim, só um instante... Aqui está."
+            },
+            {
+              "targetText": "Est-ce que ma carte d'identité suffit ?",
+              "translation": "Minha carteira de identidade serve?"
+            },
+            {
+              "targetText": "Je l'ai dans mon sac, je vous le donne tout de suite.",
+              "translation": "Está na minha bolsa, já pego para você."
+            }
+          ]
+        },
+        {
+          "id": "hotel-d01-t05",
+          "speakerId": "receptionist",
+          "speakerRole": "staff",
+          "isLearnerTurn": false,
+          "targetText": "Merci. Vous restez bien trois nuits, jusqu'à lundi ?",
+          "translation": "Obrigado. O senhor fica três noites, até segunda, certo?",
+          "intention": "Confirmar a duração da estadia."
+        },
+        {
+          "id": "hotel-d01-t06",
+          "speakerId": "guest",
+          "speakerRole": "guest",
+          "isLearnerTurn": true,
+          "targetText": "Oui, c'est bien ça.",
+          "translation": "Sim, isso mesmo.",
+          "intention": "Confirmar as datas da reserva."
+        },
+        {
+          "id": "hotel-d01-t07",
+          "speakerId": "receptionist",
+          "speakerRole": "staff",
+          "isLearnerTurn": false,
+          "targetText": "Le petit-déjeuner est servi de 7 heures à 10 heures, au rez-de-chaussée.",
+          "translation": "O café da manhã é servido das 7h às 10h, no térreo.",
+          "intention": "Informar horário e local do café da manhã."
+        },
+        {
+          "id": "hotel-d01-t08",
+          "speakerId": "guest",
+          "speakerRole": "guest",
+          "isLearnerTurn": true,
+          "targetText": "D'accord. Et le Wi-Fi, comment ça marche ?",
+          "translation": "Certo. E como funciona o Wi-Fi?",
+          "intention": "Pedir informações sobre o Wi-Fi.",
+          "alternatives": [
+            {
+              "targetText": "Très bien. Le mot de passe du Wi-Fi est indiqué quelque part ?",
+              "translation": "Ótimo. A senha do Wi-Fi está indicada em algum lugar?"
+            },
+            {
+              "targetText": "Merci. Le Wi-Fi est gratuit dans les chambres ?",
+              "translation": "Obrigado. O Wi-Fi é gratuito nos quartos?"
+            },
+            {
+              "targetText": "Parfait, je voulais justement vous demander pour le Wi-Fi.",
+              "translation": "Perfeito, eu ia justamente perguntar sobre o Wi-Fi."
+            }
+          ]
+        },
+        {
+          "id": "hotel-d01-t09",
+          "speakerId": "receptionist",
+          "speakerRole": "staff",
+          "isLearnerTurn": false,
+          "targetText": "Il suffit de choisir le réseau de l'hôtel et d'entrer votre numéro de chambre.",
+          "translation": "É só selecionar a rede do hotel e digitar o número do quarto.",
+          "intention": "Explicar como acessar o Wi-Fi."
+        },
+        {
+          "id": "hotel-d01-t10",
+          "speakerId": "guest",
+          "speakerRole": "guest",
+          "isLearnerTurn": true,
+          "targetText": "Très bien, merci.",
+          "translation": "Ótimo, obrigado.",
+          "intention": "Agradecer pela explicação."
+        },
+        {
+          "id": "hotel-d01-t11",
+          "speakerId": "receptionist",
+          "speakerRole": "staff",
+          "isLearnerTurn": false,
+          "targetText": "Voici votre carte. Vous êtes au quatrième étage, chambre 412.",
+          "translation": "Aqui está seu cartão. O senhor fica no quarto 412, no quarto andar.",
+          "intention": "Entregar o cartão-chave e indicar o quarto."
+        },
+        {
+          "id": "hotel-d01-t12",
+          "speakerId": "guest",
+          "speakerRole": "guest",
+          "isLearnerTurn": true,
+          "targetText": "Parfait. L'ascenseur est par où ?",
+          "translation": "Perfeito. Onde fica o elevador?",
+          "intention": "Pedir orientação para chegar ao quarto.",
+          "alternatives": [
+            {
+              "targetText": "Merci. C'est bien par là, l'ascenseur ?",
+              "translation": "Obrigado. O elevador é por ali mesmo?"
+            },
+            {
+              "targetText": "D'accord. Je peux prendre l'ascenseur juste à gauche ?",
+              "translation": "Certo. Posso pegar o elevador logo à esquerda?"
+            },
+            {
+              "targetText": "Très bien, je vais trouver. Merci beaucoup.",
+              "translation": "Tudo bem, eu encontro. Muito obrigado."
+            }
+          ]
+        },
+        {
+          "id": "hotel-d01-t13",
+          "speakerId": "receptionist",
+          "speakerRole": "staff",
+          "isLearnerTurn": false,
+          "targetText": "Juste à votre gauche. Bon séjour !",
+          "translation": "Logo à sua esquerda. Boa estadia!",
+          "intention": "Dar a orientação e encerrar o atendimento."
+        },
+        {
+          "id": "hotel-d01-t14",
+          "speakerId": "guest",
+          "speakerRole": "guest",
+          "isLearnerTurn": true,
+          "targetText": "Merci, bonne journée.",
+          "translation": "Obrigado, bom dia.",
+          "intention": "Agradecer e se despedir."
+        }
+      ],
+      "reusableStructures": [
+        {
+          "targetText": "J'ai une réservation au nom de...",
+          "translation": "Tenho uma reserva no nome de...",
+          "exampleTarget": "J'ai une réservation au nom de Martin.",
+          "exampleTranslation": "Tenho uma reserva no nome de Martin."
+        },
+        {
+          "targetText": "Vous pouvez me montrer... ?",
+          "translation": "Pode me mostrar...?",
+          "exampleTarget": "Vous pouvez me montrer votre confirmation ?",
+          "exampleTranslation": "Pode me mostrar sua confirmação?"
+        },
+        {
+          "targetText": "Vous restez bien... ?",
+          "translation": "O senhor fica... mesmo?",
+          "exampleTarget": "Vous restez bien deux nuits ?",
+          "exampleTranslation": "O senhor fica duas noites mesmo?"
+        },
+        {
+          "targetText": "Il suffit de...",
+          "translation": "É só...",
+          "exampleTarget": "Il suffit de présenter votre carte.",
+          "exampleTranslation": "É só apresentar seu cartão."
+        },
+        {
+          "targetText": "C'est par où ?",
+          "translation": "Onde fica?",
+          "exampleTarget": "La salle du petit-déjeuner, c'est par où ?",
+          "exampleTranslation": "Onde fica a sala do café da manhã?"
+        }
+      ]
+    },
+    {
+      "id": "hotel-d02",
+      "title": "Une chambre pour ce soir",
+      "type": "core",
+      "context": "O hóspede chega sem reserva e procura um quarto para passar apenas uma noite. Há disponibilidade e ele faz o check-in na hora.",
+      "participantIds": [
+        "guest",
+        "receptionist"
+      ],
+      "tags": [
+        "check-in",
+        "sem-reserva",
+        "pagamento",
+        "check-out"
+      ],
+      "turns": [
+        {
+          "id": "hotel-d02-t01",
+          "speakerId": "receptionist",
+          "speakerRole": "staff",
+          "isLearnerTurn": false,
+          "targetText": "Bonsoir. Je peux vous aider ?",
+          "translation": "Boa noite. Posso ajudar?",
+          "intention": "Iniciar o atendimento."
+        },
+        {
+          "id": "hotel-d02-t02",
+          "speakerId": "guest",
+          "speakerRole": "guest",
+          "isLearnerTurn": true,
+          "targetText": "Bonsoir. Vous avez une chambre disponible pour ce soir ?",
+          "translation": "Boa noite. Vocês têm um quarto disponível para hoje?",
+          "intention": "Perguntar se há quarto disponível sem reserva.",
+          "alternatives": [
+            {
+              "targetText": "Bonsoir. Je n'ai pas réservé, mais je cherche une chambre pour une nuit.",
+              "translation": "Boa noite. Não fiz reserva, mas estou procurando um quarto por uma noite."
+            },
+            {
+              "targetText": "Est-ce qu'il vous reste une chambre double pour ce soir ?",
+              "translation": "Ainda tem algum quarto de casal disponível para hoje?"
+            },
+            {
+              "targetText": "Vous auriez quelque chose de disponible jusqu'à demain matin ?",
+              "translation": "Você teria algo disponível até amanhã de manhã?"
+            }
+          ]
+        },
+        {
+          "id": "hotel-d02-t03",
+          "speakerId": "receptionist",
+          "speakerRole": "staff",
+          "isLearnerTurn": false,
+          "targetText": "Oui, il nous reste une chambre simple à 118 euros, petit-déjeuner compris.",
+          "translation": "Sim, ainda temos um quarto individual por 118 euros, com café da manhã incluído.",
+          "intention": "Informar disponibilidade, preço e condição."
+        },
+        {
+          "id": "hotel-d02-t04",
+          "speakerId": "guest",
+          "speakerRole": "guest",
+          "isLearnerTurn": true,
+          "targetText": "D'accord. La salle de bains est dans la chambre ou sur le palier ?",
+          "translation": "Certo. O banheiro fica dentro do quarto ou é compartilhado?",
+          "intention": "Perguntar se o banheiro é privativo.",
+          "alternatives": [
+            {
+              "targetText": "Très bien. C'est une chambre non-fumeurs ?",
+              "translation": "Ótimo. É um quarto para não fumantes?"
+            },
+            {
+              "targetText": "Le prix comprend aussi les taxes ?",
+              "translation": "O preço também inclui as taxas?"
+            },
+            {
+              "targetText": "Vous avez peut-être une chambre un peu moins chère ?",
+              "translation": "Talvez vocês tenham um quarto um pouco mais barato?"
+            }
+          ]
+        },
+        {
+          "id": "hotel-d02-t05",
+          "speakerId": "receptionist",
+          "speakerRole": "staff",
+          "isLearnerTurn": false,
+          "targetText": "Dans la chambre. Elle donne sur la cour, donc elle est assez calme.",
+          "translation": "Fica dentro do quarto. Ele dá para o pátio, então é bem tranquilo.",
+          "intention": "Responder e descrever o quarto."
+        },
+        {
+          "id": "hotel-d02-t06",
+          "speakerId": "guest",
+          "speakerRole": "guest",
+          "isLearnerTurn": true,
+          "targetText": "Parfait, je la prends.",
+          "translation": "Perfeito, fico com ela.",
+          "intention": "Aceitar o quarto oferecido."
+        },
+        {
+          "id": "hotel-d02-t07",
+          "speakerId": "receptionist",
+          "speakerRole": "staff",
+          "isLearnerTurn": false,
+          "targetText": "Très bien. J'aurais besoin d'une pièce d'identité et d'une carte bancaire.",
+          "translation": "Certo. Vou precisar de um documento e de um cartão bancário.",
+          "intention": "Solicitar documento e garantia de pagamento."
+        },
+        {
+          "id": "hotel-d02-t08",
+          "speakerId": "guest",
+          "speakerRole": "guest",
+          "isLearnerTurn": true,
+          "targetText": "Voilà. Je peux payer tout de suite ?",
+          "translation": "Aqui está. Posso pagar agora?",
+          "intention": "Entregar os documentos e perguntar sobre pagamento.",
+          "alternatives": [
+            {
+              "targetText": "Vous faites seulement une préautorisation sur la carte ?",
+              "translation": "Vocês fazem apenas uma pré-autorização no cartão?"
+            },
+            {
+              "targetText": "Je préfère régler maintenant, si c'est possible.",
+              "translation": "Prefiro pagar agora, se for possível."
+            },
+            {
+              "targetText": "Est-ce que je peux payer en espèces ?",
+              "translation": "Posso pagar em dinheiro?"
+            }
+          ]
+        },
+        {
+          "id": "hotel-d02-t09",
+          "speakerId": "receptionist",
+          "speakerRole": "staff",
+          "isLearnerTurn": false,
+          "targetText": "Oui, aucun problème. Vous préférez payer par carte ?",
+          "translation": "Sim, sem problema. Prefere pagar com cartão?",
+          "intention": "Confirmar a forma de pagamento."
+        },
+        {
+          "id": "hotel-d02-t10",
+          "speakerId": "guest",
+          "speakerRole": "guest",
+          "isLearnerTurn": true,
+          "targetText": "Oui, par carte, s'il vous plaît.",
+          "translation": "Sim, com cartão, por favor.",
+          "intention": "Indicar a forma de pagamento."
+        },
+        {
+          "id": "hotel-d02-t11",
+          "speakerId": "receptionist",
+          "speakerRole": "staff",
+          "isLearnerTurn": false,
+          "targetText": "C'est bon. Voici votre reçu et votre carte de chambre.",
+          "translation": "Pronto. Aqui estão seu recibo e o cartão do quarto.",
+          "intention": "Concluir o pagamento e entregar a chave."
+        },
+        {
+          "id": "hotel-d02-t12",
+          "speakerId": "guest",
+          "speakerRole": "guest",
+          "isLearnerTurn": true,
+          "targetText": "Merci. À quelle heure faut-il libérer la chambre demain ?",
+          "translation": "Obrigado. Até que horas preciso desocupar o quarto amanhã?",
+          "intention": "Perguntar o horário do check-out.",
+          "alternatives": [
+            {
+              "targetText": "Merci. Le départ est prévu à quelle heure ?",
+              "translation": "Obrigado. O check-out é até que horas?"
+            },
+            {
+              "targetText": "Très bien. Je dois rendre la carte à la réception demain ?",
+              "translation": "Certo. Preciso devolver o cartão na recepção amanhã?"
+            },
+            {
+              "targetText": "Parfait. Et le petit-déjeuner commence à quelle heure ?",
+              "translation": "Perfeito. E o café da manhã começa que horas?"
+            }
+          ]
+        },
+        {
+          "id": "hotel-d02-t13",
+          "speakerId": "receptionist",
+          "speakerRole": "staff",
+          "isLearnerTurn": false,
+          "targetText": "Avant midi. La réception est ouverte toute la nuit.",
+          "translation": "Antes do meio-dia. A recepção fica aberta a noite toda.",
+          "intention": "Informar o horário do check-out e da recepção."
+        },
+        {
+          "id": "hotel-d02-t14",
+          "speakerId": "guest",
+          "speakerRole": "guest",
+          "isLearnerTurn": true,
+          "targetText": "Très bien, merci beaucoup.",
+          "translation": "Ótimo, muito obrigado.",
+          "intention": "Agradecer e encerrar."
+        }
+      ],
+      "reusableStructures": [
+        {
+          "targetText": "Vous avez une chambre disponible pour... ?",
+          "translation": "Vocês têm um quarto disponível para...?",
+          "exampleTarget": "Vous avez une chambre disponible pour deux nuits ?",
+          "exampleTranslation": "Vocês têm um quarto disponível por duas noites?"
+        },
+        {
+          "targetText": "Il nous reste...",
+          "translation": "Ainda temos...",
+          "exampleTarget": "Il nous reste une chambre double.",
+          "exampleTranslation": "Ainda temos um quarto de casal."
+        },
+        {
+          "targetText": "Je la prends.",
+          "translation": "Fico com ela.",
+          "exampleTarget": "D'accord, je prends cette chambre.",
+          "exampleTranslation": "Certo, fico com esse quarto."
+        },
+        {
+          "targetText": "Je préfère régler...",
+          "translation": "Prefiro pagar...",
+          "exampleTarget": "Je préfère régler au départ.",
+          "exampleTranslation": "Prefiro pagar na saída."
+        },
+        {
+          "targetText": "À quelle heure faut-il...?",
+          "translation": "Até que horas é preciso...?",
+          "exampleTarget": "À quelle heure faut-il quitter la chambre ?",
+          "exampleTranslation": "Até que horas é preciso deixar o quarto?"
+        }
+      ]
+    },
+    {
+      "id": "hotel-d03",
+      "title": "Au petit-déjeuner",
+      "type": "core",
+      "context": "Durante o café da manhã, o hóspede confirma o número do quarto, entende como funciona o buffet e faz um pedido simples.",
+      "participantIds": [
+        "guest",
+        "breakfast-server"
+      ],
+      "tags": [
+        "cafe-da-manha",
+        "buffet",
+        "pedido",
+        "restricao-alimentar"
+      ],
+      "turns": [
+        {
+          "id": "hotel-d03-t01",
+          "speakerId": "breakfast-server",
+          "speakerRole": "staff",
+          "isLearnerTurn": false,
+          "targetText": "Bonjour. Vous êtes dans quelle chambre ?",
+          "translation": "Bom dia. Qual é o número do seu quarto?",
+          "intention": "Identificar o quarto do hóspede."
+        },
+        {
+          "id": "hotel-d03-t02",
+          "speakerId": "guest",
+          "speakerRole": "guest",
+          "isLearnerTurn": true,
+          "targetText": "Bonjour. Chambre 305.",
+          "translation": "Bom dia. Quarto 305.",
+          "intention": "Informar o número do quarto.",
+          "alternatives": [
+            {
+              "targetText": "Bonjour, je suis dans la chambre 305.",
+              "translation": "Bom dia, estou no quarto 305."
+            },
+            {
+              "targetText": "C'est la chambre 305, au nom de Santos.",
+              "translation": "É o quarto 305, no nome de Santos."
+            },
+            {
+              "targetText": "Un instant... Oui, 305.",
+              "translation": "Só um instante... Isso, 305."
+            }
+          ]
+        },
+        {
+          "id": "hotel-d03-t03",
+          "speakerId": "breakfast-server",
+          "speakerRole": "staff",
+          "isLearnerTurn": false,
+          "targetText": "Merci. Vous pouvez vous installer où vous voulez.",
+          "translation": "Obrigado. Pode se sentar onde quiser.",
+          "intention": "Autorizar o hóspede a escolher uma mesa."
+        },
+        {
+          "id": "hotel-d03-t04",
+          "speakerId": "guest",
+          "speakerRole": "guest",
+          "isLearnerTurn": true,
+          "targetText": "D'accord. Le petit-déjeuner est en libre-service ?",
+          "translation": "Certo. O café da manhã é self-service?",
+          "intention": "Perguntar como funciona o serviço.",
+          "alternatives": [
+            {
+              "targetText": "Je peux me servir directement au buffet ?",
+              "translation": "Posso me servir direto no buffet?"
+            },
+            {
+              "targetText": "Tout est compris dans le petit-déjeuner ?",
+              "translation": "Está tudo incluído no café da manhã?"
+            },
+            {
+              "targetText": "Il faut commander les boissons chaudes ici ?",
+              "translation": "Precisa pedir as bebidas quentes aqui?"
+            }
+          ]
+        },
+        {
+          "id": "hotel-d03-t05",
+          "speakerId": "breakfast-server",
+          "speakerRole": "staff",
+          "isLearnerTurn": false,
+          "targetText": "Oui. Le buffet est là-bas, et je peux vous apporter du café ou du thé.",
+          "translation": "Sim. O buffet fica ali, e eu posso trazer café ou chá.",
+          "intention": "Explicar o funcionamento do café da manhã."
+        },
+        {
+          "id": "hotel-d03-t06",
+          "speakerId": "guest",
+          "speakerRole": "guest",
+          "isLearnerTurn": true,
+          "targetText": "Je vais prendre un café, s'il vous plaît.",
+          "translation": "Vou querer um café, por favor.",
+          "intention": "Pedir uma bebida quente."
+        },
+        {
+          "id": "hotel-d03-t07",
+          "speakerId": "breakfast-server",
+          "speakerRole": "staff",
+          "isLearnerTurn": false,
+          "targetText": "Un café allongé ou un expresso ?",
+          "translation": "Um café mais longo ou um expresso?",
+          "intention": "Pedir uma escolha mais específica."
+        },
+        {
+          "id": "hotel-d03-t08",
+          "speakerId": "guest",
+          "speakerRole": "guest",
+          "isLearnerTurn": true,
+          "targetText": "Un café allongé, merci.",
+          "translation": "Um café mais longo, obrigado.",
+          "intention": "Escolher o tipo de café.",
+          "alternatives": [
+            {
+              "targetText": "Un expresso, s'il vous plaît.",
+              "translation": "Um expresso, por favor."
+            },
+            {
+              "targetText": "Plutôt un thé noir, finalement.",
+              "translation": "Pensando bem, melhor um chá preto."
+            },
+            {
+              "targetText": "Juste de l'eau chaude, s'il vous plaît.",
+              "translation": "Só água quente, por favor."
+            }
+          ]
+        },
+        {
+          "id": "hotel-d03-t09",
+          "speakerId": "breakfast-server",
+          "speakerRole": "staff",
+          "isLearnerTurn": false,
+          "targetText": "Très bien. Vous souhaitez aussi du lait ?",
+          "translation": "Certo. Quer leite também?",
+          "intention": "Oferecer um complemento."
+        },
+        {
+          "id": "hotel-d03-t10",
+          "speakerId": "guest",
+          "speakerRole": "guest",
+          "isLearnerTurn": true,
+          "targetText": "Non merci, juste le café.",
+          "translation": "Não, obrigado, só o café.",
+          "intention": "Recusar educadamente um complemento."
+        },
+        {
+          "id": "hotel-d03-t11",
+          "speakerId": "breakfast-server",
+          "speakerRole": "staff",
+          "isLearnerTurn": false,
+          "targetText": "D'accord, je vous apporte ça.",
+          "translation": "Certo, já trago.",
+          "intention": "Confirmar o pedido."
+        },
+        {
+          "id": "hotel-d03-t12",
+          "speakerId": "guest",
+          "speakerRole": "guest",
+          "isLearnerTurn": true,
+          "targetText": "Merci. Est-ce qu'il y a des produits sans lactose ?",
+          "translation": "Obrigado. Tem produtos sem lactose?",
+          "intention": "Perguntar sobre uma necessidade alimentar.",
+          "alternatives": [
+            {
+              "targetText": "Vous avez du lait végétal ?",
+              "translation": "Vocês têm leite vegetal?"
+            },
+            {
+              "targetText": "Est-ce que ce yaourt contient du lactose ?",
+              "translation": "Este iogurte contém lactose?"
+            },
+            {
+              "targetText": "Vous avez quelque chose sans gluten ?",
+              "translation": "Vocês têm alguma coisa sem glúten?"
+            }
+          ]
+        },
+        {
+          "id": "hotel-d03-t13",
+          "speakerId": "breakfast-server",
+          "speakerRole": "staff",
+          "isLearnerTurn": false,
+          "targetText": "Oui, il y a du lait d'avoine et des yaourts sans lactose à côté des fruits.",
+          "translation": "Sim, tem leite de aveia e iogurtes sem lactose ao lado das frutas.",
+          "intention": "Indicar opções adequadas."
+        },
+        {
+          "id": "hotel-d03-t14",
+          "speakerId": "guest",
+          "speakerRole": "guest",
+          "isLearnerTurn": true,
+          "targetText": "Parfait, merci pour l'information.",
+          "translation": "Perfeito, obrigado pela informação.",
+          "intention": "Agradecer pela orientação."
+        }
+      ],
+      "reusableStructures": [
+        {
+          "targetText": "Vous êtes dans quelle chambre ?",
+          "translation": "Qual é o número do seu quarto?",
+          "exampleTarget": "Vous êtes dans quelle chambre, déjà ?",
+          "exampleTranslation": "Qual é mesmo o número do seu quarto?"
+        },
+        {
+          "targetText": "Vous pouvez vous installer où vous voulez.",
+          "translation": "Pode se sentar onde quiser.",
+          "exampleTarget": "Vous pouvez vous asseoir près de la fenêtre.",
+          "exampleTranslation": "Pode se sentar perto da janela."
+        },
+        {
+          "targetText": "Je vais prendre...",
+          "translation": "Vou querer...",
+          "exampleTarget": "Je vais prendre un thé, s'il vous plaît.",
+          "exampleTranslation": "Vou querer um chá, por favor."
+        },
+        {
+          "targetText": "Juste..., merci.",
+          "translation": "Só..., obrigado.",
+          "exampleTarget": "Juste de l'eau, merci.",
+          "exampleTranslation": "Só água, obrigado."
+        },
+        {
+          "targetText": "Est-ce qu'il y a...?",
+          "translation": "Tem...?",
+          "exampleTarget": "Est-ce qu'il y a du pain complet ?",
+          "exampleTranslation": "Tem pão integral?"
+        }
+      ]
+    },
+    {
+      "id": "hotel-d04",
+      "title": "Se déplacer et sortir",
+      "type": "core",
+      "context": "O hóspede pede ao concierge orientações para chegar a um museu e uma recomendação de restaurante no bairro.",
+      "participantIds": [
+        "guest",
+        "concierge"
+      ],
+      "tags": [
+        "concierge",
+        "transporte",
+        "bairro",
+        "restaurante"
+      ],
+      "turns": [
+        {
+          "id": "hotel-d04-t01",
+          "speakerId": "concierge",
+          "speakerRole": "staff",
+          "isLearnerTurn": false,
+          "targetText": "Bonjour, monsieur. Je peux vous renseigner ?",
+          "translation": "Bom dia, senhor. Posso lhe dar alguma informação?",
+          "intention": "Oferecer ajuda ao hóspede."
+        },
+        {
+          "id": "hotel-d04-t02",
+          "speakerId": "guest",
+          "speakerRole": "guest",
+          "isLearnerTurn": true,
+          "targetText": "Oui, je voudrais aller au musée d'Orsay. Quel est le plus simple d'ici ?",
+          "translation": "Sim, eu gostaria de ir ao Museu d'Orsay. Qual é o jeito mais fácil daqui?",
+          "intention": "Pedir orientação sobre deslocamento.",
+          "alternatives": [
+            {
+              "targetText": "Comment est-ce que je peux aller au musée d'Orsay ?",
+              "translation": "Como eu posso ir ao Museu d'Orsay?"
+            },
+            {
+              "targetText": "Le musée d'Orsay est loin d'ici ?",
+              "translation": "O Museu d'Orsay fica longe daqui?"
+            },
+            {
+              "targetText": "Vous me conseillez le métro ou le bus pour aller au musée d'Orsay ?",
+              "translation": "Você recomenda metrô ou ônibus para ir ao Museu d'Orsay?"
+            }
+          ]
+        },
+        {
+          "id": "hotel-d04-t03",
+          "speakerId": "concierge",
+          "speakerRole": "staff",
+          "isLearnerTurn": false,
+          "targetText": "Le plus rapide, c'est le métro. La station est à cinq minutes à pied.",
+          "translation": "O mais rápido é o metrô. A estação fica a cinco minutos a pé.",
+          "intention": "Recomendar um meio de transporte."
+        },
+        {
+          "id": "hotel-d04-t04",
+          "speakerId": "guest",
+          "speakerRole": "guest",
+          "isLearnerTurn": true,
+          "targetText": "D'accord. Je dois prendre quelle ligne ?",
+          "translation": "Certo. Qual linha eu preciso pegar?",
+          "intention": "Pedir detalhes do trajeto.",
+          "alternatives": [
+            {
+              "targetText": "Et je descends à quelle station ?",
+              "translation": "E eu desço em qual estação?"
+            },
+            {
+              "targetText": "Il faut changer de ligne ?",
+              "translation": "Precisa trocar de linha?"
+            },
+            {
+              "targetText": "Vous pourriez me montrer sur le plan ?",
+              "translation": "Você poderia me mostrar no mapa?"
+            }
+          ]
+        },
+        {
+          "id": "hotel-d04-t05",
+          "speakerId": "concierge",
+          "speakerRole": "staff",
+          "isLearnerTurn": false,
+          "targetText": "La ligne 12, direction Mairie d'Aubervilliers, et vous descendez à Solférino.",
+          "translation": "A linha 12, sentido Mairie d'Aubervilliers, e você desce em Solférino.",
+          "intention": "Explicar o trajeto de metrô."
+        },
+        {
+          "id": "hotel-d04-t06",
+          "speakerId": "guest",
+          "speakerRole": "guest",
+          "isLearnerTurn": true,
+          "targetText": "Très bien. On peut acheter les tickets à la station ?",
+          "translation": "Ótimo. Dá para comprar os bilhetes na estação?",
+          "intention": "Perguntar onde comprar o bilhete."
+        },
+        {
+          "id": "hotel-d04-t07",
+          "speakerId": "concierge",
+          "speakerRole": "staff",
+          "isLearnerTurn": false,
+          "targetText": "Oui, aux bornes. Vous pouvez payer par carte.",
+          "translation": "Sim, nas máquinas. Dá para pagar com cartão.",
+          "intention": "Explicar como comprar o bilhete."
+        },
+        {
+          "id": "hotel-d04-t08",
+          "speakerId": "guest",
+          "speakerRole": "guest",
+          "isLearnerTurn": true,
+          "targetText": "Parfait. Et pour dîner ce soir, vous connaissez un endroit sympa dans le quartier ?",
+          "translation": "Perfeito. E para jantar hoje, você conhece algum lugar legal aqui no bairro?",
+          "intention": "Pedir recomendação de restaurante.",
+          "alternatives": [
+            {
+              "targetText": "Vous auriez une bonne adresse pas trop loin ?",
+              "translation": "Você teria uma boa indicação não muito longe?"
+            },
+            {
+              "targetText": "Je cherche un restaurant français simple, pas trop cher.",
+              "translation": "Estou procurando um restaurante francês simples, não muito caro."
+            },
+            {
+              "targetText": "Il y a un bon bistrot accessible à pied ?",
+              "translation": "Tem algum bistrô bom que dê para ir a pé?"
+            }
+          ]
+        },
+        {
+          "id": "hotel-d04-t09",
+          "speakerId": "concierge",
+          "speakerRole": "staff",
+          "isLearnerTurn": false,
+          "targetText": "Oui, il y a un petit bistrot rue du Bac, à moins de dix minutes.",
+          "translation": "Sim, tem um bistrô pequeno na Rue du Bac, a menos de dez minutos.",
+          "intention": "Dar uma recomendação próxima."
+        },
+        {
+          "id": "hotel-d04-t10",
+          "speakerId": "guest",
+          "speakerRole": "guest",
+          "isLearnerTurn": true,
+          "targetText": "Il faut réserver ?",
+          "translation": "Precisa reservar?",
+          "intention": "Perguntar se é necessário fazer reserva."
+        },
+        {
+          "id": "hotel-d04-t11",
+          "speakerId": "concierge",
+          "speakerRole": "staff",
+          "isLearnerTurn": false,
+          "targetText": "Ce soir, ce serait mieux. Je peux appeler pour vous si vous voulez.",
+          "translation": "Hoje à noite, seria melhor. Posso ligar para você, se quiser.",
+          "intention": "Recomendar reserva e oferecer ajuda."
+        },
+        {
+          "id": "hotel-d04-t12",
+          "speakerId": "guest",
+          "speakerRole": "guest",
+          "isLearnerTurn": true,
+          "targetText": "Oui, volontiers. Pour deux personnes vers 20 heures, si possible.",
+          "translation": "Sim, por favor. Para duas pessoas por volta das 20h, se possível.",
+          "intention": "Aceitar a ajuda e informar os detalhes.",
+          "alternatives": [
+            {
+              "targetText": "Merci. Une table pour une personne à 19 h 30, s'il vous plaît.",
+              "translation": "Obrigado. Uma mesa para uma pessoa às 19h30, por favor."
+            },
+            {
+              "targetText": "C'est gentil, mais je vais décider un peu plus tard.",
+              "translation": "É gentil da sua parte, mas vou decidir um pouco mais tarde."
+            },
+            {
+              "targetText": "Oui, pour deux, mais plutôt vers 21 heures.",
+              "translation": "Sim, para duas pessoas, mas de preferência por volta das 21h."
+            }
+          ]
+        },
+        {
+          "id": "hotel-d04-t13",
+          "speakerId": "concierge",
+          "speakerRole": "staff",
+          "isLearnerTurn": false,
+          "targetText": "Très bien, je m'en occupe et je vous laisse un message à la réception.",
+          "translation": "Certo, vou cuidar disso e deixo um recado na recepção.",
+          "intention": "Confirmar que fará a reserva."
+        },
+        {
+          "id": "hotel-d04-t14",
+          "speakerId": "guest",
+          "speakerRole": "guest",
+          "isLearnerTurn": true,
+          "targetText": "Merci beaucoup pour votre aide.",
+          "translation": "Muito obrigado pela ajuda.",
+          "intention": "Agradecer pelo atendimento."
+        }
+      ],
+      "reusableStructures": [
+        {
+          "targetText": "Quel est le plus simple d'ici ?",
+          "translation": "Qual é o jeito mais fácil daqui?",
+          "exampleTarget": "Quel est le plus simple pour aller à la gare ?",
+          "exampleTranslation": "Qual é o jeito mais fácil de ir à estação?"
+        },
+        {
+          "targetText": "Je dois prendre quelle ligne ?",
+          "translation": "Qual linha eu preciso pegar?",
+          "exampleTarget": "Je dois prendre quel bus ?",
+          "exampleTranslation": "Qual ônibus eu preciso pegar?"
+        },
+        {
+          "targetText": "Vous connaissez un endroit sympa...?",
+          "translation": "Você conhece algum lugar legal...?",
+          "exampleTarget": "Vous connaissez un café sympa dans le coin ?",
+          "exampleTranslation": "Você conhece algum café legal por aqui?"
+        },
+        {
+          "targetText": "Il faut réserver ?",
+          "translation": "Precisa reservar?",
+          "exampleTarget": "Il faut réserver à l'avance ?",
+          "exampleTranslation": "Precisa reservar com antecedência?"
+        },
+        {
+          "targetText": "Je m'en occupe.",
+          "translation": "Eu cuido disso.",
+          "exampleTarget": "Ne vous inquiétez pas, je m'en occupe.",
+          "exampleTranslation": "Não se preocupe, eu cuido disso."
+        }
+      ]
+    },
+    {
+      "id": "hotel-d05",
+      "title": "Le ménage de la chambre",
+      "type": "core",
+      "context": "O funcionário da governança chega para arrumar o quarto. O hóspede combina o melhor momento e pede itens adicionais.",
+      "participantIds": [
+        "guest",
+        "housekeeping"
+      ],
+      "tags": [
+        "governanca",
+        "limpeza",
+        "toalhas",
+        "pedido-adicional"
+      ],
+      "turns": [
+        {
+          "id": "hotel-d05-t01",
+          "speakerId": "housekeeping",
+          "speakerRole": "staff",
+          "isLearnerTurn": false,
+          "targetText": "Bonjour, service des étages.",
+          "translation": "Bom dia, serviço de quarto.",
+          "intention": "Identificar-se à porta do quarto."
+        },
+        {
+          "id": "hotel-d05-t02",
+          "speakerId": "guest",
+          "speakerRole": "guest",
+          "isLearnerTurn": true,
+          "targetText": "Bonjour. Entrez, s'il vous plaît.",
+          "translation": "Bom dia. Pode entrar, por favor.",
+          "intention": "Autorizar a entrada do funcionário.",
+          "alternatives": [
+            {
+              "targetText": "Bonjour. Oui, vous pouvez entrer.",
+              "translation": "Bom dia. Sim, pode entrar."
+            },
+            {
+              "targetText": "Un instant, s'il vous plaît.",
+              "translation": "Só um instante, por favor."
+            },
+            {
+              "targetText": "Désolé, ce n'est pas un bon moment. Vous pouvez repasser plus tard ?",
+              "translation": "Desculpe, agora não é um bom momento. Pode voltar mais tarde?"
+            }
+          ]
+        },
+        {
+          "id": "hotel-d05-t03",
+          "speakerId": "housekeeping",
+          "speakerRole": "staff",
+          "isLearnerTurn": false,
+          "targetText": "Vous souhaitez que je fasse la chambre maintenant ?",
+          "translation": "Quer que eu arrume o quarto agora?",
+          "intention": "Perguntar se o hóspede deseja a limpeza naquele momento."
+        },
+        {
+          "id": "hotel-d05-t04",
+          "speakerId": "guest",
+          "speakerRole": "guest",
+          "isLearnerTurn": true,
+          "targetText": "Oui, merci. Je vais sortir dans cinq minutes.",
+          "translation": "Sim, obrigado. Vou sair em cinco minutos.",
+          "intention": "Aceitar a limpeza e informar que sairá em breve.",
+          "alternatives": [
+            {
+              "targetText": "Oui, vous pouvez commencer, je prends juste mes affaires.",
+              "translation": "Sim, pode começar, só vou pegar minhas coisas."
+            },
+            {
+              "targetText": "Pas maintenant, plutôt cet après-midi, si possible.",
+              "translation": "Agora não; de preferência à tarde, se possível."
+            },
+            {
+              "targetText": "Non merci, je n'ai pas besoin de ménage aujourd'hui.",
+              "translation": "Não, obrigado. Não preciso de limpeza hoje."
+            }
+          ]
+        },
+        {
+          "id": "hotel-d05-t05",
+          "speakerId": "housekeeping",
+          "speakerRole": "staff",
+          "isLearnerTurn": false,
+          "targetText": "D'accord. Est-ce que vous avez besoin de quelque chose en particulier ?",
+          "translation": "Certo. Está precisando de alguma coisa específica?",
+          "intention": "Perguntar se há algum pedido adicional."
+        },
+        {
+          "id": "hotel-d05-t06",
+          "speakerId": "guest",
+          "speakerRole": "guest",
+          "isLearnerTurn": true,
+          "targetText": "Oui, est-ce que je pourrais avoir deux serviettes de plus ?",
+          "translation": "Sim, eu poderia pedir mais duas toalhas?",
+          "intention": "Solicitar toalhas adicionais.",
+          "alternatives": [
+            {
+              "targetText": "Il me faudrait aussi un oreiller supplémentaire, s'il vous plaît.",
+              "translation": "Eu também precisaria de um travesseiro extra, por favor."
+            },
+            {
+              "targetText": "Vous pourriez remplacer les serviettes, s'il vous plaît ?",
+              "translation": "Você poderia trocar as toalhas, por favor?"
+            },
+            {
+              "targetText": "Est-ce que vous avez une couverture en plus ?",
+              "translation": "Vocês têm um cobertor extra?"
+            }
+          ]
+        },
+        {
+          "id": "hotel-d05-t07",
+          "speakerId": "housekeeping",
+          "speakerRole": "staff",
+          "isLearnerTurn": false,
+          "targetText": "Bien sûr. Je vous les apporte tout de suite.",
+          "translation": "Claro. Já trago para você.",
+          "intention": "Confirmar que atenderá ao pedido."
+        },
+        {
+          "id": "hotel-d05-t08",
+          "speakerId": "guest",
+          "speakerRole": "guest",
+          "isLearnerTurn": true,
+          "targetText": "Merci. Et vous pourriez laisser la fenêtre ouverte après le ménage ?",
+          "translation": "Obrigado. E você poderia deixar a janela aberta depois da limpeza?",
+          "intention": "Fazer uma preferência simples sobre a limpeza."
+        },
+        {
+          "id": "hotel-d05-t09",
+          "speakerId": "housekeeping",
+          "speakerRole": "staff",
+          "isLearnerTurn": false,
+          "targetText": "Oui, pas de problème.",
+          "translation": "Sim, sem problema.",
+          "intention": "Aceitar a solicitação."
+        },
+        {
+          "id": "hotel-d05-t10",
+          "speakerId": "guest",
+          "speakerRole": "guest",
+          "isLearnerTurn": true,
+          "targetText": "Parfait. Je laisse la carte sur la table.",
+          "translation": "Perfeito. Vou deixar o cartão sobre a mesa.",
+          "intention": "Indicar onde deixará o cartão de energia."
+        },
+        {
+          "id": "hotel-d05-t11",
+          "speakerId": "housekeeping",
+          "speakerRole": "staff",
+          "isLearnerTurn": false,
+          "targetText": "Très bien. Je terminerai dans une vingtaine de minutes.",
+          "translation": "Certo. Vou terminar em uns vinte minutos.",
+          "intention": "Informar o tempo aproximado da limpeza."
+        },
+        {
+          "id": "hotel-d05-t12",
+          "speakerId": "guest",
+          "speakerRole": "guest",
+          "isLearnerTurn": true,
+          "targetText": "D'accord, merci beaucoup.",
+          "translation": "Certo, muito obrigado.",
+          "intention": "Agradecer e encerrar.",
+          "alternatives": [
+            {
+              "targetText": "Très bien, à tout à l'heure.",
+              "translation": "Certo, até daqui a pouco."
+            },
+            {
+              "targetText": "Parfait, je reviens un peu plus tard.",
+              "translation": "Perfeito, volto um pouco mais tarde."
+            },
+            {
+              "targetText": "Merci, je vous laisse travailler.",
+              "translation": "Obrigado, vou deixar você trabalhar."
+            }
+          ]
+        }
+      ],
+      "reusableStructures": [
+        {
+          "targetText": "Vous pouvez repasser plus tard ?",
+          "translation": "Pode voltar mais tarde?",
+          "exampleTarget": "Vous pouvez repasser vers 15 heures ?",
+          "exampleTranslation": "Pode voltar por volta das 15h?"
+        },
+        {
+          "targetText": "Je n'ai pas besoin de...",
+          "translation": "Não preciso de...",
+          "exampleTarget": "Je n'ai pas besoin de ménage aujourd'hui.",
+          "exampleTranslation": "Não preciso de limpeza hoje."
+        },
+        {
+          "targetText": "Est-ce que je pourrais avoir...?",
+          "translation": "Eu poderia pedir...?",
+          "exampleTarget": "Est-ce que je pourrais avoir une autre serviette ?",
+          "exampleTranslation": "Eu poderia pedir outra toalha?"
+        },
+        {
+          "targetText": "Vous pourriez... ?",
+          "translation": "Você poderia...?",
+          "exampleTarget": "Vous pourriez fermer les rideaux ?",
+          "exampleTranslation": "Você poderia fechar as cortinas?"
+        },
+        {
+          "targetText": "Je vous les apporte tout de suite.",
+          "translation": "Já trago para você.",
+          "exampleTarget": "Je vous apporte un oreiller tout de suite.",
+          "exampleTranslation": "Já trago um travesseiro para você."
+        }
+      ]
+    },
+    {
+      "id": "hotel-d06",
+      "title": "Un taxi pour l'aéroport",
+      "type": "core",
+      "context": "Na noite anterior à partida, o hóspede pede um táxi para o aeroporto e uma chamada de despertar.",
+      "participantIds": [
+        "guest",
+        "receptionist"
+      ],
+      "tags": [
+        "taxi",
+        "aeroporto",
+        "despertador",
+        "partida"
+      ],
+      "turns": [
+        {
+          "id": "hotel-d06-t01",
+          "speakerId": "receptionist",
+          "speakerRole": "staff",
+          "isLearnerTurn": false,
+          "targetText": "Bonsoir. Tout se passe bien ?",
+          "translation": "Boa noite. Está tudo bem com a estadia?",
+          "intention": "Verificar se o hóspede precisa de algo."
+        },
+        {
+          "id": "hotel-d06-t02",
+          "speakerId": "guest",
+          "speakerRole": "guest",
+          "isLearnerTurn": true,
+          "targetText": "Oui, merci. J'aurais besoin d'un taxi demain matin.",
+          "translation": "Sim, obrigado. Vou precisar de um táxi amanhã de manhã.",
+          "intention": "Solicitar um táxi para o dia seguinte.",
+          "alternatives": [
+            {
+              "targetText": "Oui, tout va bien. Vous pourriez me réserver un taxi pour demain ?",
+              "translation": "Sim, está tudo bem. Poderia reservar um táxi para amanhã?"
+            },
+            {
+              "targetText": "J'aimerais réserver une voiture pour aller à l'aéroport.",
+              "translation": "Gostaria de reservar um carro para ir ao aeroporto."
+            },
+            {
+              "targetText": "Est-ce que vous pouvez appeler un taxi pour demain matin ?",
+              "translation": "Você pode chamar um táxi para amanhã de manhã?"
+            }
+          ]
+        },
+        {
+          "id": "hotel-d06-t03",
+          "speakerId": "receptionist",
+          "speakerRole": "staff",
+          "isLearnerTurn": false,
+          "targetText": "Bien sûr. Pour quelle heure ?",
+          "translation": "Claro. Para que horas?",
+          "intention": "Perguntar o horário desejado."
+        },
+        {
+          "id": "hotel-d06-t04",
+          "speakerId": "guest",
+          "speakerRole": "guest",
+          "isLearnerTurn": true,
+          "targetText": "Pour 6 h 30, s'il vous plaît. Je vais à l'aéroport Charles-de-Gaulle.",
+          "translation": "Para as 6h30, por favor. Vou para o aeroporto Charles de Gaulle.",
+          "intention": "Informar horário e destino.",
+          "alternatives": [
+            {
+              "targetText": "Vers 7 heures, pour la gare du Nord.",
+              "translation": "Por volta das 7h, para a Gare du Nord."
+            },
+            {
+              "targetText": "À 6 heures précises, si possible.",
+              "translation": "Às 6h em ponto, se possível."
+            },
+            {
+              "targetText": "Je ne suis pas encore sûr de l'heure. Je peux vous confirmer ce soir ?",
+              "translation": "Ainda não tenho certeza do horário. Posso confirmar hoje à noite?"
+            }
+          ]
+        },
+        {
+          "id": "hotel-d06-t05",
+          "speakerId": "receptionist",
+          "speakerRole": "staff",
+          "isLearnerTurn": false,
+          "targetText": "D'accord. Prévoyez environ quarante-cinq minutes à cette heure-là.",
+          "translation": "Certo. Calcule cerca de quarenta e cinco minutos nesse horário.",
+          "intention": "Dar uma estimativa de deslocamento."
+        },
+        {
+          "id": "hotel-d06-t06",
+          "speakerId": "guest",
+          "speakerRole": "guest",
+          "isLearnerTurn": true,
+          "targetText": "Très bien. Le chauffeur m'attendra devant l'hôtel ?",
+          "translation": "Ótimo. O motorista vai me esperar na frente do hotel?",
+          "intention": "Confirmar o ponto de encontro."
+        },
+        {
+          "id": "hotel-d06-t07",
+          "speakerId": "receptionist",
+          "speakerRole": "staff",
+          "isLearnerTurn": false,
+          "targetText": "Oui, et nous vous appellerons dans la chambre quand il sera là.",
+          "translation": "Sim, e vamos ligar para o seu quarto quando ele chegar.",
+          "intention": "Explicar como o hóspede será avisado."
+        },
+        {
+          "id": "hotel-d06-t08",
+          "speakerId": "guest",
+          "speakerRole": "guest",
+          "isLearnerTurn": true,
+          "targetText": "Parfait. Est-ce que vous pouvez aussi me réveiller à 5 h 45 ?",
+          "translation": "Perfeito. Vocês também podem me acordar às 5h45?",
+          "intention": "Solicitar uma chamada de despertar.",
+          "alternatives": [
+            {
+              "targetText": "Vous proposez un service de réveil ?",
+              "translation": "Vocês oferecem serviço de despertador?"
+            },
+            {
+              "targetText": "Je pourrais avoir un réveil à 5 h 30, s'il vous plaît ?",
+              "translation": "Poderiam me acordar às 5h30, por favor?"
+            },
+            {
+              "targetText": "Ce n'est pas nécessaire, je mettrai une alarme sur mon téléphone.",
+              "translation": "Não é necessário, vou colocar um alarme no telefone."
+            }
+          ]
+        },
+        {
+          "id": "hotel-d06-t09",
+          "speakerId": "receptionist",
+          "speakerRole": "staff",
+          "isLearnerTurn": false,
+          "targetText": "Oui, je le note. Chambre 218, c'est bien ça ?",
+          "translation": "Sim, vou anotar. Quarto 218, certo?",
+          "intention": "Confirmar o número do quarto."
+        },
+        {
+          "id": "hotel-d06-t10",
+          "speakerId": "guest",
+          "speakerRole": "guest",
+          "isLearnerTurn": true,
+          "targetText": "Oui, exactement.",
+          "translation": "Sim, exatamente.",
+          "intention": "Confirmar o quarto."
+        },
+        {
+          "id": "hotel-d06-t11",
+          "speakerId": "receptionist",
+          "speakerRole": "staff",
+          "isLearnerTurn": false,
+          "targetText": "C'est noté : réveil à 5 h 45 et taxi à 6 h 30.",
+          "translation": "Anotado: despertador às 5h45 e táxi às 6h30.",
+          "intention": "Recapitular os pedidos."
+        },
+        {
+          "id": "hotel-d06-t12",
+          "speakerId": "guest",
+          "speakerRole": "guest",
+          "isLearnerTurn": true,
+          "targetText": "Merci. Je réglerai le taxi directement au chauffeur ?",
+          "translation": "Obrigado. Vou pagar o táxi diretamente ao motorista?",
+          "intention": "Perguntar como será feito o pagamento.",
+          "alternatives": [
+            {
+              "targetText": "Le taxi accepte les cartes bancaires ?",
+              "translation": "O táxi aceita cartão?"
+            },
+            {
+              "targetText": "Je peux ajouter le taxi à la note de la chambre ?",
+              "translation": "Posso colocar o táxi na conta do quarto?"
+            },
+            {
+              "targetText": "D'accord, je paierai directement au chauffeur.",
+              "translation": "Certo, vou pagar diretamente ao motorista."
+            }
+          ]
+        },
+        {
+          "id": "hotel-d06-t13",
+          "speakerId": "receptionist",
+          "speakerRole": "staff",
+          "isLearnerTurn": false,
+          "targetText": "Oui, directement au chauffeur. La plupart acceptent la carte.",
+          "translation": "Sim, diretamente ao motorista. A maioria aceita cartão.",
+          "intention": "Explicar a forma de pagamento do táxi."
+        },
+        {
+          "id": "hotel-d06-t14",
+          "speakerId": "guest",
+          "speakerRole": "guest",
+          "isLearnerTurn": true,
+          "targetText": "Très bien, merci. Bonne soirée.",
+          "translation": "Ótimo, obrigado. Boa noite.",
+          "intention": "Agradecer e se despedir."
+        }
+      ],
+      "reusableStructures": [
+        {
+          "targetText": "J'aurais besoin de...",
+          "translation": "Vou precisar de...",
+          "exampleTarget": "J'aurais besoin d'un taxi ce soir.",
+          "exampleTranslation": "Vou precisar de um táxi hoje à noite."
+        },
+        {
+          "targetText": "Pour quelle heure ?",
+          "translation": "Para que horas?",
+          "exampleTarget": "Vous le voulez pour quelle heure ?",
+          "exampleTranslation": "Você quer para que horas?"
+        },
+        {
+          "targetText": "Prévoyez environ...",
+          "translation": "Calcule cerca de...",
+          "exampleTarget": "Prévoyez environ trente minutes.",
+          "exampleTranslation": "Calcule cerca de trinta minutos."
+        },
+        {
+          "targetText": "Je le note.",
+          "translation": "Vou anotar.",
+          "exampleTarget": "Très bien, je le note tout de suite.",
+          "exampleTranslation": "Certo, vou anotar agora mesmo."
+        },
+        {
+          "targetText": "C'est noté : ...",
+          "translation": "Anotado: ...",
+          "exampleTarget": "C'est noté : départ à 8 heures.",
+          "exampleTranslation": "Anotado: saída às 8h."
+        }
+      ]
+    },
+    {
+      "id": "hotel-d07",
+      "title": "Le départ et la facture",
+      "type": "core",
+      "context": "O hóspede faz o check-out, confirma que não usou o frigobar, divide o pagamento e pede uma fatura.",
+      "participantIds": [
+        "guest",
+        "receptionist"
+      ],
+      "tags": [
+        "check-out",
+        "pagamento",
+        "fatura",
+        "cartao-chave"
+      ],
+      "turns": [
+        {
+          "id": "hotel-d07-t01",
+          "speakerId": "receptionist",
+          "speakerRole": "staff",
+          "isLearnerTurn": false,
+          "targetText": "Bonjour. Vous souhaitez faire le départ ?",
+          "translation": "Bom dia. O senhor deseja fazer o check-out?",
+          "intention": "Confirmar que o hóspede deseja encerrar a estadia."
+        },
+        {
+          "id": "hotel-d07-t02",
+          "speakerId": "guest",
+          "speakerRole": "guest",
+          "isLearnerTurn": true,
+          "targetText": "Oui, s'il vous plaît. Chambre 412.",
+          "translation": "Sim, por favor. Quarto 412.",
+          "intention": "Solicitar o check-out e informar o quarto.",
+          "alternatives": [
+            {
+              "targetText": "Oui, je viens régler et rendre la carte.",
+              "translation": "Sim, vim acertar a conta e devolver o cartão."
+            },
+            {
+              "targetText": "Bonjour. Je voudrais régler la chambre 412.",
+              "translation": "Bom dia. Gostaria de acertar a conta do quarto 412."
+            },
+            {
+              "targetText": "Oui, mais je voudrais d'abord vérifier la note.",
+              "translation": "Sim, mas primeiro gostaria de conferir a conta."
+            }
+          ]
+        },
+        {
+          "id": "hotel-d07-t03",
+          "speakerId": "receptionist",
+          "speakerRole": "staff",
+          "isLearnerTurn": false,
+          "targetText": "Très bien. Vous avez consommé quelque chose au minibar ?",
+          "translation": "Certo. O senhor consumiu alguma coisa do frigobar?",
+          "intention": "Perguntar sobre consumo no quarto."
+        },
+        {
+          "id": "hotel-d07-t04",
+          "speakerId": "guest",
+          "speakerRole": "guest",
+          "isLearnerTurn": true,
+          "targetText": "Non, rien du tout.",
+          "translation": "Não, nada.",
+          "intention": "Informar que não houve consumo.",
+          "alternatives": [
+            {
+              "targetText": "Oui, une bouteille d'eau hier soir.",
+              "translation": "Sim, uma garrafa de água ontem à noite."
+            },
+            {
+              "targetText": "Seulement un jus de fruits.",
+              "translation": "Só um suco de frutas."
+            },
+            {
+              "targetText": "Je ne crois pas, non.",
+              "translation": "Acho que não."
+            }
+          ]
+        },
+        {
+          "id": "hotel-d07-t05",
+          "speakerId": "receptionist",
+          "speakerRole": "staff",
+          "isLearnerTurn": false,
+          "targetText": "D'accord. Le total est de 386 euros, taxe de séjour comprise.",
+          "translation": "Certo. O total é 386 euros, incluindo a taxa turística.",
+          "intention": "Informar o valor total da conta."
+        },
+        {
+          "id": "hotel-d07-t06",
+          "speakerId": "guest",
+          "speakerRole": "guest",
+          "isLearnerTurn": true,
+          "targetText": "Très bien. Je peux payer avec deux cartes différentes ?",
+          "translation": "Certo. Posso pagar com dois cartões diferentes?",
+          "intention": "Perguntar sobre uma forma de pagamento dividida.",
+          "alternatives": [
+            {
+              "targetText": "Je vais payer par carte, s'il vous plaît.",
+              "translation": "Vou pagar com cartão, por favor."
+            },
+            {
+              "targetText": "Est-ce que je peux régler une partie en espèces ?",
+              "translation": "Posso pagar uma parte em dinheiro?"
+            },
+            {
+              "targetText": "La carte utilisée pour la réservation a déjà été débitée ?",
+              "translation": "O cartão usado na reserva já foi cobrado?"
+            }
+          ]
+        },
+        {
+          "id": "hotel-d07-t07",
+          "speakerId": "receptionist",
+          "speakerRole": "staff",
+          "isLearnerTurn": false,
+          "targetText": "Oui. Dites-moi simplement le montant à mettre sur la première.",
+          "translation": "Sim. Só me diga o valor que devo colocar no primeiro cartão.",
+          "intention": "Explicar como dividir o pagamento."
+        },
+        {
+          "id": "hotel-d07-t08",
+          "speakerId": "guest",
+          "speakerRole": "guest",
+          "isLearnerTurn": true,
+          "targetText": "Mettez 200 euros sur celle-ci, et le reste sur l'autre.",
+          "translation": "Coloque 200 euros neste cartão e o restante no outro.",
+          "intention": "Indicar como dividir o valor."
+        },
+        {
+          "id": "hotel-d07-t09",
+          "speakerId": "receptionist",
+          "speakerRole": "staff",
+          "isLearnerTurn": false,
+          "targetText": "Très bien... Voilà, les deux paiements sont passés.",
+          "translation": "Certo... Pronto, os dois pagamentos foram aprovados.",
+          "intention": "Confirmar que os pagamentos foram processados."
+        },
+        {
+          "id": "hotel-d07-t10",
+          "speakerId": "guest",
+          "speakerRole": "guest",
+          "isLearnerTurn": true,
+          "targetText": "Parfait. Est-ce que je peux avoir une facture à mon nom ?",
+          "translation": "Perfeito. Posso receber uma nota no meu nome?",
+          "intention": "Solicitar uma fatura nominal.",
+          "alternatives": [
+            {
+              "targetText": "Vous pouvez m'envoyer la facture par e-mail ?",
+              "translation": "Pode me enviar a nota por e-mail?"
+            },
+            {
+              "targetText": "J'aurais besoin d'un reçu détaillé, s'il vous plaît.",
+              "translation": "Vou precisar de um recibo detalhado, por favor."
+            },
+            {
+              "targetText": "La facture peut être au nom de mon entreprise ?",
+              "translation": "A nota pode sair no nome da minha empresa?"
+            }
+          ]
+        },
+        {
+          "id": "hotel-d07-t11",
+          "speakerId": "receptionist",
+          "speakerRole": "staff",
+          "isLearnerTurn": false,
+          "targetText": "Bien sûr. Je vous l'imprime tout de suite.",
+          "translation": "Claro. Vou imprimir agora mesmo.",
+          "intention": "Confirmar a emissão da fatura."
+        },
+        {
+          "id": "hotel-d07-t12",
+          "speakerId": "guest",
+          "speakerRole": "guest",
+          "isLearnerTurn": true,
+          "targetText": "Merci. Je dois vous rendre la carte de la chambre ?",
+          "translation": "Obrigado. Preciso devolver o cartão do quarto?",
+          "intention": "Perguntar sobre a devolução do cartão-chave."
+        },
+        {
+          "id": "hotel-d07-t13",
+          "speakerId": "receptionist",
+          "speakerRole": "staff",
+          "isLearnerTurn": false,
+          "targetText": "Oui, merci. Tout s'est bien passé pendant votre séjour ?",
+          "translation": "Sim, obrigado. Correu tudo bem durante a sua estadia?",
+          "intention": "Receber o cartão e pedir uma avaliação breve."
+        },
+        {
+          "id": "hotel-d07-t14",
+          "speakerId": "guest",
+          "speakerRole": "guest",
+          "isLearnerTurn": true,
+          "targetText": "Oui, très bien. Merci pour l'accueil.",
+          "translation": "Sim, muito bem. Obrigado pela recepção.",
+          "intention": "Dar retorno positivo e se despedir.",
+          "alternatives": [
+            {
+              "targetText": "Oui, tout s'est très bien passé.",
+              "translation": "Sim, correu tudo muito bem."
+            },
+            {
+              "targetText": "Dans l'ensemble, oui. La chambre était très calme.",
+              "translation": "No geral, sim. O quarto era muito tranquilo."
+            },
+            {
+              "targetText": "Oui, merci. Je reviendrai volontiers.",
+              "translation": "Sim, obrigado. Voltaria com prazer."
+            }
+          ]
+        },
+        {
+          "id": "hotel-d07-t15",
+          "speakerId": "receptionist",
+          "speakerRole": "staff",
+          "isLearnerTurn": false,
+          "targetText": "Merci à vous. Bon retour !",
+          "translation": "Nós que agradecemos. Boa viagem de volta!",
+          "intention": "Encerrar o atendimento cordialmente."
+        },
+        {
+          "id": "hotel-d07-t16",
+          "speakerId": "guest",
+          "speakerRole": "guest",
+          "isLearnerTurn": true,
+          "targetText": "Merci, au revoir.",
+          "translation": "Obrigado, até logo.",
+          "intention": "Despedir-se."
+        }
+      ],
+      "reusableStructures": [
+        {
+          "targetText": "Vous souhaitez faire le départ ?",
+          "translation": "Deseja fazer o check-out?",
+          "exampleTarget": "Vous souhaitez libérer la chambre maintenant ?",
+          "exampleTranslation": "Deseja desocupar o quarto agora?"
+        },
+        {
+          "targetText": "Rien du tout.",
+          "translation": "Nada.",
+          "exampleTarget": "Non, je n'ai rien pris du tout.",
+          "exampleTranslation": "Não, não peguei nada."
+        },
+        {
+          "targetText": "Je peux payer avec...?",
+          "translation": "Posso pagar com...?",
+          "exampleTarget": "Je peux payer avec une carte étrangère ?",
+          "exampleTranslation": "Posso pagar com um cartão estrangeiro?"
+        },
+        {
+          "targetText": "Mettez... sur celle-ci.",
+          "translation": "Coloque... neste cartão.",
+          "exampleTarget": "Mettez la moitié sur celle-ci.",
+          "exampleTranslation": "Coloque metade neste cartão."
+        },
+        {
+          "targetText": "Est-ce que je peux avoir une facture...?",
+          "translation": "Posso receber uma nota...?",
+          "exampleTarget": "Est-ce que je peux avoir une facture détaillée ?",
+          "exampleTranslation": "Posso receber uma nota detalhada?"
+        }
+      ]
+    },
+    {
+      "id": "hotel-d08",
+      "title": "Récupérer les bagages",
+      "type": "core",
+      "context": "Depois do check-out, o hóspede retorna ao hotel para retirar as malas que haviam ficado no guarda-volumes.",
+      "participantIds": [
+        "guest",
+        "porter"
+      ],
+      "tags": [
+        "bagagem",
+        "guarda-volumes",
+        "taxi",
+        "partida"
+      ],
+      "turns": [
+        {
+          "id": "hotel-d08-t01",
+          "speakerId": "porter",
+          "speakerRole": "staff",
+          "isLearnerTurn": false,
+          "targetText": "Bonjour. Vous venez récupérer des bagages ?",
+          "translation": "Bom dia. Veio buscar bagagem?",
+          "intention": "Confirmar o motivo do atendimento."
+        },
+        {
+          "id": "hotel-d08-t02",
+          "speakerId": "guest",
+          "speakerRole": "guest",
+          "isLearnerTurn": true,
+          "targetText": "Oui, j'ai laissé deux valises ce matin.",
+          "translation": "Sim, deixei duas malas aqui de manhã.",
+          "intention": "Informar que deixou bagagens guardadas.",
+          "alternatives": [
+            {
+              "targetText": "Oui, j'ai déposé une grande valise après le départ.",
+              "translation": "Sim, deixei uma mala grande depois do check-out."
+            },
+            {
+              "targetText": "Je viens chercher les bagages de la chambre 207.",
+              "translation": "Vim buscar as bagagens do quarto 207."
+            },
+            {
+              "targetText": "Oui, deux valises et un petit sac.",
+              "translation": "Sim, duas malas e uma bolsa pequena."
+            }
+          ]
+        },
+        {
+          "id": "hotel-d08-t03",
+          "speakerId": "porter",
+          "speakerRole": "staff",
+          "isLearnerTurn": false,
+          "targetText": "Vous avez le ticket de la consigne ?",
+          "translation": "Você está com o comprovante do guarda-volumes?",
+          "intention": "Pedir o comprovante de retirada."
+        },
+        {
+          "id": "hotel-d08-t04",
+          "speakerId": "guest",
+          "speakerRole": "guest",
+          "isLearnerTurn": true,
+          "targetText": "Oui, le voici.",
+          "translation": "Sim, aqui está.",
+          "intention": "Apresentar o comprovante.",
+          "alternatives": [
+            {
+              "targetText": "Un instant... Oui, je l'ai ici.",
+              "translation": "Só um instante... Sim, está aqui."
+            },
+            {
+              "targetText": "Je crois que je l'ai mis dans mon portefeuille.",
+              "translation": "Acho que coloquei na carteira."
+            },
+            {
+              "targetText": "Je ne le retrouve pas, mais les bagages sont au nom de Santos.",
+              "translation": "Não estou encontrando, mas as bagagens estão no nome de Santos."
+            }
+          ]
+        },
+        {
+          "id": "hotel-d08-t05",
+          "speakerId": "porter",
+          "speakerRole": "staff",
+          "isLearnerTurn": false,
+          "targetText": "Merci. Je vais vous les chercher.",
+          "translation": "Obrigado. Vou buscá-las para você.",
+          "intention": "Confirmar que buscará as bagagens."
+        },
+        {
+          "id": "hotel-d08-t06",
+          "speakerId": "guest",
+          "speakerRole": "guest",
+          "isLearnerTurn": true,
+          "targetText": "Merci. Je peux attendre ici ?",
+          "translation": "Obrigado. Posso esperar aqui?",
+          "intention": "Perguntar onde aguardar."
+        },
+        {
+          "id": "hotel-d08-t07",
+          "speakerId": "porter",
+          "speakerRole": "staff",
+          "isLearnerTurn": false,
+          "targetText": "Oui, bien sûr. J'en ai pour deux minutes.",
+          "translation": "Sim, claro. Levo uns dois minutos.",
+          "intention": "Autorizar a espera e informar o tempo."
+        },
+        {
+          "id": "hotel-d08-t08",
+          "speakerId": "porter",
+          "speakerRole": "staff",
+          "isLearnerTurn": false,
+          "targetText": "Voilà vos deux valises. Vous voulez que je vous aide à les sortir ?",
+          "translation": "Aqui estão suas duas malas. Quer que eu ajude a levá-las para fora?",
+          "intention": "Entregar as malas e oferecer ajuda."
+        },
+        {
+          "id": "hotel-d08-t09",
+          "speakerId": "guest",
+          "speakerRole": "guest",
+          "isLearnerTurn": true,
+          "targetText": "Oui, volontiers. Mon taxi arrive dans quelques minutes.",
+          "translation": "Sim, por favor. Meu táxi chega em alguns minutos.",
+          "intention": "Aceitar ajuda e explicar a situação.",
+          "alternatives": [
+            {
+              "targetText": "Merci, mais ça ira, je peux les porter.",
+              "translation": "Obrigado, mas está tudo bem, eu consigo levá-las."
+            },
+            {
+              "targetText": "Oui, s'il vous plaît. La plus grande est assez lourde.",
+              "translation": "Sim, por favor. A maior está bem pesada."
+            },
+            {
+              "targetText": "Vous pouvez les laisser près de l'entrée, merci.",
+              "translation": "Pode deixá-las perto da entrada, obrigado."
+            }
+          ]
+        },
+        {
+          "id": "hotel-d08-t10",
+          "speakerId": "porter",
+          "speakerRole": "staff",
+          "isLearnerTurn": false,
+          "targetText": "D'accord. Le taxi est déjà devant l'hôtel ?",
+          "translation": "Certo. O táxi já está na frente do hotel?",
+          "intention": "Confirmar se o transporte já chegou."
+        },
+        {
+          "id": "hotel-d08-t11",
+          "speakerId": "guest",
+          "speakerRole": "guest",
+          "isLearnerTurn": true,
+          "targetText": "Pas encore. Il devrait être là vers 14 h 15.",
+          "translation": "Ainda não. Ele deve chegar por volta das 14h15.",
+          "intention": "Informar que o táxi ainda não chegou."
+        },
+        {
+          "id": "hotel-d08-t12",
+          "speakerId": "porter",
+          "speakerRole": "staff",
+          "isLearnerTurn": false,
+          "targetText": "Très bien, je laisse les valises juste à côté de la porte.",
+          "translation": "Certo, vou deixar as malas bem ao lado da porta.",
+          "intention": "Indicar onde deixará as bagagens."
+        },
+        {
+          "id": "hotel-d08-t13",
+          "speakerId": "guest",
+          "speakerRole": "guest",
+          "isLearnerTurn": true,
+          "targetText": "Parfait. Merci pour votre aide.",
+          "translation": "Perfeito. Obrigado pela ajuda.",
+          "intention": "Agradecer.",
+          "alternatives": [
+            {
+              "targetText": "Merci beaucoup, c'est très gentil.",
+              "translation": "Muito obrigado, é muita gentileza."
+            },
+            {
+              "targetText": "Parfait, je vais attendre ici.",
+              "translation": "Perfeito, vou esperar aqui."
+            },
+            {
+              "targetText": "Merci. Je vous dirai quand le taxi arrivera.",
+              "translation": "Obrigado. Aviso quando o táxi chegar."
+            }
+          ]
+        },
+        {
+          "id": "hotel-d08-t14",
+          "speakerId": "porter",
+          "speakerRole": "staff",
+          "isLearnerTurn": false,
+          "targetText": "Avec plaisir. Bon voyage !",
+          "translation": "Por nada. Boa viagem!",
+          "intention": "Despedir-se cordialmente."
+        },
+        {
+          "id": "hotel-d08-t15",
+          "speakerId": "guest",
+          "speakerRole": "guest",
+          "isLearnerTurn": true,
+          "targetText": "Merci, au revoir.",
+          "translation": "Obrigado, até logo.",
+          "intention": "Encerrar a interação."
+        }
+      ],
+      "reusableStructures": [
+        {
+          "targetText": "Je viens récupérer...",
+          "translation": "Vim buscar...",
+          "exampleTarget": "Je viens récupérer ma valise.",
+          "exampleTranslation": "Vim buscar minha mala."
+        },
+        {
+          "targetText": "Vous avez le ticket...?",
+          "translation": "Você está com o comprovante...?",
+          "exampleTarget": "Vous avez le ticket de dépôt ?",
+          "exampleTranslation": "Você está com o comprovante de depósito?"
+        },
+        {
+          "targetText": "Je vais vous les chercher.",
+          "translation": "Vou buscá-las para você.",
+          "exampleTarget": "Je vais vous chercher votre sac.",
+          "exampleTranslation": "Vou buscar sua bolsa para você."
+        },
+        {
+          "targetText": "J'en ai pour...",
+          "translation": "Levo cerca de...",
+          "exampleTarget": "J'en ai pour cinq minutes.",
+          "exampleTranslation": "Levo uns cinco minutos."
+        },
+        {
+          "targetText": "Il devrait être là vers...",
+          "translation": "Ele deve chegar por volta de...",
+          "exampleTarget": "Le chauffeur devrait être là vers 18 heures.",
+          "exampleTranslation": "O motorista deve chegar por volta das 18h."
+        }
+      ]
+    },
+    {
+      "id": "hotel-d09",
+      "title": "Arriver avant l'heure",
+      "type": "common_variation",
+      "context": "O hóspede chega antes do horário oficial de check-in. O quarto ainda não está pronto, mas ele adianta o cadastro e deixa as malas no hotel.",
+      "participantIds": [
+        "guest",
+        "receptionist"
+      ],
+      "tags": [
+        "chegada-antecipada",
+        "bagagem",
+        "pre-check-in",
+        "quarto-indisponivel"
+      ],
+      "turns": [
+        {
+          "id": "hotel-d09-t01",
+          "speakerId": "receptionist",
+          "speakerRole": "staff",
+          "isLearnerTurn": false,
+          "targetText": "Bonjour. Vous souhaitez faire le check-in ?",
+          "translation": "Bom dia. O senhor deseja fazer o check-in?",
+          "intention": "Iniciar o atendimento de chegada."
+        },
+        {
+          "id": "hotel-d09-t02",
+          "speakerId": "guest",
+          "speakerRole": "guest",
+          "isLearnerTurn": true,
+          "targetText": "Oui, mais je sais que je suis un peu en avance. La réservation est au nom de Santos.",
+          "translation": "Sim, mas sei que cheguei um pouco cedo. A reserva está no nome de Santos.",
+          "intention": "Informar a reserva e reconhecer a chegada antecipada.",
+          "alternatives": [
+            {
+              "targetText": "Oui, j'ai une réservation, mais je suis arrivé plus tôt que prévu.",
+              "translation": "Sim, tenho reserva, mas cheguei mais cedo do que o previsto."
+            },
+            {
+              "targetText": "La réservation est au nom de Santos. Est-ce que la chambre est déjà disponible ?",
+              "translation": "A reserva está no nome de Santos. O quarto já está disponível?"
+            },
+            {
+              "targetText": "Je sais que le check-in est plus tard, mais je voulais voir si la chambre était prête.",
+              "translation": "Sei que o check-in é mais tarde, mas queria ver se o quarto já estava pronto."
+            }
+          ]
+        },
+        {
+          "id": "hotel-d09-t03",
+          "speakerId": "receptionist",
+          "speakerRole": "staff",
+          "isLearnerTurn": false,
+          "targetText": "Je regarde... Votre chambre n'est pas encore prête, malheureusement.",
+          "translation": "Vou verificar... Infelizmente, seu quarto ainda não está pronto.",
+          "intention": "Informar que o quarto ainda não está disponível."
+        },
+        {
+          "id": "hotel-d09-t04",
+          "speakerId": "guest",
+          "speakerRole": "guest",
+          "isLearnerTurn": true,
+          "targetText": "D'accord. Vous pensez qu'elle sera prête vers quelle heure ?",
+          "translation": "Certo. Você acha que ela ficará pronta por volta de que horas?",
+          "intention": "Perguntar a previsão de liberação do quarto.",
+          "alternatives": [
+            {
+              "targetText": "Vous avez une idée de l'heure à laquelle elle sera disponible ?",
+              "translation": "Você tem uma ideia de que horas ela estará disponível?"
+            },
+            {
+              "targetText": "Ce sera plutôt avant ou après 14 heures ?",
+              "translation": "Vai ser mais para antes ou depois das 14h?"
+            },
+            {
+              "targetText": "Je peux revenir dans une heure ?",
+              "translation": "Posso voltar daqui a uma hora?"
+            }
+          ]
+        },
+        {
+          "id": "hotel-d09-t05",
+          "speakerId": "receptionist",
+          "speakerRole": "staff",
+          "isLearnerTurn": false,
+          "targetText": "Probablement vers 13 h 30. Nous pouvons vous envoyer un message quand ce sera prêt.",
+          "translation": "Provavelmente por volta das 13h30. Podemos enviar uma mensagem quando estiver pronto.",
+          "intention": "Dar uma previsão e oferecer aviso."
+        },
+        {
+          "id": "hotel-d09-t06",
+          "speakerId": "guest",
+          "speakerRole": "guest",
+          "isLearnerTurn": true,
+          "targetText": "Oui, ce serait parfait. Je peux vous laisser mes bagages en attendant ?",
+          "translation": "Sim, seria perfeito. Posso deixar minhas malas aqui enquanto isso?",
+          "intention": "Aceitar o aviso e pedir guarda de bagagem.",
+          "alternatives": [
+            {
+              "targetText": "Très bien. Est-ce que vous avez une consigne ?",
+              "translation": "Ótimo. Vocês têm guarda-volumes?"
+            },
+            {
+              "targetText": "Je peux déposer mes valises ici jusqu'à ce que la chambre soit prête ?",
+              "translation": "Posso deixar minhas malas aqui até o quarto ficar pronto?"
+            },
+            {
+              "targetText": "Dans ce cas, je vais garder mon petit sac avec moi et vous laisser la valise.",
+              "translation": "Nesse caso, vou ficar com a bolsa pequena e deixar a mala com vocês."
+            }
+          ]
+        },
+        {
+          "id": "hotel-d09-t07",
+          "speakerId": "receptionist",
+          "speakerRole": "staff",
+          "isLearnerTurn": false,
+          "targetText": "Bien sûr. Mon collègue va les étiqueter et vous donner un ticket.",
+          "translation": "Claro. Meu colega vai colocar etiquetas e lhe dar um comprovante.",
+          "intention": "Explicar o procedimento de guarda de bagagem."
+        },
+        {
+          "id": "hotel-d09-t08",
+          "speakerId": "guest",
+          "speakerRole": "guest",
+          "isLearnerTurn": true,
+          "targetText": "Très bien. Est-ce que je peux déjà faire les formalités de check-in ?",
+          "translation": "Certo. Já posso adiantar as formalidades do check-in?",
+          "intention": "Perguntar se pode adiantar as formalidades."
+        },
+        {
+          "id": "hotel-d09-t09",
+          "speakerId": "receptionist",
+          "speakerRole": "staff",
+          "isLearnerTurn": false,
+          "targetText": "Oui, comme ça vous n'aurez plus qu'à récupérer votre carte plus tard.",
+          "translation": "Sim, assim depois você só precisará buscar o cartão.",
+          "intention": "Confirmar que o check-in pode ser adiantado."
+        },
+        {
+          "id": "hotel-d09-t10",
+          "speakerId": "guest",
+          "speakerRole": "guest",
+          "isLearnerTurn": true,
+          "targetText": "Parfait. De quoi avez-vous besoin ?",
+          "translation": "Perfeito. Do que você precisa?",
+          "intention": "Perguntar quais documentos são necessários.",
+          "alternatives": [
+            {
+              "targetText": "Très bien. Il vous faut mon passeport ?",
+              "translation": "Certo. Você precisa do meu passaporte?"
+            },
+            {
+              "targetText": "Je peux vous montrer la confirmation sur mon téléphone.",
+              "translation": "Posso mostrar a confirmação no celular."
+            },
+            {
+              "targetText": "D'accord. Je vous donne aussi ma carte bancaire ?",
+              "translation": "Certo. Também lhe entrego meu cartão bancário?"
+            }
+          ]
+        },
+        {
+          "id": "hotel-d09-t11",
+          "speakerId": "receptionist",
+          "speakerRole": "staff",
+          "isLearnerTurn": false,
+          "targetText": "Une pièce d'identité et une carte bancaire, s'il vous plaît.",
+          "translation": "Um documento de identidade e um cartão bancário, por favor.",
+          "intention": "Solicitar os documentos necessários."
+        },
+        {
+          "id": "hotel-d09-t12",
+          "speakerId": "guest",
+          "speakerRole": "guest",
+          "isLearnerTurn": true,
+          "targetText": "Les voici.",
+          "translation": "Aqui estão.",
+          "intention": "Entregar os documentos."
+        },
+        {
+          "id": "hotel-d09-t13",
+          "speakerId": "receptionist",
+          "speakerRole": "staff",
+          "isLearnerTurn": false,
+          "targetText": "Merci. C'est bon, tout est enregistré. Nous vous prévenons dès que la chambre est prête.",
+          "translation": "Obrigado. Pronto, está tudo registrado. Avisaremos assim que o quarto estiver pronto.",
+          "intention": "Concluir o pré-check-in e confirmar o aviso."
+        },
+        {
+          "id": "hotel-d09-t14",
+          "speakerId": "guest",
+          "speakerRole": "guest",
+          "isLearnerTurn": true,
+          "targetText": "Merci beaucoup. Je vais faire un tour dans le quartier.",
+          "translation": "Muito obrigado. Vou dar uma volta pelo bairro.",
+          "intention": "Agradecer e informar que sairá enquanto espera."
+        }
+      ],
+      "reusableStructures": [
+        {
+          "targetText": "Je suis un peu en avance.",
+          "translation": "Cheguei um pouco cedo.",
+          "exampleTarget": "Désolé, je suis très en avance.",
+          "exampleTranslation": "Desculpe, cheguei bem cedo."
+        },
+        {
+          "targetText": "La chambre est déjà disponible ?",
+          "translation": "O quarto já está disponível?",
+          "exampleTarget": "Est-ce que notre chambre est déjà prête ?",
+          "exampleTranslation": "Nosso quarto já está pronto?"
+        },
+        {
+          "targetText": "Vous pensez que... vers quelle heure ?",
+          "translation": "Você acha que... por volta de que horas?",
+          "exampleTarget": "Vous pensez que ce sera prêt vers quelle heure ?",
+          "exampleTranslation": "Você acha que ficará pronto por volta de que horas?"
+        },
+        {
+          "targetText": "Je peux vous laisser...?",
+          "translation": "Posso deixar...?",
+          "exampleTarget": "Je peux vous laisser cette valise ?",
+          "exampleTranslation": "Posso deixar esta mala com vocês?"
+        },
+        {
+          "targetText": "Vous n'aurez plus qu'à...",
+          "translation": "Depois você só precisará...",
+          "exampleTarget": "Vous n'aurez plus qu'à signer ici.",
+          "exampleTranslation": "Depois você só precisará assinar aqui."
+        }
+      ]
+    },
+    {
+      "id": "hotel-d10",
+      "title": "Demander un départ tardif",
+      "type": "common_variation",
+      "context": "O hóspede tem transporte apenas no fim do dia e pergunta se pode permanecer mais tempo no quarto. O hotel oferece late check-out mediante pagamento.",
+      "participantIds": [
+        "guest",
+        "receptionist"
+      ],
+      "tags": [
+        "late-check-out",
+        "adicional",
+        "cartao-chave",
+        "bagagem"
+      ],
+      "turns": [
+        {
+          "id": "hotel-d10-t01",
+          "speakerId": "receptionist",
+          "speakerRole": "staff",
+          "isLearnerTurn": false,
+          "targetText": "Bonjour. Que puis-je faire pour vous ?",
+          "translation": "Bom dia. Como posso ajudar?",
+          "intention": "Iniciar o atendimento."
+        },
+        {
+          "id": "hotel-d10-t02",
+          "speakerId": "guest",
+          "speakerRole": "guest",
+          "isLearnerTurn": true,
+          "targetText": "Bonjour. Est-ce qu'il serait possible de garder la chambre un peu plus longtemps demain ?",
+          "translation": "Bom dia. Seria possível ficar com o quarto por um pouco mais de tempo amanhã?",
+          "intention": "Solicitar late check-out de forma delicada.",
+          "alternatives": [
+            {
+              "targetText": "Je voulais savoir si un départ tardif était possible demain.",
+              "translation": "Queria saber se é possível fazer check-out mais tarde amanhã."
+            },
+            {
+              "targetText": "Est-ce que je pourrais libérer la chambre vers 14 heures ?",
+              "translation": "Eu poderia desocupar o quarto por volta das 14h?"
+            },
+            {
+              "targetText": "Mon train est en fin d'après-midi. Vous proposez un late check-out ?",
+              "translation": "Meu trem é no fim da tarde. Vocês oferecem late check-out?"
+            }
+          ]
+        },
+        {
+          "id": "hotel-d10-t03",
+          "speakerId": "receptionist",
+          "speakerRole": "staff",
+          "isLearnerTurn": false,
+          "targetText": "Je vais vérifier. Vous êtes dans quelle chambre ?",
+          "translation": "Vou verificar. Qual é o número do seu quarto?",
+          "intention": "Pedir o número do quarto."
+        },
+        {
+          "id": "hotel-d10-t04",
+          "speakerId": "guest",
+          "speakerRole": "guest",
+          "isLearnerTurn": true,
+          "targetText": "Chambre 526, au nom de Santos.",
+          "translation": "Quarto 526, no nome de Santos.",
+          "intention": "Informar quarto e nome."
+        },
+        {
+          "id": "hotel-d10-t05",
+          "speakerId": "receptionist",
+          "speakerRole": "staff",
+          "isLearnerTurn": false,
+          "targetText": "Nous pouvons vous proposer un départ à 14 heures, avec un supplément de 35 euros.",
+          "translation": "Podemos oferecer saída às 14h, com um adicional de 35 euros.",
+          "intention": "Oferecer late check-out pago."
+        },
+        {
+          "id": "hotel-d10-t06",
+          "speakerId": "guest",
+          "speakerRole": "guest",
+          "isLearnerTurn": true,
+          "targetText": "D'accord. Et si je pars à 13 heures, le tarif est le même ?",
+          "translation": "Certo. E se eu sair às 13h, o valor é o mesmo?",
+          "intention": "Perguntar se o preço muda com um horário menor.",
+          "alternatives": [
+            {
+              "targetText": "Le supplément est de combien jusqu'à 13 heures ?",
+              "translation": "Quanto é o adicional até as 13h?"
+            },
+            {
+              "targetText": "Vous pourriez me laisser jusqu'à 13 h 30 ?",
+              "translation": "Poderiam me deixar ficar até as 13h30?"
+            },
+            {
+              "targetText": "Dans ce cas, je vais peut-être garder l'heure normale.",
+              "translation": "Nesse caso, talvez eu mantenha o horário normal."
+            }
+          ]
+        },
+        {
+          "id": "hotel-d10-t07",
+          "speakerId": "receptionist",
+          "speakerRole": "staff",
+          "isLearnerTurn": false,
+          "targetText": "Non, jusqu'à 14 heures, c'est le même forfait.",
+          "translation": "Não. Até as 14h, é o mesmo valor fixo.",
+          "intention": "Explicar a regra do adicional."
+        },
+        {
+          "id": "hotel-d10-t08",
+          "speakerId": "guest",
+          "speakerRole": "guest",
+          "isLearnerTurn": true,
+          "targetText": "Très bien, je confirme pour 14 heures.",
+          "translation": "Certo, confirmo para as 14h.",
+          "intention": "Aceitar o late check-out.",
+          "alternatives": [
+            {
+              "targetText": "D'accord, je le prends.",
+              "translation": "Certo, vou ficar com essa opção."
+            },
+            {
+              "targetText": "Je vais réfléchir encore un peu et je vous confirme ce soir.",
+              "translation": "Vou pensar mais um pouco e confirmo hoje à noite."
+            },
+            {
+              "targetText": "Finalement, je vais libérer la chambre à midi.",
+              "translation": "Pensando bem, vou liberar o quarto ao meio-dia."
+            }
+          ]
+        },
+        {
+          "id": "hotel-d10-t09",
+          "speakerId": "receptionist",
+          "speakerRole": "staff",
+          "isLearnerTurn": false,
+          "targetText": "Parfait. Le supplément sera ajouté à votre note.",
+          "translation": "Perfeito. O adicional será incluído na sua conta.",
+          "intention": "Confirmar como será feita a cobrança."
+        },
+        {
+          "id": "hotel-d10-t10",
+          "speakerId": "guest",
+          "speakerRole": "guest",
+          "isLearnerTurn": true,
+          "targetText": "Très bien. Ma carte fonctionnera jusqu'à 14 heures ?",
+          "translation": "Ótimo. Meu cartão vai funcionar até as 14h?",
+          "intention": "Confirmar a validade do cartão-chave."
+        },
+        {
+          "id": "hotel-d10-t11",
+          "speakerId": "receptionist",
+          "speakerRole": "staff",
+          "isLearnerTurn": false,
+          "targetText": "Oui, je viens de la reprogrammer. Vous pouvez la tester en remontant.",
+          "translation": "Sim, acabei de reprogramá-la. Pode testar quando subir.",
+          "intention": "Confirmar a atualização do cartão-chave."
+        },
+        {
+          "id": "hotel-d10-t12",
+          "speakerId": "guest",
+          "speakerRole": "guest",
+          "isLearnerTurn": true,
+          "targetText": "Parfait. Et après 14 heures, je pourrai laisser ma valise ici ?",
+          "translation": "Perfeito. E depois das 14h, posso deixar minha mala aqui?",
+          "intention": "Perguntar sobre guarda de bagagem após o check-out.",
+          "alternatives": [
+            {
+              "targetText": "Vous gardez les bagages après le départ ?",
+              "translation": "Vocês guardam as bagagens depois do check-out?"
+            },
+            {
+              "targetText": "Je pourrais laisser ma valise jusqu'à 17 heures ?",
+              "translation": "Eu poderia deixar minha mala até as 17h?"
+            },
+            {
+              "targetText": "Ce ne sera pas nécessaire, je partirai directement.",
+              "translation": "Não será necessário, vou embora direto."
+            }
+          ]
+        },
+        {
+          "id": "hotel-d10-t13",
+          "speakerId": "receptionist",
+          "speakerRole": "staff",
+          "isLearnerTurn": false,
+          "targetText": "Bien sûr, sans frais. Il suffira de la déposer à la réception.",
+          "translation": "Claro, sem custo. É só deixá-la na recepção.",
+          "intention": "Confirmar o serviço de guarda de bagagem."
+        },
+        {
+          "id": "hotel-d10-t14",
+          "speakerId": "guest",
+          "speakerRole": "guest",
+          "isLearnerTurn": true,
+          "targetText": "Merci beaucoup pour votre aide.",
+          "translation": "Muito obrigado pela ajuda.",
+          "intention": "Agradecer e encerrar."
+        }
+      ],
+      "reusableStructures": [
+        {
+          "targetText": "Est-ce qu'il serait possible de...?",
+          "translation": "Seria possível...?",
+          "exampleTarget": "Est-ce qu'il serait possible de partir plus tard ?",
+          "exampleTranslation": "Seria possível sair mais tarde?"
+        },
+        {
+          "targetText": "Nous pouvons vous proposer...",
+          "translation": "Podemos oferecer...",
+          "exampleTarget": "Nous pouvons vous proposer un départ à 13 heures.",
+          "exampleTranslation": "Podemos oferecer saída às 13h."
+        },
+        {
+          "targetText": "Le tarif est le même ?",
+          "translation": "O valor é o mesmo?",
+          "exampleTarget": "Pour une heure de plus, le tarif est le même ?",
+          "exampleTranslation": "Para uma hora a mais, o valor é o mesmo?"
+        },
+        {
+          "targetText": "Je confirme pour...",
+          "translation": "Confirmo para...",
+          "exampleTarget": "Je confirme pour demain matin.",
+          "exampleTranslation": "Confirmo para amanhã de manhã."
+        },
+        {
+          "targetText": "Il suffira de...",
+          "translation": "É só...",
+          "exampleTarget": "Il suffira de montrer ce ticket.",
+          "exampleTranslation": "É só mostrar este comprovante."
+        }
+      ]
+    },
+    {
+      "id": "hotel-d11",
+      "title": "Une chambre plus calme",
+      "type": "common_variation",
+      "context": "Durante o check-in, o hóspede pede duas camas separadas e confirma outras características do quarto antes de aceitar a troca.",
+      "participantIds": [
+        "guest",
+        "receptionist"
+      ],
+      "tags": [
+        "preferencia-de-quarto",
+        "camas-separadas",
+        "quarto-silencioso",
+        "check-in"
+      ],
+      "turns": [
+        {
+          "id": "hotel-d11-t01",
+          "speakerId": "receptionist",
+          "speakerRole": "staff",
+          "isLearnerTurn": false,
+          "targetText": "Bonjour. Votre réservation est pour une chambre double, deux nuits, c'est bien ça ?",
+          "translation": "Bom dia. Sua reserva é para um quarto de casal, por duas noites, certo?",
+          "intention": "Confirmar tipo de quarto e duração."
+        },
+        {
+          "id": "hotel-d11-t02",
+          "speakerId": "guest",
+          "speakerRole": "guest",
+          "isLearnerTurn": true,
+          "targetText": "Oui. Nous sommes deux, mais nous préférerions deux lits séparés, si possible.",
+          "translation": "Sim. Somos duas pessoas, mas preferiríamos duas camas separadas, se possível.",
+          "intention": "Pedir alteração na configuração das camas.",
+          "alternatives": [
+            {
+              "targetText": "Oui, mais est-ce que vous avez plutôt une chambre avec deux lits ?",
+              "translation": "Sim, mas vocês teriam de preferência um quarto com duas camas?"
+            },
+            {
+              "targetText": "La réservation indique un grand lit, mais nous aurions besoin de lits jumeaux.",
+              "translation": "A reserva indica uma cama de casal, mas precisaríamos de camas separadas."
+            },
+            {
+              "targetText": "Si ce n'est pas possible, la chambre double nous convient aussi.",
+              "translation": "Se não for possível, o quarto de casal também serve."
+            }
+          ]
+        },
+        {
+          "id": "hotel-d11-t03",
+          "speakerId": "receptionist",
+          "speakerRole": "staff",
+          "isLearnerTurn": false,
+          "targetText": "Je regarde... Oui, nous avons une chambre twin au cinquième étage.",
+          "translation": "Vou verificar... Sim, temos um quarto com duas camas no quinto andar.",
+          "intention": "Confirmar disponibilidade de outra configuração."
+        },
+        {
+          "id": "hotel-d11-t04",
+          "speakerId": "guest",
+          "speakerRole": "guest",
+          "isLearnerTurn": true,
+          "targetText": "Très bien. Est-ce qu'elle donne sur la rue ?",
+          "translation": "Ótimo. Ela dá para a rua?",
+          "intention": "Perguntar sobre a orientação do quarto.",
+          "alternatives": [
+            {
+              "targetText": "Elle est plutôt calme ?",
+              "translation": "Ela é mais tranquila?"
+            },
+            {
+              "targetText": "Vous avez une chambre qui donne sur la cour ?",
+              "translation": "Vocês têm um quarto que dá para o pátio?"
+            },
+            {
+              "targetText": "Le cinquième étage me va très bien.",
+              "translation": "O quinto andar está ótimo para mim."
+            }
+          ]
+        },
+        {
+          "id": "hotel-d11-t05",
+          "speakerId": "receptionist",
+          "speakerRole": "staff",
+          "isLearnerTurn": false,
+          "targetText": "Non, elle donne sur la cour intérieure. Elle est généralement très calme.",
+          "translation": "Não, ela dá para o pátio interno. Geralmente é bem tranquila.",
+          "intention": "Informar que o quarto é silencioso."
+        },
+        {
+          "id": "hotel-d11-t06",
+          "speakerId": "guest",
+          "speakerRole": "guest",
+          "isLearnerTurn": true,
+          "targetText": "Parfait. Est-ce qu'il y a une baignoire ou seulement une douche ?",
+          "translation": "Perfeito. Tem banheira ou só chuveiro?",
+          "intention": "Perguntar sobre o banheiro."
+        },
+        {
+          "id": "hotel-d11-t07",
+          "speakerId": "receptionist",
+          "speakerRole": "staff",
+          "isLearnerTurn": false,
+          "targetText": "Seulement une douche. Pour une baignoire, il faudrait garder la chambre double initiale.",
+          "translation": "Só chuveiro. Para ter banheira, seria preciso manter o quarto de casal original.",
+          "intention": "Explicar a diferença entre as opções."
+        },
+        {
+          "id": "hotel-d11-t08",
+          "speakerId": "guest",
+          "speakerRole": "guest",
+          "isLearnerTurn": true,
+          "targetText": "Ce n'est pas grave, nous préférons les deux lits.",
+          "translation": "Não tem problema, preferimos as duas camas.",
+          "intention": "Manter a preferência principal.",
+          "alternatives": [
+            {
+              "targetText": "Dans ce cas, nous gardons la chambre twin.",
+              "translation": "Nesse caso, ficamos com o quarto de duas camas."
+            },
+            {
+              "targetText": "Finalement, la baignoire est plus importante. Nous allons garder la chambre double.",
+              "translation": "Pensando bem, a banheira é mais importante. Vamos ficar com o quarto de casal."
+            },
+            {
+              "targetText": "Je peux demander à mon accompagnant avant de décider ?",
+              "translation": "Posso perguntar ao meu acompanhante antes de decidir?"
+            }
+          ]
+        },
+        {
+          "id": "hotel-d11-t09",
+          "speakerId": "receptionist",
+          "speakerRole": "staff",
+          "isLearnerTurn": false,
+          "targetText": "Très bien. Je modifie la réservation sans supplément.",
+          "translation": "Certo. Vou alterar a reserva sem custo adicional.",
+          "intention": "Confirmar a mudança do quarto."
+        },
+        {
+          "id": "hotel-d11-t10",
+          "speakerId": "guest",
+          "speakerRole": "guest",
+          "isLearnerTurn": true,
+          "targetText": "Merci. Est-ce que la chambre est déjà prête ?",
+          "translation": "Obrigado. O quarto já está pronto?",
+          "intention": "Perguntar se já pode subir."
+        },
+        {
+          "id": "hotel-d11-t11",
+          "speakerId": "receptionist",
+          "speakerRole": "staff",
+          "isLearnerTurn": false,
+          "targetText": "Oui. Voici les deux cartes. L'ascenseur est au fond du hall.",
+          "translation": "Sim. Aqui estão os dois cartões. O elevador fica no fim do saguão.",
+          "intention": "Entregar os cartões e orientar o caminho."
+        },
+        {
+          "id": "hotel-d11-t12",
+          "speakerId": "guest",
+          "speakerRole": "guest",
+          "isLearnerTurn": true,
+          "targetText": "Très bien. Et si nous avons besoin de quelque chose, on fait le zéro ?",
+          "translation": "Certo. E se precisarmos de alguma coisa, é só discar zero?",
+          "intention": "Perguntar como contatar a recepção.",
+          "alternatives": [
+            {
+              "targetText": "Parfait. Vous avez un numéro direct pour la réception ?",
+              "translation": "Perfeito. Vocês têm um número direto para a recepção?"
+            },
+            {
+              "targetText": "Merci. Nous vous dirons s'il manque quelque chose.",
+              "translation": "Obrigado. Avisaremos se estiver faltando alguma coisa."
+            },
+            {
+              "targetText": "C'est bon, merci. Nous allons monter.",
+              "translation": "Está ótimo, obrigado. Vamos subir."
+            }
+          ]
+        },
+        {
+          "id": "hotel-d11-t13",
+          "speakerId": "receptionist",
+          "speakerRole": "staff",
+          "isLearnerTurn": false,
+          "targetText": "Oui, c'est ça, le zéro. Et je vous appelle dans une demi-heure pour vérifier que tout va bien.",
+          "translation": "Isso mesmo, o zero. E ligo para vocês daqui a meia hora para ver se está tudo certo.",
+          "intention": "Confirmar o contato e oferecer acompanhamento."
+        },
+        {
+          "id": "hotel-d11-t14",
+          "speakerId": "guest",
+          "speakerRole": "guest",
+          "isLearnerTurn": true,
+          "targetText": "Merci beaucoup.",
+          "translation": "Muito obrigado.",
+          "intention": "Agradecer e encerrar."
+        }
+      ],
+      "reusableStructures": [
+        {
+          "targetText": "Nous préférerions..., si possible.",
+          "translation": "Preferiríamos..., se possível.",
+          "exampleTarget": "Nous préférerions une chambre plus calme, si possible.",
+          "exampleTranslation": "Preferiríamos um quarto mais tranquilo, se possível."
+        },
+        {
+          "targetText": "Elle donne sur...?",
+          "translation": "Ela dá para...?",
+          "exampleTarget": "La chambre donne sur la cour ?",
+          "exampleTranslation": "O quarto dá para o pátio?"
+        },
+        {
+          "targetText": "Il faudrait...",
+          "translation": "Seria preciso...",
+          "exampleTarget": "Il faudrait changer de catégorie.",
+          "exampleTranslation": "Seria preciso mudar de categoria."
+        },
+        {
+          "targetText": "Ce n'est pas grave.",
+          "translation": "Não tem problema.",
+          "exampleTarget": "Ce n'est pas grave, la douche nous convient.",
+          "exampleTranslation": "Não tem problema, o chuveiro serve para nós."
+        },
+        {
+          "targetText": "Je modifie la réservation.",
+          "translation": "Vou alterar a reserva.",
+          "exampleTarget": "Je modifie la réservation tout de suite.",
+          "exampleTranslation": "Vou alterar a reserva agora mesmo."
+        }
+      ]
+    },
+    {
+      "id": "hotel-d12",
+      "title": "Une erreur sur la facture",
+      "type": "occasional_event",
+      "context": "No check-out, o hóspede percebe que dois cafés da manhã incluídos na reserva foram cobrados novamente. A recepção confere e corrige a conta.",
+      "participantIds": [
+        "guest",
+        "receptionist"
+      ],
+      "tags": [
+        "check-out",
+        "cobranca-incorreta",
+        "fatura",
+        "pagamento"
+      ],
+      "turns": [
+        {
+          "id": "hotel-d12-t01",
+          "speakerId": "receptionist",
+          "speakerRole": "staff",
+          "isLearnerTurn": false,
+          "targetText": "Bonjour. Voici votre facture. Le total est de 274 euros.",
+          "translation": "Bom dia. Aqui está sua conta. O total é 274 euros.",
+          "intention": "Apresentar a conta no check-out."
+        },
+        {
+          "id": "hotel-d12-t02",
+          "speakerId": "guest",
+          "speakerRole": "guest",
+          "isLearnerTurn": true,
+          "targetText": "Merci. Excusez-moi, je crois qu'il y a une erreur sur la facture.",
+          "translation": "Obrigado. Com licença, acho que há um erro na conta.",
+          "intention": "Indicar educadamente uma possível cobrança incorreta.",
+          "alternatives": [
+            {
+              "targetText": "Pardon, je ne comprends pas cette ligne sur la facture.",
+              "translation": "Desculpe, não entendi esta linha na conta."
+            },
+            {
+              "targetText": "Il me semble que le petit-déjeuner a été compté deux fois.",
+              "translation": "Parece que o café da manhã foi cobrado duas vezes."
+            },
+            {
+              "targetText": "Vous pourriez vérifier le montant, s'il vous plaît ?",
+              "translation": "Você poderia conferir o valor, por favor?"
+            }
+          ]
+        },
+        {
+          "id": "hotel-d12-t03",
+          "speakerId": "receptionist",
+          "speakerRole": "staff",
+          "isLearnerTurn": false,
+          "targetText": "Bien sûr. Quelle ligne vous pose problème ?",
+          "translation": "Claro. Qual item está causando dúvida?",
+          "intention": "Pedir que o hóspede identifique a cobrança."
+        },
+        {
+          "id": "hotel-d12-t04",
+          "speakerId": "guest",
+          "speakerRole": "guest",
+          "isLearnerTurn": true,
+          "targetText": "Les deux petits-déjeuners de samedi. Ils étaient déjà compris dans ma réservation.",
+          "translation": "Os dois cafés da manhã de sábado. Eles já estavam incluídos na minha reserva.",
+          "intention": "Explicar qual cobrança parece incorreta.",
+          "alternatives": [
+            {
+              "targetText": "C'est la ligne du minibar. Je n'ai rien consommé.",
+              "translation": "É a linha do frigobar. Eu não consumi nada."
+            },
+            {
+              "targetText": "Cette taxe apparaît deux fois, non ?",
+              "translation": "Esta taxa aparece duas vezes, não?"
+            },
+            {
+              "targetText": "Le tarif de la chambre ne correspond pas à ma confirmation.",
+              "translation": "O valor do quarto não corresponde à minha confirmação."
+            }
+          ]
+        },
+        {
+          "id": "hotel-d12-t05",
+          "speakerId": "receptionist",
+          "speakerRole": "staff",
+          "isLearnerTurn": false,
+          "targetText": "Je vais vérifier votre réservation... Vous avez raison, ils sont bien inclus.",
+          "translation": "Vou verificar sua reserva... O senhor tem razão, eles estão incluídos mesmo.",
+          "intention": "Verificar e reconhecer o erro."
+        },
+        {
+          "id": "hotel-d12-t06",
+          "speakerId": "guest",
+          "speakerRole": "guest",
+          "isLearnerTurn": true,
+          "targetText": "D'accord, merci. Vous pouvez les retirer de la facture ?",
+          "translation": "Certo, obrigado. Pode retirar esses valores da conta?",
+          "intention": "Pedir a correção da fatura.",
+          "alternatives": [
+            {
+              "targetText": "Très bien. Est-ce que vous pouvez corriger le total ?",
+              "translation": "Certo. Pode corrigir o total?"
+            },
+            {
+              "targetText": "Merci d'avoir vérifié. J'aurais besoin d'une nouvelle facture.",
+              "translation": "Obrigado por conferir. Vou precisar de uma nova conta."
+            },
+            {
+              "targetText": "Ce n'est pas grave, je voulais simplement être sûr.",
+              "translation": "Não tem problema, eu só queria ter certeza."
+            }
+          ]
+        },
+        {
+          "id": "hotel-d12-t07",
+          "speakerId": "receptionist",
+          "speakerRole": "staff",
+          "isLearnerTurn": false,
+          "targetText": "Oui, bien sûr. Je suis désolée pour cette erreur.",
+          "translation": "Sim, claro. Peço desculpas por esse erro.",
+          "intention": "Pedir desculpas e confirmar a correção."
+        },
+        {
+          "id": "hotel-d12-t08",
+          "speakerId": "guest",
+          "speakerRole": "guest",
+          "isLearnerTurn": true,
+          "targetText": "Pas de souci.",
+          "translation": "Sem problema.",
+          "intention": "Aceitar o pedido de desculpas."
+        },
+        {
+          "id": "hotel-d12-t09",
+          "speakerId": "receptionist",
+          "speakerRole": "staff",
+          "isLearnerTurn": false,
+          "targetText": "Voilà, le nouveau total est de 238 euros.",
+          "translation": "Pronto, o novo total é 238 euros.",
+          "intention": "Apresentar o total corrigido."
+        },
+        {
+          "id": "hotel-d12-t10",
+          "speakerId": "guest",
+          "speakerRole": "guest",
+          "isLearnerTurn": true,
+          "targetText": "Très bien. Je vais payer par carte.",
+          "translation": "Certo. Vou pagar com cartão.",
+          "intention": "Indicar a forma de pagamento.",
+          "alternatives": [
+            {
+              "targetText": "Parfait. Je peux payer sans contact ?",
+              "translation": "Perfeito. Posso pagar por aproximação?"
+            },
+            {
+              "targetText": "Je vais régler avec la carte utilisée pour la réservation.",
+              "translation": "Vou pagar com o cartão usado na reserva."
+            },
+            {
+              "targetText": "Est-ce que vous acceptez les espèces ?",
+              "translation": "Vocês aceitam dinheiro?"
+            }
+          ]
+        },
+        {
+          "id": "hotel-d12-t11",
+          "speakerId": "receptionist",
+          "speakerRole": "staff",
+          "isLearnerTurn": false,
+          "targetText": "Très bien. Vous pouvez insérer votre carte ici.",
+          "translation": "Certo. Pode inserir seu cartão aqui.",
+          "intention": "Orientar o pagamento no terminal."
+        },
+        {
+          "id": "hotel-d12-t12",
+          "speakerId": "guest",
+          "speakerRole": "guest",
+          "isLearnerTurn": true,
+          "targetText": "C'est bon ?",
+          "translation": "Deu certo?",
+          "intention": "Confirmar se o pagamento foi aprovado."
+        },
+        {
+          "id": "hotel-d12-t13",
+          "speakerId": "receptionist",
+          "speakerRole": "staff",
+          "isLearnerTurn": false,
+          "targetText": "Oui, le paiement est passé. Voici la facture corrigée et votre reçu.",
+          "translation": "Sim, o pagamento foi aprovado. Aqui estão a conta corrigida e seu recibo.",
+          "intention": "Confirmar o pagamento e entregar documentos."
+        },
+        {
+          "id": "hotel-d12-t14",
+          "speakerId": "guest",
+          "speakerRole": "guest",
+          "isLearnerTurn": true,
+          "targetText": "Merci. Vous pouvez aussi me l'envoyer par e-mail ?",
+          "translation": "Obrigado. Pode me enviar por e-mail também?",
+          "intention": "Solicitar uma cópia digital.",
+          "alternatives": [
+            {
+              "targetText": "Merci. Je peux avoir une copie supplémentaire ?",
+              "translation": "Obrigado. Posso receber uma cópia adicional?"
+            },
+            {
+              "targetText": "Très bien, la version imprimée me suffit.",
+              "translation": "Ótimo, a versão impressa é suficiente."
+            },
+            {
+              "targetText": "Vous avez déjà mon adresse e-mail dans la réservation ?",
+              "translation": "Vocês já têm meu endereço de e-mail na reserva?"
+            }
+          ]
+        },
+        {
+          "id": "hotel-d12-t15",
+          "speakerId": "receptionist",
+          "speakerRole": "staff",
+          "isLearnerTurn": false,
+          "targetText": "Bien sûr, je vous l'envoie dans quelques minutes. Encore désolée.",
+          "translation": "Claro, envio em alguns minutos. Mais uma vez, desculpe.",
+          "intention": "Confirmar o envio e reiterar o pedido de desculpas."
+        },
+        {
+          "id": "hotel-d12-t16",
+          "speakerId": "guest",
+          "speakerRole": "guest",
+          "isLearnerTurn": true,
+          "targetText": "Merci, au revoir.",
+          "translation": "Obrigado, até logo.",
+          "intention": "Encerrar a interação."
+        }
+      ],
+      "reusableStructures": [
+        {
+          "targetText": "Je crois qu'il y a une erreur...",
+          "translation": "Acho que há um erro...",
+          "exampleTarget": "Je crois qu'il y a une erreur sur le montant.",
+          "exampleTranslation": "Acho que há um erro no valor."
+        },
+        {
+          "targetText": "Quelle ligne vous pose problème ?",
+          "translation": "Qual item está causando dúvida?",
+          "exampleTarget": "Quel montant vous pose problème ?",
+          "exampleTranslation": "Qual valor está causando dúvida?"
+        },
+        {
+          "targetText": "Ils étaient déjà compris...",
+          "translation": "Eles já estavam incluídos...",
+          "exampleTarget": "Les taxes étaient déjà comprises dans le prix.",
+          "exampleTranslation": "As taxas já estavam incluídas no preço."
+        },
+        {
+          "targetText": "Vous pouvez les retirer...?",
+          "translation": "Pode retirar esses valores...?",
+          "exampleTarget": "Vous pouvez retirer cette consommation ?",
+          "exampleTranslation": "Pode retirar este consumo?"
+        },
+        {
+          "targetText": "Le paiement est passé.",
+          "translation": "O pagamento foi aprovado.",
+          "exampleTarget": "C'est bon, le paiement est bien passé.",
+          "exampleTranslation": "Pronto, o pagamento foi aprovado."
+        }
+      ]
+    }
+  ]
+}
