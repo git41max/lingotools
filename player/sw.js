@@ -18,8 +18,8 @@
    os caches antigos automaticamente ao ativar.
    ================================================================ */
 
-const CACHE_VERSION = 'estacao-v8';
-const RUNTIME_CACHE = 'estacao-runtime-v8';
+const CACHE_VERSION = 'estacao-v9';
+const RUNTIME_CACHE = 'estacao-runtime-v9';
 
 // Caminhos RELATIVOS ao escopo (funciona em user.github.io/repo/).
 const PRECACHE_URLS = [
