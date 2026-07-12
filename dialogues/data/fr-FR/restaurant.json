@@ -284,7 +284,7 @@
             { "targetText": "Sans accompagnement, merci.", "translation": "Sem acompanhamento, obrigado." }
           ]
         },
-        { "id": "restaurant-d05-t13", "speakerId": "server", "speakerRole": "staff", "isLearnerTurn": false, "targetText": "Très bien. Je précise votre allergie à la cuisine.", "translation": "Certo. Vou avisar a cozinha sobre a sua alergia.", "intention": "Confirmar que transmitirá a informação.", "note": "A tradução natural é mais idiomática do que ‘vou especificar’." },
+        { "id": "restaurant-d05-t13", "speakerId": "server", "speakerRole": "staff", "isLearnerTurn": false, "targetText": "Très bien. Je signale votre allergie à la cuisine.", "translation": "Certo. Vou avisar a cozinha sobre a sua alergia.", "intention": "Confirmar que transmitirá a informação.", "note": "Signaler une allergie à la cuisine é a formulação usual do garçom." },
         { "id": "restaurant-d05-t14", "speakerId": "client", "speakerRole": "client", "isLearnerTurn": true, "targetText": "Merci beaucoup.", "translation": "Muito obrigado.", "intention": "Agradecer." }
       ],
       "reusableStructures": [
@@ -321,9 +321,9 @@
             { "targetText": "Dans ce cas, je vais prendre le poulet.", "translation": "Nesse caso, vou querer o frango." }
           ]
         },
-        { "id": "restaurant-d06-t05", "speakerId": "server", "speakerRole": "staff", "isLearnerTurn": false, "targetText": "Le saumon est très bon, et il est servi avec les mêmes légumes.", "translation": "O salmão está muito bom e vem com os mesmos legumes.", "intention": "Recomendar alternativa.", "note": "‘Vem com’ é mais cotidiano em português do que ‘é servido com’." },
-        { "id": "restaurant-d06-t06", "speakerId": "client", "speakerRole": "client", "isLearnerTurn": true, "targetText": "Très bien, je vais prendre le saumon alors.", "translation": "Certo, então vou querer o salmão.", "intention": "Aceitar a alternativa.", "note": "Alors marca a decisão decorrente da sugestão." },
-        { "id": "restaurant-d06-t07", "speakerId": "server", "speakerRole": "staff", "isLearnerTurn": false, "targetText": "Quelle cuisson pour le saumon ?", "translation": "Qual ponto você quer para o salmão?", "intention": "Perguntar sobre o preparo." },
+        { "id": "restaurant-d06-t05", "speakerId": "server", "speakerRole": "staff", "isLearnerTurn": false, "targetText": "Le thon est très bon, et il est servi avec les mêmes légumes.", "translation": "O atum está muito bom e vem com os mesmos legumes.", "intention": "Recomendar alternativa.", "note": "‘Vem com’ é mais cotidiano em português do que ‘é servido com’." },
+        { "id": "restaurant-d06-t06", "speakerId": "client", "speakerRole": "client", "isLearnerTurn": true, "targetText": "Très bien, je vais prendre le thon alors.", "translation": "Certo, então vou querer o atum.", "intention": "Aceitar a alternativa.", "note": "Alors marca a decisão decorrente da sugestão." },
+        { "id": "restaurant-d06-t07", "speakerId": "server", "speakerRole": "staff", "isLearnerTurn": false, "targetText": "Quelle cuisson pour le thon ?", "translation": "Qual ponto você quer para o atum?", "intention": "Perguntar sobre o preparo." },
         { "id": "restaurant-d06-t08", "speakerId": "client", "speakerRole": "client", "isLearnerTurn": true, "targetText": "Bien cuit, s’il vous plaît.", "translation": "Bem passado, por favor.", "intention": "Informar preferência de cozimento." },
         { "id": "restaurant-d06-t09", "speakerId": "server", "speakerRole": "staff", "isLearnerTurn": false, "targetText": "Très bien. Et comme boisson ?", "translation": "Certo. E para beber?", "intention": "Oferecer bebida." },
         { "id": "restaurant-d06-t10", "speakerId": "client", "speakerRole": "client", "isLearnerTurn": true, "targetText": "Un verre de vin blanc.", "translation": "Uma taça de vinho branco.", "intention": "Pedir bebida." },
@@ -519,7 +519,7 @@
           "alternatives": [
             { "targetText": "Oui, c’est tout, merci.", "translation": "Sim, é só isso, obrigado." },
             { "targetText": "Vous avez des sandwichs végétariens ?", "translation": "Vocês têm sanduíches vegetarianos?" },
-            { "targetText": "Ajoutez-moi une quiche lorraine, s’il vous plaît.", "translation": "Acrescente uma quiche lorraine para mim, por favor." }
+            { "targetText": "Rajoutez-moi une quiche lorraine, s’il vous plaît.", "translation": "Acrescente uma quiche lorraine para mim, por favor." }
           ]
         },
         { "id": "restaurant-d09-t09", "speakerId": "server", "speakerRole": "staff", "isLearnerTurn": false, "targetText": "Vous voulez une boisson avec ?", "translation": "Quer uma bebida para acompanhar?", "intention": "Oferecer uma bebida." },
