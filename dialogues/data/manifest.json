@@ -10,6 +10,14 @@
       "dataFile": "data/fr-FR/restaurant.json",
       "practiceRole": "client",
       "dialogueCount": 12
+    },
+    {
+      "id": "hotel",
+      "title": "Hotel",
+      "description": "Diálogos cotidianos para praticar interações em hotéis na França.",
+      "dataFile": "data/fr-FR/hotel.json",
+      "practiceRole": "guest",
+      "dialogueCount": 12
     }
   ]
 }
