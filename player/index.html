@@ -101,7 +101,7 @@
       0
       calc(64px + env(safe-area-inset-bottom));
   }
-
+  
   /* ===== Tela de configuração ===== */
   .config-head { margin-bottom: 26px; }
   .config-head .eyebrow { margin-bottom: 10px; }
@@ -1566,6 +1566,64 @@ function renderNow() {
     el.diffBtn.classList.toggle('on', state.difficult.has(diffKey(phrase)));
     el.diffBtn.textContent = state.difficult.has(diffKey(phrase)) ? '★ Difícil' : '☆ Difícil';
   }
+
+  updateMediaSession();
+}
+
+/* ================================================================
+   MEDIA SESSION (Camada 1) — controles na tela de bloqueio / fones
+   e faz o iOS tratar a página como um reprodutor de mídia de verdade.
+   Não altera o motor de reprodução; só espelha o estado atual.
+   ================================================================ */
+const MEDIA_ARTWORK = [
+  { src: './icon-192.png', sizes: '192x192', type: 'image/png' },
+  { src: './icon-512.png', sizes: '512x512', type: 'image/png' },
+  { src: './apple-touch-icon.png', sizes: '180x180', type: 'image/png' },
+];
+let _lastMediaKey = '';
+
+function setupMediaSession() {
+  if (!('mediaSession' in navigator)) return;
+  const ms = navigator.mediaSession;
+  const set = (action, handler) => {
+    try { ms.setActionHandler(action, handler); } catch {}
+  };
+  set('play', () => { if (!state.playing) resumeRun(); });
+  set('pause', () => { if (state.playing) pauseRun(); });
+  set('previoustrack', () => prevPhrase());
+  set('nexttrack', () => nextPhrase());
+  // botões de "avançar/voltar" viram repetir alvo / próximo set — úteis no fone
+  set('seekbackward', () => repeatTarget());
+  set('seekforward', () => nextSet());
+}
+
+function updateMediaSession() {
+  if (!('mediaSession' in navigator)) return;
+  const ms = navigator.mediaSession;
+
+  ms.playbackState = state.playing ? 'playing' : (state.paused ? 'paused' : 'none');
+
+  const phrase = currentPhrase();
+  if (!phrase) return;
+
+  const cat = CATEGORIES.find(c => c.raw === state.category);
+  const catLabel = cat ? cat.label : state.category;
+  const title = targetText(phrase) || phrase.pt || `Frase ${displayNum(phrase)}`;
+  const subtitle = `${MODE_LABELS[state.mode]} · ${LANG_LABELS[state.lang]}`;
+
+  // evita recriar o metadata a cada render se nada mudou
+  const key = `${state.curIndex}|${title}|${subtitle}|${catLabel}`;
+  if (key === _lastMediaKey) return;
+  _lastMediaKey = key;
+
+  try {
+    ms.metadata = new MediaMetadata({
+      title,
+      artist: subtitle,
+      album: catLabel ? `Estação de Escuta · ${catLabel}` : 'Estação de Escuta',
+      artwork: MEDIA_ARTWORK,
+    });
+  } catch {}
 }
 
 function renderRibbon() {
@@ -1994,6 +2052,7 @@ function applyPrefsToConfigUI() {
 loadPrefs();
 applyPrefsToConfigUI();
 bindEvents();
+setupMediaSession();
 
 /* ================================================================
    PWA — registra o service worker (deixa a página offline).
